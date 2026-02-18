@@ -5,6 +5,8 @@ export const qzoneProjectDetails = {
   stack: ["Angular", "TypeScript", "Bootstrap", "Angular Router", "RxJS"],
   demoHref: "https://qzoneph.netlify.app/",
   videoHref: "/videos/projects/qzone/demo.mp4",
+  videoEmbedHref: "https://player.vimeo.com/video/1166026480?h=933ce1136e",
+  videoEmbedTitle: "vimeo-player",
   overview: [
     "Q-Zone Professional Detailers is a service-oriented website focused on clear information architecture for customers and staff.",
     "The build uses Angular with TypeScript to maintain a component-driven structure across pages, routing flows, and reusable UI sections.",

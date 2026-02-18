@@ -14,6 +14,8 @@ export const thryveProjectDetails = {
   ],
   demoHref: "https://thryvefitness.vercel.app/",
   videoHref: "/videos/projects/thryve/demo.mp4",
+  videoEmbedHref: "https://player.vimeo.com/video/1166026535?h=88000dbdc2",
+  videoEmbedTitle: "vimeo-player",
   overview: [
     "Thryve is a full-stack MEVN health-and-fitness web app split into thryve-frontend (Vue 3) and thryve-backend (Express + Node.js).",
     "The product is organized around core wellness modules: workouts, meals, water intake, sleep tracking, dashboard summaries, achievements, and profile/preferences management.",

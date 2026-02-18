@@ -25,6 +25,8 @@ type ProjectDetailLayoutProps = {
   stack?: string[];
   demoHref?: string;
   videoHref?: string;
+  videoEmbedHref?: string;
+  videoEmbedTitle?: string;
   videoPoster?: string;
   videoPlaceholderText?: string;
   overview: string[];
@@ -69,6 +71,8 @@ export default function ProjectDetailLayout({
   stack,
   demoHref,
   videoHref,
+  videoEmbedHref,
+  videoEmbedTitle,
   videoPoster,
   videoPlaceholderText,
   overview,
@@ -90,6 +94,8 @@ export default function ProjectDetailLayout({
   const displayStack = stack ?? project.stack;
   const displayDemoHref = demoHref ?? project.demoHref;
   const displayVideoHref = videoHref ?? null;
+  const displayVideoEmbedHref = videoEmbedHref ?? null;
+  const displayVideoEmbedTitle = videoEmbedTitle ?? `${project.title} demo`;
   const displayVideoPoster = videoPoster ?? project.preview;
   const displayVideoPlaceholderText =
     videoPlaceholderText ?? "Add a demo video file and set videoHref in this project detail data.";
@@ -526,7 +532,40 @@ export default function ProjectDetailLayout({
                   Short walkthrough of the product in action.
                 </p>
 
-                {displayVideoHref ? (
+                {displayVideoEmbedHref ? (
+                  <motion.div
+                    className="mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 dark:border-white/10 dark:bg-black/20"
+                    initial={
+                      shouldAnimateIntro
+                        ? prefersReducedMotion
+                          ? { opacity: 0 }
+                          : { opacity: 0, clipPath: "inset(10% 0 0 0 round 1rem)" }
+                        : false
+                    }
+                    whileInView={
+                      shouldAnimateIntro
+                        ? prefersReducedMotion
+                          ? { opacity: 1 }
+                          : { opacity: 1, clipPath: "inset(0% 0 0 0 round 1rem)" }
+                        : undefined
+                    }
+                    viewport={shouldAnimateIntro ? revealViewport : undefined}
+                    transition={{
+                      duration: prefersReducedMotion ? 0.18 : 0.35,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                  >
+                    <iframe
+                      title={displayVideoEmbedTitle}
+                      src={displayVideoEmbedHref}
+                      className="aspect-video w-full"
+                      frameBorder="0"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                      allowFullScreen
+                    />
+                  </motion.div>
+                ) : displayVideoHref ? (
                   <motion.div
                     className="mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 dark:border-white/10 dark:bg-black/20"
                     initial={

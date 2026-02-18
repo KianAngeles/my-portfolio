@@ -15,6 +15,9 @@ export const linqlyProjectDetails = {
   ],
   demoHref: "https://example.com/linqly-demo",
   videoHref: "/videos/projects/linqly/demo.mp4",
+  videoEmbedHref:
+    "https://player.vimeo.com/video/1166026407?badge=0&autopause=0&player_id=0&app_id=58479",
+  videoEmbedTitle: "demo",
   overview: [
     "Linqly is a real-time social communication app focused on direct and group chatting, with live messaging behavior designed for ongoing conversations.",
     "It includes map integration so users can explore location-based activity and create or join hangouts tied to places.",
