@@ -1,15 +1,16 @@
 import logo from "../../assets/images/logo.png";
 import { profile } from "@/data/profile";
+import { Link } from "react-router-dom";
 import githubIcon from "@/assets/icons/socials/github.png";
 import linkedinIcon from "@/assets/icons/socials/linkedin.png";
 import facebookIcon from "@/assets/icons/socials/facebook.png";
 
 const NAV_LINKS = [
-  { label: "Home", href: "#top" },
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
-  { label: "Resume", href: "#contact" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Projects", href: "/projects" },
+  { label: "Resume", href: "/resume" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const navLinkClass =
@@ -22,9 +23,9 @@ function FooterNav({ className = "" }) {
   return (
     <nav className={className} aria-label="Footer navigation">
       {NAV_LINKS.map((link) => (
-        <a key={link.label} href={link.href} className={navLinkClass}>
+        <Link key={link.label} to={link.href} className={navLinkClass}>
           {link.label}
-        </a>
+        </Link>
       ))}
     </nav>
   );
@@ -42,13 +43,13 @@ export default function Footer() {
       <div className="relative mx-auto w-full max-w-7xl px-6 py-10 md:px-10 md:py-12 lg:px-14">
         <div className="flex flex-col gap-7">
           <div className="flex items-center justify-between gap-5 md:grid md:grid-cols-[1fr_auto_1fr] md:gap-6">
-            <a
-              href="#top"
+            <Link
+              to="/"
               className="inline-flex items-center transition-opacity duration-200 hover:opacity-90"
               aria-label="Back to top"
             >
               <img src={logo} alt="KA logo" className="h-9 w-auto" />
-            </a>
+            </Link>
 
             <FooterNav className="hidden items-center justify-center gap-8 md:flex" />
 

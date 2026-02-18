@@ -99,17 +99,17 @@ function InfoCard({ title, detail, Icon, index, statusClass }) {
         window.sessionStorage.setItem(CONTACT_CTA_SEEN_KEY, "1");
         setShouldAnimate(false);
       }}
-      className="h-full"
+      className="w-full"
     >
       <div
-        className="group h-full"
+        className="group w-full"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onFocusCapture={() => setIsHovered(true)}
         onBlurCapture={() => setIsHovered(false)}
       >
         <SpotlightCard
-          className="rounded-2xl border border-navy/10 bg-white/70 p-6 backdrop-blur-sm transition-all duration-300 dark:border-white/10 dark:bg-white/5"
+          className="w-full rounded-2xl border border-navy/10 bg-white/70 p-6 backdrop-blur-sm transition-all duration-300 dark:border-white/10 dark:bg-white/5"
           spotlightColor="rgba(37, 99, 235, 0.22)"
         >
           <div className="flex items-center justify-between gap-4">
@@ -208,7 +208,7 @@ export default function ContactCTA() {
               </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="flex flex-col gap-4 self-start">
               {INFO_ROWS.map(({ title, detail, Icon, statusClass }, index) => (
                 <InfoCard
                   key={title}
