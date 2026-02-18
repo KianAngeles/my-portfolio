@@ -1,0 +1,39 @@
+@keyframes skillsMarqueeScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.skills-marquee {
+  position: relative;
+  overflow: hidden;
+}
+
+.skills-marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.skills-marquee-track--active {
+  animation: skillsMarqueeScroll 28s linear infinite;
+}
+
+.skills-marquee:hover .skills-marquee-track--active {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skills-marquee-track,
+  .skills-marquee-track--active {
+    animation: none !important;
+    transform: translateX(0) !important;
+  }
+
+  .skills-marquee [data-duplicate="true"] {
+    display: none !important;
+  }
+}

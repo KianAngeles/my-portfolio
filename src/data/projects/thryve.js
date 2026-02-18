@@ -1,0 +1,35 @@
+export const thryveProjectDetails = {
+  category: "Health and Fitness App",
+  timeline: "2025",
+  role: "Full-Stack Developer",
+  stack: [
+    "MongoDB",
+    "Express.js",
+    "Vue.js",
+    "Node.js",
+    "Mongoose",
+    "Pinia",
+    "Vue Router",
+    "Vite",
+  ],
+  demoHref: "https://thryvefitness.vercel.app/",
+  videoHref: "/videos/projects/thryve/demo.mp4",
+  overview: [
+    "Thryve is a full-stack MEVN health-and-fitness web app split into thryve-frontend (Vue 3) and thryve-backend (Express + Node.js).",
+    "The product is organized around core wellness modules: workouts, meals, water intake, sleep tracking, dashboard summaries, achievements, and profile/preferences management.",
+    "Frontend architecture is route-driven with Pinia state, Axios API services, auth guards, and reusable layout/components including dedicated mobile variants for key flows.",
+    "Backend architecture follows modular REST patterns (routes/controllers/models/middleware) with JWT-protected endpoints, validation, and Mongoose-backed persistence in MongoDB.",
+  ],
+  focusAreas: [
+    "Feature-based route and module composition across frontend views and backend API endpoints",
+    "Authentication and session flow using JWT, route protection, and Axios request/response interceptors",
+    "Daily and weekly data aggregation for calories, protein, workout minutes, hydration, and sleep duration",
+    "Goal-oriented tracking via user preferences, progress documents, and automatic achievement evaluation",
+  ],
+  outcomes: [
+    "Delivered an integrated wellness platform where users can log and monitor nutrition, exercise, hydration, and sleep in one system.",
+    "Implemented end-to-end account workflows including registration, login, profile updates, preferences, and password reset.",
+    "Enabled actionable progress feedback through dashboard endpoints (/today, /weekly, /highlights) and per-goal completion metrics.",
+    "Established a scalable MEVN foundation with clear separation of concerns, making future feature expansion and maintenance straightforward.",
+  ],
+};

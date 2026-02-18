@@ -1,0 +1,53 @@
+@keyframes storyRingRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.story-card-ring {
+  isolation: isolate;
+}
+
+.story-card-ring::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  box-sizing: border-box;
+  background: conic-gradient(
+    from 0deg,
+    rgba(96, 165, 250, 0.05),
+    rgba(147, 197, 253, 0.28),
+    rgba(255, 255, 255, 0.08),
+    rgba(96, 165, 250, 0.05)
+  );
+  opacity: 0.26;
+  filter: blur(6px);
+  animation: storyRingRotate 36s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.story-card-ring:hover::before {
+  opacity: 0.38;
+}
+
+.story-card-inner {
+  position: relative;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-card-ring::before {
+    animation: none !important;
+  }
+}

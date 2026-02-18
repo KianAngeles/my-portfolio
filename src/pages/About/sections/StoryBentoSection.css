@@ -1,0 +1,45 @@
+@keyframes storyBentoInitSweep {
+  0% {
+    opacity: 0;
+    transform: translateX(-120%);
+  }
+  25% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(120%);
+  }
+}
+
+.story-bento-init-line {
+  position: relative;
+  transform-origin: center;
+  overflow: hidden;
+}
+
+.story-bento-init-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(125, 211, 252, 0.25) 30%,
+    rgba(125, 211, 252, 0.8) 52%,
+    rgba(125, 211, 252, 0.25) 72%,
+    transparent 100%
+  );
+  opacity: 0;
+  pointer-events: none;
+}
+
+.story-bento-init-line--active::after {
+  animation: storyBentoInitSweep 760ms cubic-bezier(0.22, 1, 0.36, 1) 360ms 1 both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-bento-init-line--active::after {
+    animation: none !important;
+  }
+}

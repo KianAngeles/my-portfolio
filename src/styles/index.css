@@ -1,0 +1,245 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================
+   BASE STYLES
+========================= */
+@layer base {
+  html {
+    font-family: theme('fontFamily.sans');
+  }
+
+  body {
+    @apply bg-white text-navy transition-colors duration-300;
+  }
+
+  body.dark {
+    @apply bg-navy text-white;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl font-extrabold tracking-tight;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl font-bold tracking-tight;
+  }
+
+  h3 {
+    @apply text-2xl font-semibold;
+  }
+
+  p {
+    @apply text-base leading-relaxed text-gray-600;
+  }
+
+  .dark p {
+    @apply text-gray-300;
+  }
+
+  ::selection {
+    @apply bg-navy text-white;
+  }
+
+  .dark ::selection {
+    @apply bg-white text-black;
+  }
+}
+
+/* =========================
+   COMPONENT STYLES
+========================= */
+@layer components {
+  .btn-primary {
+    @apply bg-slate-900 text-white px-6 py-3 rounded-2xl font-semibold transition duration-200 hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent;
+    box-shadow: 0 16px 35px -24px rgba(15, 23, 42, 0.9);
+  }
+
+  .dark .btn-primary {
+    @apply border border-white bg-transparent text-white hover:border-white hover:bg-white hover:text-black;
+  }
+
+  .btn-secondary {
+    @apply inline-flex h-14 items-center justify-center gap-2.5 rounded-2xl bg-slate-900 px-7 text-base font-semibold text-white transition hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent;
+    min-width: 230px;
+    box-shadow: 0 16px 35px -24px rgba(15, 23, 42, 0.9);
+  }
+
+  .dark .btn-secondary {
+    background-color: #123467;
+  }
+
+  .dark .btn-secondary:hover {
+    background-color: #1a4a89;
+  }
+
+  .btn-outline {
+    @apply border border-navy text-navy px-6 py-3 rounded-xl font-semibold transition duration-200 hover:bg-navy hover:text-white;
+  }
+
+  .dark .btn-outline {
+    @apply border-white text-white hover:bg-white hover:text-navy;
+  }
+
+  .btn-ghost {
+    @apply px-6 py-3 rounded-xl font-semibold transition duration-200 hover:bg-black/5;
+  }
+
+  .dark .btn-ghost {
+    @apply hover:bg-white/10;
+  }
+
+  .container-wrapper {
+    @apply mx-auto max-w-6xl px-6;
+  }
+}
+
+@layer base {
+  body[data-home-intro-phase] .home-intro-header {
+    transition: opacity 700ms ease, transform 700ms ease;
+  }
+
+  body[data-home-intro-phase="intro"] .home-intro-header {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+  }
+
+  body[data-home-intro-phase="exit"] .home-intro-header,
+  body[data-home-intro-phase="ready"] .home-intro-header {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+@layer utilities {
+  @keyframes introLineExpand {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+
+  @keyframes introLinePulse {
+    0%   { transform: translateX(-60%); opacity: 0; }
+    35%  { opacity: 0.35; }
+    65%  { opacity: 0.35; }
+    100% { transform: translateX(60%); opacity: 0; }
+  }
+
+  @keyframes iconFxPlaneBack {
+    0% {
+      opacity: 0;
+      transform: translate(0, 0) scale(0.9);
+    }
+    50% { opacity: 0.35; }
+    100% {
+      opacity: 0.26;
+      transform: translate(-2px, -2px) scale(1);
+    }
+  }
+
+  @keyframes iconFxPlaneFront {
+    0% {
+      opacity: 0;
+      transform: translate(0, 0) scale(0.92);
+    }
+    50% { opacity: 0.3; }
+    100% {
+      opacity: 0.2;
+      transform: translate(2px, 2px) scale(1);
+    }
+  }
+
+  @keyframes iconFxGlint {
+    0% {
+      opacity: 0;
+      transform: translateX(-140%) skewX(-18deg);
+    }
+    20% { opacity: 0.42; }
+    100% {
+      opacity: 0;
+      transform: translateX(140%) skewX(-18deg);
+    }
+  }
+
+  @keyframes iconFxRadarRing {
+    0% {
+      opacity: 0;
+      transform: scale(0.7);
+    }
+    25% { opacity: 0.38; }
+    100% {
+      opacity: 0;
+      transform: scale(1.65);
+    }
+  }
+
+  @keyframes iconFxRadarCore {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.72);
+    }
+    40% { opacity: 0.45; }
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(1.18);
+    }
+  }
+
+  @keyframes iconFxTick {
+    0% {
+      opacity: 0;
+      transform: scaleX(0.55);
+    }
+    45% {
+      opacity: 0.72;
+      transform: scaleX(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scaleX(1);
+    }
+  }
+
+  .icon-fx-plane-back {
+    animation: iconFxPlaneBack 460ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .icon-fx-plane-front {
+    animation: iconFxPlaneFront 460ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .icon-fx-glint {
+    animation: iconFxGlint 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .icon-fx-radar-ring {
+    animation: iconFxRadarRing 620ms ease-out both;
+  }
+
+  .icon-fx-radar-core {
+    animation: iconFxRadarCore 420ms ease-out both;
+  }
+
+  .icon-fx-tick-1 {
+    animation: iconFxTick 420ms ease-out 0ms both;
+    transform-origin: left center;
+  }
+
+  .icon-fx-tick-2 {
+    animation: iconFxTick 420ms ease-out 80ms both;
+    transform-origin: left center;
+  }
+
+  .icon-fx-tick-3 {
+    animation: iconFxTick 420ms ease-out 160ms both;
+    transform-origin: left center;
+  }
+
+}
+
+::view-transition-old(root), ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}

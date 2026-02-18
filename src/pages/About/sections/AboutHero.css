@@ -1,0 +1,48 @@
+@keyframes aboutOrbitCw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes aboutOrbitCcw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes aboutNameSweep {
+  from { background-position: 130% 50%; }
+  to { background-position: -10% 50%; }
+}
+
+.about-rotate-cw {
+  animation: aboutOrbitCw 28s linear infinite;
+  will-change: transform;
+}
+
+.about-rotate-ccw {
+  animation: aboutOrbitCcw 44s linear infinite;
+  will-change: transform;
+}
+
+.about-counter-outer {
+  animation: aboutOrbitCcw 28s linear infinite;
+  will-change: transform;
+}
+
+.about-counter-inner {
+  animation: aboutOrbitCw 44s linear infinite;
+  will-change: transform;
+}
+
+.about-name-sweep {
+  animation: aboutNameSweep 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-rotate-cw,
+  .about-rotate-ccw,
+  .about-counter-outer,
+  .about-counter-inner,
+  .about-name-sweep {
+    animation: none !important;
+  }
+}
