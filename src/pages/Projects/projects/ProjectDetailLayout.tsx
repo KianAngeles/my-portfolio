@@ -34,7 +34,7 @@ type ProjectDetailLayoutProps = {
   outcomes: string[];
 };
 
-const revealViewport = { once: false, amount: 0.3 };
+const revealViewport = { once: true, amount: 0.3 };
 
 function boxRevealVariants(reduceMotion: boolean) {
   return {
