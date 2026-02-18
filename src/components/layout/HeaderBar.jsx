@@ -12,19 +12,18 @@ const links = [
 ];
 
 export default function HeaderBar() {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme ? savedTheme === "dark" : true;
+  });
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
-    const savedIsDark = savedTheme === "dark";
+    const savedIsDark = savedTheme ? savedTheme === "dark" : true;
 
     setIsDark(savedIsDark);
 
-    if (savedIsDark) {
-      document.body.classList.add("dark");
-    } else {
-      document.body.classList.remove("dark");
-    }
+    document.body.classList.toggle("dark", savedIsDark);
   }, []);
 
   const toggleTheme = () => {
