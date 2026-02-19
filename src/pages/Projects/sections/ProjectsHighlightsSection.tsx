@@ -79,7 +79,7 @@ export default function ProjectsHighlightsSection({
               variants={cardVariants}
               className="rounded-2xl border border-slate-200 bg-white/75 p-5 text-center dark:border-white/10 dark:bg-white/[0.03]"
             >
-              <p className="text-3xl font-semibold tracking-tight text-black dark:text-accent">{item.value}</p>
+              <p className="text-3xl font-semibold tracking-tight text-black dark:text-white">{item.value}</p>
               <p className="mt-2 text-sm text-slate-600 dark:text-white/65">{item.label}</p>
             </motion.article>
           ))}
