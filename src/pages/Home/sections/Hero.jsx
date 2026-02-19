@@ -138,7 +138,7 @@ export default function Hero({
               alt="Kian Charles S. Angeles avatar"
               width="144"
               height="144"
-              className={`h-28 w-28 rounded-full object-cover ring-1 md:h-36 md:w-36 ${
+              className={`h-28 w-28 rounded-full object-cover object-top ring-1 md:h-36 md:w-36 ${
                 isDarkMode
                   ? "ring-white/20 shadow-lg shadow-black/30"
                   : "ring-slate-300/70 shadow-lg shadow-slate-300/40"
