@@ -136,8 +136,15 @@ function buildJsonLd(siteUrl, routePath, routeSeo) {
 }
 
 export function getSiteSeoConfig(pathname, siteUrl) {
-  const routeSeo =
-    STATIC_ROUTE_SEO[pathname] || PROJECT_ROUTE_SEO[pathname] || {};
+  const knownRouteSeo =
+    STATIC_ROUTE_SEO[pathname] || PROJECT_ROUTE_SEO[pathname] || null;
+  const routeSeo = knownRouteSeo || {
+    title: `Page Not Found | ${SITE_NAME}`,
+    description:
+      "This page could not be found. Use the main navigation to access available sections.",
+    type: "website",
+    noindex: true,
+  };
 
   const title = routeSeo.title || DEFAULT_TITLE;
   const description = routeSeo.description || DEFAULT_DESCRIPTION;

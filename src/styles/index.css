@@ -100,14 +100,31 @@
     transition: opacity 700ms ease, transform 700ms ease;
   }
 
+  body[data-home-intro-phase] .home-intro-bottomnav {
+    transition: opacity 700ms ease, transform 700ms ease;
+  }
+
   body[data-home-intro-phase="intro"] .home-intro-header {
     opacity: 0;
     transform: translateY(-10px);
     pointer-events: none;
   }
 
+  body[data-home-intro-phase="intro"] .home-intro-bottomnav {
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+  }
+
   body[data-home-intro-phase="exit"] .home-intro-header,
   body[data-home-intro-phase="ready"] .home-intro-header {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  body[data-home-intro-phase="exit"] .home-intro-bottomnav,
+  body[data-home-intro-phase="ready"] .home-intro-bottomnav {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;

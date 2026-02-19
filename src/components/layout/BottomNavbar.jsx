@@ -11,7 +11,7 @@ const NAV_ITEMS = [
 
 export default function BottomNavbar() {
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-0 z-50 pb-[env(safe-area-inset-bottom)] md:hidden">
+    <div className="home-intro-bottomnav pointer-events-none fixed inset-x-0 bottom-0 z-50 pb-[env(safe-area-inset-bottom)] md:hidden">
       <nav
         className="pointer-events-auto w-full border-t border-white/20 bg-white/10 px-2 py-2 shadow-2xl shadow-black/30 backdrop-blur-xl supports-[backdrop-filter]:bg-white/10 dark:border-white/10 dark:bg-black/30 dark:shadow-black/50 dark:supports-[backdrop-filter]:bg-black/30"
         aria-label="Bottom navigation"

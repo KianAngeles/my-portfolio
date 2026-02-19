@@ -23,6 +23,7 @@ const XpenSyncProjectPage = lazy(() =>
 );
 const Resume = lazy(() => import("@/pages/Resume/Resume"));
 const Contact = lazy(() => import("@/pages/Contact/Contact"));
+const NotFound = lazy(() => import("@/pages/NotFound/NotFound"));
 
 function RouteLoadingFallback() {
   return (
@@ -54,6 +55,7 @@ export default function App() {
             <Route path="/projects/xpensync" element={<XpenSyncProjectPage />} />
             <Route path="/resume" element={<Resume />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
         <BottomNavbar />
