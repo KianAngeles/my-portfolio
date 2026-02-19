@@ -221,6 +221,8 @@ function ProjectCard({ project, delay, isVisible, prefersReducedMotion }) {
             alt={`${project.title} preview`}
             className={previewClass}
             loading="lazy"
+            decoding="async"
+            sizes="(max-width: 1024px) 100vw, 50vw"
           />
         </div>
 

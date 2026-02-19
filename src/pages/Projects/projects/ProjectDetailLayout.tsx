@@ -386,7 +386,10 @@ export default function ProjectDetailLayout({
                     src={project.preview}
                     alt={`${project.title} preview`}
                     className="aspect-[16/10] w-full rounded-2xl object-cover"
-                    loading="lazy"
+                    loading="eager"
+                    fetchPriority="high"
+                    decoding="async"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                   />
                 </motion.div>
               </motion.header>

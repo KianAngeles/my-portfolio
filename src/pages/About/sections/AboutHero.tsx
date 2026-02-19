@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import portraitImage from "@/assets/images/pic.jpg";
+import portraitImage from "@/assets/images/pic.webp";
 import typescriptIcon from "@/assets/icons/tech/typescript.png";
 import reactIcon from "@/assets/icons/tech/react.png";
 import nodejsIcon from "@/assets/icons/tech/nodejs.png";
@@ -221,7 +221,7 @@ export default function AboutHero() {
       <SectionRadialGlow />
 
       <div className="container-wrapper relative z-10 max-w-[90rem]">
-        <div className="grid items-center gap-14 lg:grid-cols-[1.08fr_0.92fr] lg:gap-16">
+        <div className="grid items-center gap-14 min-[1100px]:grid-cols-[1.08fr_0.92fr] min-[1100px]:gap-16">
           <div className="order-2 lg:order-1">
             <p className="text-2xl font-semibold tracking-wide text-slate-700 dark:text-white/85 md:text-3xl">
               {typedPrefix}
@@ -270,6 +270,8 @@ export default function AboutHero() {
                       alt=""
                       className="h-6 w-6 object-contain dark:[filter:brightness(0)_invert(1)]"
                       aria-hidden="true"
+                      loading="lazy"
+                      decoding="async"
                     />
                     {social.label}
                   </a>
@@ -297,7 +299,7 @@ export default function AboutHero() {
             </div>
           </div>
 
-          <div className="order-1 lg:order-2">
+          <div className="hidden min-[1100px]:order-2 min-[1100px]:block">
             <div className="mx-auto w-full max-w-[520px]">
               <div
                 className={`relative h-[500px] w-full overflow-visible transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:h-[540px] ${
@@ -384,6 +386,7 @@ export default function AboutHero() {
                             alt={item.name}
                             className="h-full w-full object-contain drop-shadow-[0_8px_18px_rgba(11,30,58,0.45)]"
                             loading="lazy"
+                            decoding="async"
                           />
                         </span>
                       </div>
@@ -419,6 +422,7 @@ export default function AboutHero() {
                             alt={item.name}
                             className="h-full w-full object-contain drop-shadow-[0_8px_18px_rgba(11,30,58,0.45)]"
                             loading="lazy"
+                            decoding="async"
                           />
                         </span>
                       </div>
@@ -435,7 +439,11 @@ export default function AboutHero() {
                     src={profileImageSrc}
                     alt="Portrait of Kian Charles S. Angeles"
                     className="h-full w-full rounded-full object-cover"
-                    loading="lazy"
+                    loading="eager"
+                    fetchPriority="high"
+                    decoding="async"
+                    width="188"
+                    height="188"
                   />
                 </figure>
               </div>

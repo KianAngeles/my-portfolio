@@ -1,7 +1,7 @@
-import linqlyPreview from "@/assets/images/projects/linqlypreview.png";
-import qzonePreview from "@/assets/images/projects/qzonepreview.png";
-import thryvePreview from "@/assets/images/projects/thryvepreview.png";
-import xpensyncPreview from "@/assets/images/projects/xpensyncpreview.png";
+import linqlyPreview from "@/assets/images/projects/linqlypreview.webp";
+import qzonePreview from "@/assets/images/projects/qzonepreview.webp";
+import thryvePreview from "@/assets/images/projects/thryvepreview.webp";
+import xpensyncPreview from "@/assets/images/projects/xpensyncpreview.webp";
 
 export const featuredProjects = [
   {

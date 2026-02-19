@@ -86,7 +86,7 @@ export default function SoftSkillsGrid({
       </div>
 
       <div className="soft-skills-scroll min-h-0 flex-1 overflow-y-auto pr-1">
-        <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-2">
+        <div className="soft-skills-grid grid grid-cols-1 items-start gap-3 sm:grid-cols-2">
           {SOFT_SKILLS.map((skill, index) => {
             const isActive = activeId === skill.id;
             const isDimmed = hasActive && !isActive;

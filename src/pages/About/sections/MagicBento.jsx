@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState, useCallback } from "react";
 import { gsap } from "gsap";
 import { AnimatedBeam } from "@/components/ui/animated-beam";
-import portraitImage from "@/assets/images/pic.jpg";
+import portraitImage from "@/assets/images/pic.webp";
 import inputFolderIcon from "@/assets/icons/node-beam/input/folder.png";
 import inputFigmaIcon from "@/assets/icons/node-beam/input/figma.png";
 import inputHubIcon from "@/assets/icons/node-beam/input/hub.png";

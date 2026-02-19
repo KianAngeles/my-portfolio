@@ -228,6 +228,8 @@ export default function FeaturedProject({ shouldAnimateIntro, phaseDelay }: Feat
                     alt={`${project.title} project preview`}
                     className="aspect-[16/10] w-full object-cover object-top"
                     loading="lazy"
+                    decoding="async"
+                    sizes="(max-width: 1024px) 100vw, 42vw"
                   />
                 ) : (
                   <div className="aspect-[16/10] w-full bg-gradient-to-br from-sky-500/20 via-blue-500/10 to-transparent" />

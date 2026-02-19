@@ -2,10 +2,10 @@ import { useMemo, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import CardSwap, { Card } from "@/components/CardSwap";
 import SectionRadialGlowAlt from "@/components/ui/SectionRadialGlowAlt";
-import comptiaItfCertImage from "@/assets/images/certifications/Comptia-ITF-Cert.png";
-import freeCodeCampBackendCertImage from "@/assets/images/certifications/freecodecamp-backend-development-apis-cert.png";
-import freeCodeCampJsAlgoCertImage from "@/assets/images/certifications/freecodecamp-legacy-javascript-algo-datastruct-cert.png";
-import freeCodeCampResponsiveCertImage from "@/assets/images/certifications/freecodecamp-legacy-responsive-web-design-cert.png";
+import comptiaItfCertImage from "@/assets/images/certifications/Comptia-ITF-Cert.webp";
+import freeCodeCampBackendCertImage from "@/assets/images/certifications/freecodecamp-backend-development-apis-cert.webp";
+import freeCodeCampJsAlgoCertImage from "@/assets/images/certifications/freecodecamp-legacy-javascript-algo-datastruct-cert.webp";
+import freeCodeCampResponsiveCertImage from "@/assets/images/certifications/freecodecamp-legacy-responsive-web-design-cert.webp";
 
 const CERTIFICATIONS = [
   {
@@ -209,7 +209,7 @@ export default function CertificationsSection() {
           />
         </motion.header>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-2">
+        <div className="mt-10 grid gap-6 min-[1025px]:grid-cols-2">
           <motion.article
             className="rounded-3xl p-6 text-slate-900 dark:text-white sm:p-7"
             variants={panelRevealContainerVariants}
@@ -283,7 +283,7 @@ export default function CertificationsSection() {
           </motion.article>
 
           <motion.div
-            className="relative min-h-[540px] overflow-visible rounded-3xl"
+            className="relative hidden min-h-[540px] overflow-visible rounded-3xl min-[1025px]:block"
             style={{ perspective: 1200 }}
             variants={stackContainerVariants}
           >

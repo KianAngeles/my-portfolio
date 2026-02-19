@@ -9,9 +9,11 @@ export const AnimatedThemeToggler = ({
   onToggle,
   className,
   duration = 400,
+  disableAnimationBelow,
   ...props
 }) => {
   const [internalIsDark, setInternalIsDark] = useState(false);
+  const [isBelowAnimationBreakpoint, setIsBelowAnimationBreakpoint] = useState(false);
   const buttonRef = useRef(null);
   const isControlled = typeof isDarkProp === "boolean";
 
@@ -38,6 +40,24 @@ export const AnimatedThemeToggler = ({
     return () => observer.disconnect();
   }, [isControlled]);
 
+  useEffect(() => {
+    if (typeof disableAnimationBelow !== "number" || disableAnimationBelow <= 0) {
+      setIsBelowAnimationBreakpoint(false);
+      return undefined;
+    }
+
+    const mediaQuery = window.matchMedia(`(max-width: ${disableAnimationBelow}px)`);
+
+    const updateMatch = () => {
+      setIsBelowAnimationBreakpoint(mediaQuery.matches);
+    };
+
+    updateMatch();
+    mediaQuery.addEventListener("change", updateMatch);
+
+    return () => mediaQuery.removeEventListener("change", updateMatch);
+  }, [disableAnimationBelow]);
+
   const runToggle = useCallback(() => {
     if (onToggle) {
       flushSync(() => {
@@ -57,7 +77,7 @@ export const AnimatedThemeToggler = ({
   const toggleTheme = useCallback(async () => {
     if (!buttonRef.current) return;
 
-    if (!document.startViewTransition) {
+    if (isBelowAnimationBreakpoint || !document.startViewTransition) {
       runToggle();
       return;
     }
@@ -85,7 +105,7 @@ export const AnimatedThemeToggler = ({
       easing: "ease-in-out",
       pseudoElement: "::view-transition-new(root)",
     });
-  }, [duration, runToggle]);
+  }, [duration, isBelowAnimationBreakpoint, runToggle]);
 
   return (
     <button

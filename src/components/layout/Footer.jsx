@@ -37,7 +37,7 @@ export default function Footer() {
   const facebook = profile?.facebook ?? "https://www.facebook.com/";
 
   return (
-    <footer className="relative bg-[#071427] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
+    <footer className="relative hidden bg-[#071427] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] md:block">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_70%_at_50%_0%,rgba(255,255,255,0.08),transparent_60%)]" />
       <div className="relative mx-auto w-full max-w-7xl px-6 py-10 md:px-10 md:py-12 lg:px-14">
@@ -48,7 +48,13 @@ export default function Footer() {
               className="inline-flex items-center transition-opacity duration-200 hover:opacity-90"
               aria-label="Back to top"
             >
-              <img src={logo} alt="KA logo" className="h-9 w-auto" />
+              <img
+                src={logo}
+                alt="KA logo"
+                className="h-9 w-auto"
+                loading="lazy"
+                decoding="async"
+              />
             </Link>
 
             <FooterNav className="hidden items-center justify-center gap-8 md:flex" />
@@ -61,7 +67,14 @@ export default function Footer() {
                 aria-label="GitHub"
                 className={socialButtonClass}
               >
-                <img src={githubIcon} alt="" className="h-6 w-6 object-contain [filter:brightness(0)_invert(1)]" aria-hidden="true" />
+                <img
+                  src={githubIcon}
+                  alt=""
+                  className="h-6 w-6 object-contain [filter:brightness(0)_invert(1)]"
+                  aria-hidden="true"
+                  loading="lazy"
+                  decoding="async"
+                />
               </a>
               <a
                 href={linkedin}
@@ -70,7 +83,14 @@ export default function Footer() {
                 aria-label="LinkedIn"
                 className={socialButtonClass}
               >
-                <img src={linkedinIcon} alt="" className="h-6 w-6 object-contain [filter:brightness(0)_invert(1)]" aria-hidden="true" />
+                <img
+                  src={linkedinIcon}
+                  alt=""
+                  className="h-6 w-6 object-contain [filter:brightness(0)_invert(1)]"
+                  aria-hidden="true"
+                  loading="lazy"
+                  decoding="async"
+                />
               </a>
               <a
                 href={facebook}
@@ -79,7 +99,14 @@ export default function Footer() {
                 aria-label="Facebook"
                 className={socialButtonClass}
               >
-                <img src={facebookIcon} alt="" className="h-6 w-6 object-contain [filter:brightness(0)_invert(1)]" aria-hidden="true" />
+                <img
+                  src={facebookIcon}
+                  alt=""
+                  className="h-6 w-6 object-contain [filter:brightness(0)_invert(1)]"
+                  aria-hidden="true"
+                  loading="lazy"
+                  decoding="async"
+                />
               </a>
             </div>
           </div>

@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import EtherealHeroBackground from "../hero/EtherealHeroBackground";
-import InteractiveParticleBackground from "../hero/InteractiveParticleBackground";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
-import avatarImage from "@/assets/images/pic.jpg";
+import avatarImage from "@/assets/images/pic.webp";
+
+const EtherealHeroBackground = lazy(() => import("../hero/EtherealHeroBackground"));
 
 const getRevealClass = (isVisible) => {
   if (isVisible) {
@@ -67,19 +67,9 @@ export default function Hero({
           backgroundVisible ? "opacity-100" : "opacity-0"
         }`}
       >
-        <EtherealHeroBackground />
-        <InteractiveParticleBackground
-          className="z-[1]"
-          particleCount={160}
-          swirlRadius={180}
-          swirlStrength={0.72}
-          attractStrength={1950}
-          glow={18}
-          maxSpeed={5.35}
-          globalDamping={1.05}
-          localDampingStrength={0.02}
-          springK={0.008}
-        />
+        <Suspense fallback={null}>
+          <EtherealHeroBackground />
+        </Suspense>
         <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/40 to-black/70" />
         <div className="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-b from-navy to-navy-light blur-3xl" />
         <div className="absolute left-1/2 top-[30%] h-52 w-52 -translate-x-1/2 rounded-full bg-white/10 blur-3xl" />
@@ -94,8 +84,12 @@ export default function Hero({
             <img
               src={avatarImage}
               alt="Kian Charles S. Angeles avatar"
+              width="144"
+              height="144"
               className="h-28 w-28 rounded-full object-cover ring-1 ring-white/20 shadow-lg shadow-black/30 md:h-36 md:w-36"
               draggable="false"
+              fetchPriority="high"
+              decoding="async"
             />
           </div>
 

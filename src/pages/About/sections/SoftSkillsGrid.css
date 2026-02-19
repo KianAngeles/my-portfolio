@@ -30,3 +30,9 @@
     rgba(59, 130, 246, 0.76) 100%
   );
 }
+
+@media (max-width: 1070px) {
+  .soft-skills-grid > :nth-child(n + 5) {
+    display: none !important;
+  }
+}

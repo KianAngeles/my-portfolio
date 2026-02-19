@@ -269,6 +269,7 @@ export default function ContactFormSection() {
                       height={16}
                       className="h-3.5 w-3.5 shrink-0 object-contain opacity-80 dark:invert dark:opacity-85"
                       loading="lazy"
+                      decoding="async"
                     />
                     {item.href ? (
                       <a
@@ -302,6 +303,7 @@ export default function ContactFormSection() {
                         alt={`${item.label} icon`}
                         className="mt-0.5 h-5 w-5 opacity-80 dark:invert dark:opacity-90"
                         loading="lazy"
+                        decoding="async"
                       />
                       <div>
                         <p className="text-sm font-semibold text-slate-900 dark:text-white">{item.label}</p>

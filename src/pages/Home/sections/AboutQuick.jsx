@@ -273,7 +273,7 @@ export default function AboutQuick() {
                 drive me, whether I'm working independently or as part of a team.
               </p>
 
-              <div className="mt-8 flex items-center gap-8">
+              <div className="mt-8 flex flex-col items-start gap-4 min-[570px]:flex-row min-[570px]:items-center min-[570px]:gap-8">
                 <div className="flex items-center gap-3">
                   <MailIcon className="h-5 w-5 shrink-0 text-black dark:text-white" aria-hidden />
                   <a
@@ -297,7 +297,7 @@ export default function AboutQuick() {
               </a>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="hidden gap-6 sm:grid sm:grid-cols-2">
               {QUICK_CARDS.map(({ id, title, description, Icon }, index) => (
                 <div
                   key={id}

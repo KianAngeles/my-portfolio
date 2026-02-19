@@ -208,7 +208,7 @@ export default function ContactCTA() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-4 self-start">
+            <div className="flex flex-col gap-4 self-start max-[480px]:hidden">
               {INFO_ROWS.map(({ title, detail, Icon, statusClass }, index) => (
                 <InfoCard
                   key={title}

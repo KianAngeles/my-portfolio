@@ -30,7 +30,7 @@ body.dark .bento-section {
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1070px) {
   .card-responsive {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -302,6 +302,18 @@ body.dark .bento-section {
 
   .process-network-intro--active .process-center-pulse {
     animation: none !important;
+  }
+}
+
+@media (max-width: 1070px) {
+  .card-responsive .card {
+    aspect-ratio: auto;
+    min-height: 0;
+    height: auto;
+  }
+
+  .process-beam-zone {
+    display: none;
   }
 }
 
