@@ -58,11 +58,7 @@ export default function IntroOverlay({ phase, onLineComplete, onSkip }) {
 
   const isIntro = phase === "intro";
   const shouldAnimateLine = mounted && isIntro;
-  const isDarkMode =
-    typeof document !== "undefined" && document.body.classList.contains("dark");
-  const dropShadowFilter = isDarkMode
-    ? "drop-shadow(0 0 6px rgba(255,255,255,0.22))"
-    : "drop-shadow(0 0 6px rgba(255,255,255,0.14))";
+  const dropShadowFilter = "drop-shadow(0 0 6px rgba(255,255,255,0.22))";
   const lineFilter = flash ? `${dropShadowFilter} brightness(1.12)` : dropShadowFilter;
   const fillStyle = {
     transform: isIntro ? "scaleX(0)" : "scaleX(1)",
@@ -92,11 +88,11 @@ export default function IntroOverlay({ phase, onLineComplete, onSkip }) {
       }`}
     >
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute right-[-140px] top-[25%] h-[620px] w-[620px] rounded-full bg-accent/8 blur-3xl dark:bg-accent/12" />
+        <div className="absolute right-[-140px] top-[25%] h-[620px] w-[620px] rounded-full bg-accent/12 blur-3xl" />
       </div>
 
-      <div className="absolute inset-0 bg-slate-50 dark:bg-navy" />
-      <div className="absolute inset-0 bg-gradient-to-b from-white/85 via-white to-slate-100 dark:from-navy/95 dark:via-navy dark:to-navy-light/95" />
+      <div className="absolute inset-0 bg-navy" />
+      <div className="absolute inset-0 bg-gradient-to-b from-navy/95 via-navy to-navy-light/95" />
 
       <div
         className={`relative z-10 flex min-h-full items-center justify-center text-center transition-all duration-[600ms] ease-in-out ${
@@ -104,17 +100,17 @@ export default function IntroOverlay({ phase, onLineComplete, onSkip }) {
         }`}
       >
         <div className="w-full">
-          <p className="text-sm font-semibold uppercase tracking-[0.32em] text-navy/85 dark:text-white/85">
+          <p className="text-sm font-semibold uppercase tracking-[0.32em] text-white/85">
             Loading...
           </p>
 
           <div className="mt-5 w-screen px-6 sm:px-10 lg:px-16">
-            <div className="relative h-[2px] w-full overflow-hidden rounded-full bg-white/15 dark:bg-white/10">
+            <div className="relative h-[2px] w-full overflow-hidden rounded-full bg-white/10">
               <div
                 ref={fillRef}
                 aria-hidden="true"
                 onAnimationEnd={handleLineAnimationEnd}
-                className="relative h-full w-full bg-white dark:bg-white"
+                className="relative h-full w-full bg-white"
                 style={fillStyle}
               >
                 <div className="absolute inset-0" style={pulseStyle} />
