@@ -180,6 +180,10 @@ export default function SkillsExpertiseSection() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const { isFirstVisit, markVisited } = useFirstVisit("aboutSkillsExpertiseAnimated");
   const shouldAnimateIntro = isFirstVisit && !prefersReducedMotion;
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    if (typeof document === "undefined") return false;
+    return document.body.classList.contains("dark");
+  });
   const [activeTrait, setActiveTrait] = useState<TraitIconVariant | null>(null);
   const [marqueeActive, setMarqueeActive] = useState(!shouldAnimateIntro);
   const [hasPlayedSequence, setHasPlayedSequence] = useState(!shouldAnimateIntro);
@@ -194,6 +198,25 @@ export default function SkillsExpertiseSection() {
   const marqueeControls = useAnimationControls();
   const cardsControls = useAnimationControls();
   const hasMarkedVisitRef = useRef(false);
+
+  useEffect(() => {
+    const body = document.body;
+    if (!body) return undefined;
+
+    const syncTheme = () => {
+      setIsDarkMode(body.classList.contains("dark"));
+    };
+
+    syncTheme();
+
+    const observer = new MutationObserver(syncTheme);
+    observer.observe(body, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (shouldAnimateIntro) {
@@ -289,7 +312,7 @@ export default function SkillsExpertiseSection() {
       }}
       viewport={{ once: true, amount: 0.35 }}
     >
-      <SectionRadialGlow />
+      {isDarkMode && <SectionRadialGlow />}
 
       <div className="mx-auto max-w-6xl px-4">
         <motion.header

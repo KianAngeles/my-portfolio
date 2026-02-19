@@ -5,7 +5,7 @@ export default function SectionRadialGlowAlt() {
       <div className="absolute bottom-[80px] left-[60px] h-[540px] w-[540px] rounded-full bg-accent/8 blur-[85px] dark:bg-accent/12" />
       <div className="absolute left-[19%] top-[42%] h-[380px] w-[380px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5 blur-[90px] dark:bg-white/8" />
       <div className="absolute bottom-[18%] right-[16%] h-[200px] w-[200px] rounded-full bg-navy/10 blur-[90px] dark:bg-white/7" />
-      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-accent/5 dark:from-transparent dark:via-transparent dark:to-accent/6" />
+      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-transparent dark:from-transparent dark:via-transparent dark:to-accent/6" />
     </div>
   );
 }

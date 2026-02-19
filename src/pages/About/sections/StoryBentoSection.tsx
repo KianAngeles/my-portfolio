@@ -10,6 +10,10 @@ export default function StoryBentoSection() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const { isFirstVisit, markVisited } = useFirstVisit("aboutStoryBentoAnimated");
   const [hasEnteredView, setHasEnteredView] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    if (typeof document === "undefined") return false;
+    return document.body.classList.contains("dark");
+  });
 
   const shouldRunIntro = isFirstVisit && !prefersReducedMotion;
   const introActive = shouldRunIntro ? hasEnteredView : true;
@@ -36,6 +40,25 @@ export default function StoryBentoSection() {
   }, []);
 
   useEffect(() => {
+    const body = document.body;
+    if (!body) return undefined;
+
+    const syncTheme = () => {
+      setIsDarkMode(body.classList.contains("dark"));
+    };
+
+    syncTheme();
+
+    const observer = new MutationObserver(syncTheme);
+    observer.observe(body, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     if (hasEnteredView && isFirstVisit) {
       markVisited();
     }
@@ -43,7 +66,7 @@ export default function StoryBentoSection() {
 
   return (
     <section ref={sectionRef} className="relative py-20 md:py-28" aria-labelledby="story-bento-title">
-      <SectionRadialGlowAlt />
+      {isDarkMode && <SectionRadialGlowAlt />}
 
       <div className="mx-auto max-w-6xl px-4">
         <header

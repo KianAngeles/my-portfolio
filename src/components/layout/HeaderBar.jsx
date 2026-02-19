@@ -45,7 +45,13 @@ export default function HeaderBar() {
   return (
     <header className="home-intro-header fixed top-0 z-50 w-full">
       <div className="mx-auto mt-4 max-w-6xl px-4">
-        <div className="rounded-full border border-white/20 bg-white/10 px-6 py-3 shadow-2xl shadow-black/10 backdrop-blur-xl transition-all duration-300 ease-out supports-[backdrop-filter]:bg-white/10 hover:scale-[1.01] hover:bg-white/20 dark:border-white/10 dark:bg-black/20 dark:shadow-black/40 dark:supports-[backdrop-filter]:bg-black/20 dark:hover:bg-black/30">
+        <div
+          className={`rounded-full px-6 py-3 backdrop-blur-2xl transition-all duration-300 ease-out hover:scale-[1.01] ${
+            isDark
+              ? "border border-white/10 bg-black/20 shadow-2xl shadow-black/40 supports-[backdrop-filter]:bg-black/20 hover:bg-black/30"
+              : "border border-slate-300/70 bg-white/80 shadow-[0_14px_34px_rgba(15,23,42,0.2)] supports-[backdrop-filter]:bg-white/74 hover:bg-white/88"
+          }`}
+        >
           <div className="flex w-full items-center justify-between gap-4">
             <div className="flex flex-1 items-center">
               <NavLink
@@ -58,7 +64,9 @@ export default function HeaderBar() {
                   alt="Logo"
                   width="40"
                   height="40"
-                  className="h-10 w-auto invert transition-transform duration-300 group-hover:rotate-[4deg] group-hover:scale-110 dark:invert-0"
+                  className={`h-10 w-auto transition-transform duration-300 group-hover:rotate-[4deg] group-hover:scale-110 ${
+                    isDark ? "invert-0" : "invert"
+                  }`}
                   loading="eager"
                   fetchPriority="high"
                   decoding="async"
@@ -73,10 +81,18 @@ export default function HeaderBar() {
                     key={link.to}
                     to={link.to}
                     className={({ isActive }) =>
-                      `relative text-sm font-medium tracking-wide transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-black/70 after:transition-transform after:duration-200 dark:after:bg-white/70 ${
-                        isActive
-                          ? "text-black after:scale-x-100 dark:text-white"
-                          : "text-gray-700 hover:text-black hover:after:scale-x-100 dark:text-gray-300 dark:hover:text-white"
+                      `relative text-sm font-medium tracking-wide transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:transition-transform after:duration-200 ${
+                        isDark
+                          ? `after:bg-white/70 ${
+                              isActive
+                                ? "text-white after:scale-x-100"
+                                : "text-gray-300 hover:text-white hover:after:scale-x-100"
+                            }`
+                          : `[text-shadow:0_1px_1px_rgba(255,255,255,0.72),0_0_10px_rgba(255,255,255,0.26)] after:bg-black/70 ${
+                              isActive
+                                ? "text-slate-950 after:scale-x-100"
+                                : "text-slate-800 hover:text-black hover:after:scale-x-100"
+                            }`
                       }`
                     }
                   >
@@ -93,7 +109,11 @@ export default function HeaderBar() {
                 onToggle={toggleTheme}
                 disableAnimationBelow={1024}
                 aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 p-2 text-navy shadow-sm backdrop-blur-md transition-transform duration-200 hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:bg-black/30 dark:text-white"
+                className={`flex h-10 w-10 items-center justify-center rounded-full p-2 backdrop-blur-md transition-transform duration-200 hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+                  isDark
+                    ? "bg-black/30 text-white shadow-sm"
+                    : "border border-slate-300/70 bg-white/80 text-slate-900 shadow-sm [text-shadow:0_1px_1px_rgba(255,255,255,0.65)]"
+                }`}
               />
             </div>
           </div>
