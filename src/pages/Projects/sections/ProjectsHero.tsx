@@ -1,6 +1,8 @@
 import { featuredProjects } from "@/data/projects";
 import SectionRadialGlow from "@/components/ui/SectionRadialGlow";
 import { motion } from "framer-motion";
+import useIsMobile from "@/hooks/useIsMobile";
+import { getMotionProps } from "@/utils/motion";
 
 type ProjectsHeroProps = {
   shouldAnimateIntro: boolean;
@@ -31,17 +33,21 @@ const itemVariants = {
 };
 
 export default function ProjectsHero({ shouldAnimateIntro, phaseDelay }: ProjectsHeroProps) {
+  const isMobile = useIsMobile();
+
   return (
     <section className="relative pt-28 pb-8 md:pt-32 md:pb-12" aria-labelledby="projects-hero-title">
       <SectionRadialGlow />
 
       <div className="mx-auto max-w-6xl px-4">
         <motion.div
+          {...getMotionProps(isMobile, {
+            initial: shouldAnimateIntro ? "hidden" : false,
+            animate: "show",
+          })}
           className="mx-auto max-w-3xl text-center"
           variants={containerVariants}
           custom={phaseDelay}
-          initial={shouldAnimateIntro ? "hidden" : false}
-          animate="show"
         >
           <motion.p
             variants={itemVariants}

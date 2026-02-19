@@ -3,11 +3,13 @@ import MagicBento from "./MagicBento";
 import SectionRadialGlowAlt from "@/components/ui/SectionRadialGlowAlt";
 import usePrefersReducedMotion from "@/hooks/usePrefersReducedMotion";
 import useFirstVisit from "@/hooks/useFirstVisit";
+import useIsMobile from "@/hooks/useIsMobile";
 import "./StoryBentoSection.css";
 
 export default function StoryBentoSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const isMobile = useIsMobile();
+  const prefersReducedMotion = usePrefersReducedMotion() || isMobile;
   const { isFirstVisit, markVisited } = useFirstVisit("aboutStoryBentoAnimated");
   const [hasEnteredView, setHasEnteredView] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -106,7 +108,7 @@ export default function StoryBentoSection() {
             particleCount={12}
             spotlightRadius={420}
             glowColor="59, 130, 246"
-            disableAnimations={false}
+            disableAnimations={isMobile || prefersReducedMotion}
             introEnabled={shouldRunIntro}
             introActive={introActive}
           />

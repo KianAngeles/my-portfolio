@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import LightRays from "@/components/LightRays";
 import Footer from "@/components/layout/Footer";
 import ContactFormSection from "./sections/ContactFormSection";
+import useIsMobile from "@/hooks/useIsMobile";
 
 export default function ContactPage() {
+  const isMobile = useIsMobile();
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof document === "undefined") return false;
     return document.body.classList.contains("dark");
@@ -40,7 +42,7 @@ export default function ContactPage() {
         }}
         aria-hidden="true"
       >
-        {isDarkMode && (
+        {isDarkMode && !isMobile && (
           <LightRays
             raysOrigin="top-center"
             raysColor="#7dd3fc"

@@ -7,6 +7,8 @@ import { Send } from "@/components/animate-ui/icons/send";
 import { BadgeCheck } from "@/components/animate-ui/icons/badge-check";
 import { Clock } from "@/components/animate-ui/icons/clock";
 import SectionRadialGlow from "@/components/ui/SectionRadialGlow";
+import useIsMobile from "@/hooks/useIsMobile";
+import { getMotionProps } from "@/utils/motion";
 
 const CONTACT_CTA_SEEN_KEY = "homeContactCTASeen";
 
@@ -80,22 +82,26 @@ const cardVariants = {
 };
 
 function InfoCard({ title, detail, Icon, index, statusClass }) {
+  const isMobile = useIsMobile();
   const [shouldAnimate, setShouldAnimate] = useState(() => {
     if (typeof window === "undefined") return true;
     return window.sessionStorage.getItem(CONTACT_CTA_SEEN_KEY) !== "1";
   });
   const [isHovered, setIsHovered] = useState(false);
+  const shouldAnimateCard = shouldAnimate && !isMobile;
 
   return (
     <motion.div
+      {...getMotionProps(isMobile, {
+        initial: shouldAnimateCard ? "hidden" : false,
+        whileInView: shouldAnimateCard ? "show" : undefined,
+        animate: shouldAnimateCard ? undefined : "show",
+        viewport: shouldAnimateCard ? { once: true, amount: 0.4 } : undefined,
+      })}
       custom={index}
       variants={cardVariants}
-      initial={shouldAnimate ? "hidden" : false}
-      whileInView={shouldAnimate ? "show" : undefined}
-      animate={shouldAnimate ? undefined : "show"}
-      viewport={shouldAnimate ? { once: true, amount: 0.4 } : undefined}
       onViewportEnter={() => {
-        if (!shouldAnimate) return;
+        if (!shouldAnimateCard) return;
         window.sessionStorage.setItem(CONTACT_CTA_SEEN_KEY, "1");
         setShouldAnimate(false);
       }}
@@ -116,7 +122,7 @@ function InfoCard({ title, detail, Icon, index, statusClass }) {
             <div className="flex items-center gap-3 shrink-0">
               <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-navy/10 bg-white text-black dark:border-white/10 dark:bg-white/10 dark:text-white">
                 <Icon
-                  animate={isHovered}
+                  animate={!isMobile && isHovered}
                   className="h-5 w-5 text-black transition-colors duration-300 dark:text-white"
                   aria-hidden="true"
                 />
@@ -140,7 +146,6 @@ function InfoCard({ title, detail, Icon, index, statusClass }) {
 }
 
 export default function ContactCTA() {
-  const email = profile?.email ?? "angeleskiancharles@gmail.com";
   const linkedin = profile?.linkedin ?? "https://www.linkedin.com/";
   const github = profile?.github ?? "https://github.com/";
   const facebook = profile?.facebook ?? "https://www.facebook.com/";

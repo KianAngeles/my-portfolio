@@ -7,9 +7,11 @@ import ContactCTA from "./sections/ContactCTA";
 import Footer from "@/components/layout/Footer";
 import usePrefersReducedMotion from "@/hooks/usePrefersReducedMotion";
 import useHomeIntro from "@/hooks/useHomeIntro";
+import useIsMobile from "@/hooks/useIsMobile";
 
 export default function Home() {
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const isMobile = useIsMobile();
+  const prefersReducedMotion = usePrefersReducedMotion() || isMobile;
   const { phase, skip, onLineComplete } = useHomeIntro(prefersReducedMotion);
 
   useEffect(() => {

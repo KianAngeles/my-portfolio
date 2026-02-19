@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ClickSpark } from "@appletosolutions/reactbits";
+import useIsMobile from "@/hooks/useIsMobile";
 
 const SPARK_BLOCK_SELECTOR =
   "input, textarea, select, [contenteditable], [contenteditable='true'], [contenteditable='plaintext-only']";
@@ -109,6 +110,7 @@ function useThemeMode() {
 }
 
 export default function GlobalClickSpark({ children }) {
+  const isMobile = useIsMobile();
   const mode = useThemeMode();
   const dragStartedRef = useRef(false);
   const pointerStartRef = useRef({ active: false, x: 0, y: 0 });
@@ -187,6 +189,8 @@ export default function GlobalClickSpark({ children }) {
       event.stopPropagation();
     }
   }, []);
+
+  if (isMobile) return children;
 
   return (
     <ClickSpark sparkColor={sparkColor} sparkCount={14} sparkRadius={30}>

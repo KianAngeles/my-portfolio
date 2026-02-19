@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { featuredProjects as projects } from "@/data/projects";
 import SectionRadialGlowAlt from "@/components/ui/SectionRadialGlowAlt";
 import usePrefersReducedMotion from "@/hooks/usePrefersReducedMotion";
+import useIsMobile from "@/hooks/useIsMobile";
+import { getMotionProps } from "@/utils/motion";
 
 type FeaturedProjectProps = {
   shouldAnimateIntro: boolean;
@@ -99,8 +101,9 @@ function getFeatureBullets(project: any) {
 }
 
 export default function FeaturedProject({ shouldAnimateIntro, phaseDelay }: FeaturedProjectProps) {
+  const isMobile = useIsMobile();
   const project = getFeaturedLinqly();
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const prefersReducedMotion = usePrefersReducedMotion() || isMobile;
 
   if (!project) return null;
 
@@ -119,11 +122,13 @@ export default function FeaturedProject({ shouldAnimateIntro, phaseDelay }: Feat
 
       <div className="mx-auto max-w-6xl px-4">
         <motion.div
+          {...getMotionProps(isMobile, {
+            initial: shouldAnimateIntro ? "hidden" : false,
+            animate: "show",
+          })}
           className="overflow-hidden rounded-3xl border border-slate-300/70 bg-white/75 p-6 shadow-[0_14px_50px_rgba(2,6,23,0.06)] dark:border-white/10 dark:bg-white/[0.03] dark:shadow-[0_18px_55px_rgba(148,163,184,0.07)] sm:p-8"
           variants={sectionVariants}
           custom={phaseDelay}
-          initial={shouldAnimateIntro ? "hidden" : false}
-          animate="show"
         >
           <motion.div className="grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-center" variants={sectionVariants}>
             <motion.div variants={columnVariants}>
@@ -210,16 +215,16 @@ export default function FeaturedProject({ shouldAnimateIntro, phaseDelay }: Feat
 
             <motion.div variants={columnVariants} className="group [perspective:1100px]">
               <motion.div
-                whileHover={
-                  prefersReducedMotion
+                {...getMotionProps(isMobile, {
+                  whileHover: prefersReducedMotion
                     ? undefined
                     : {
                         y: -3,
                         rotateX: 1,
                         rotateY: -1,
-                      }
-                }
-                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                      },
+                  transition: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
+                })}
                 className="relative overflow-hidden rounded-2xl border border-slate-300/70 bg-slate-950/10 shadow-[0_12px_30px_rgba(2,6,23,0.12)] dark:border-white/10 dark:bg-white/[0.03]"
               >
                 {project.preview ? (

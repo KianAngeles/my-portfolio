@@ -6,6 +6,7 @@ import { Activity } from "@/components/animate-ui/icons/activity";
 import { Gauge } from "@/components/animate-ui/icons/gauge";
 import SectionRadialGlow from "@/components/ui/SectionRadialGlow";
 import usePrefersReducedMotion from "@/hooks/usePrefersReducedMotion";
+import useIsMobile from "@/hooks/useIsMobile";
 
 const ABOUT_QUICK_SEEN_KEY = "homeAboutQuickSeen";
 
@@ -162,7 +163,7 @@ function IconBackdrop({ id, isHovered }) {
   return null;
 }
 
-function SpotlightFeatureCard({ id, title, description, Icon }) {
+function SpotlightFeatureCard({ id, title, description, Icon, isMobile }) {
   const [isHovered, setIsHovered] = useState(false);
   const iconWrapperClass =
     id === "interactive"
@@ -185,7 +186,7 @@ function SpotlightFeatureCard({ id, title, description, Icon }) {
           <IconBackdrop id={id} isHovered={isHovered} />
           <Icon
             className="relative z-10 h-6 w-6 text-black transition-colors duration-300 dark:text-white"
-            animate={isHovered}
+            animate={!isMobile && isHovered}
             aria-hidden="true"
           />
         </div>
@@ -198,7 +199,8 @@ function SpotlightFeatureCard({ id, title, description, Icon }) {
 
 export default function AboutQuick() {
   const sectionRef = useRef(null);
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const isMobile = useIsMobile();
+  const prefersReducedMotion = usePrefersReducedMotion() || isMobile;
   const [isVisible, setIsVisible] = useState(() => {
     if (typeof window === "undefined") return false;
     return window.sessionStorage.getItem(ABOUT_QUICK_SEEN_KEY) === "1";
@@ -313,6 +315,7 @@ export default function AboutQuick() {
                     title={title}
                     description={description}
                     Icon={Icon}
+                    isMobile={isMobile}
                   />
                 </div>
               ))}

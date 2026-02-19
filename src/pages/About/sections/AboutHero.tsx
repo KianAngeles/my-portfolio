@@ -17,6 +17,7 @@ import { profile } from "@/data/profile";
 import SectionRadialGlow from "@/components/ui/SectionRadialGlow";
 import usePrefersReducedMotion from "@/hooks/usePrefersReducedMotion";
 import useFirstVisit from "@/hooks/useFirstVisit";
+import useIsMobile from "@/hooks/useIsMobile";
 import "./AboutHero.css";
 
 const GREETING_PREFIX = "Hello, I'm ";
@@ -69,7 +70,8 @@ function revealClass(visible) {
 }
 
 export default function AboutHero() {
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const isMobile = useIsMobile();
+  const prefersReducedMotion = usePrefersReducedMotion() || isMobile;
   const { isFirstVisit, markVisited } = useFirstVisit("aboutHeroAnimated");
 
   const runIntro = isFirstVisit && !prefersReducedMotion;

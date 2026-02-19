@@ -10,6 +10,8 @@ import {
 } from "lucide-react";
 import { resume } from "@/data/resume";
 import { containerStagger, EASE_OUT, fadeUp, wipeReveal } from "../motionVariants";
+import useIsMobile from "@/hooks/useIsMobile";
+import { getMotionProps } from "@/utils/motion";
 
 type ResumeHeroProps = {
   shouldAnimate?: boolean;
@@ -29,7 +31,8 @@ function formatPhoneLink(phone: string) {
 }
 
 export default function ResumeHero({ shouldAnimate = true }: ResumeHeroProps) {
-  const prefersReducedMotion = !!useReducedMotion();
+  const isMobile = useIsMobile();
+  const prefersReducedMotion = !!useReducedMotion() || isMobile;
 
   const contactItems = [
     {
@@ -100,27 +103,31 @@ export default function ResumeHero({ shouldAnimate = true }: ResumeHeroProps) {
 
   return (
     <motion.section
+      {...getMotionProps(isMobile, {
+        initial: shouldAnimate ? "hidden" : false,
+        animate: "show",
+      })}
       className="relative px-4 pb-10 pt-28 sm:px-6 md:pb-14 md:pt-32"
-      initial={shouldAnimate ? "hidden" : false}
-      animate="show"
     >
       <div className="mx-auto w-full max-w-[84rem]">
         <div className="relative mx-auto max-w-4xl text-center">
           <motion.div
+            {...getMotionProps(isMobile, {
+              initial: shouldAnimate ? {
+                opacity: 0,
+                scale: prefersReducedMotion ? 1 : 0.95,
+              } : false,
+              animate: {
+                opacity: prefersReducedMotion ? 0.08 : 0.12,
+                scale: 1,
+              },
+              transition: {
+                duration: prefersReducedMotion ? 0.2 : 0.56,
+                delay: prefersReducedMotion ? 0 : 0.12,
+                ease: EASE_OUT,
+              },
+            })}
             aria-hidden="true"
-            initial={shouldAnimate ? {
-              opacity: 0,
-              scale: prefersReducedMotion ? 1 : 0.95,
-            } : false}
-            animate={{
-              opacity: prefersReducedMotion ? 0.08 : 0.12,
-              scale: 1,
-            }}
-            transition={{
-              duration: prefersReducedMotion ? 0.2 : 0.56,
-              delay: prefersReducedMotion ? 0 : 0.12,
-              ease: EASE_OUT,
-            }}
             className="pointer-events-none absolute left-1/2 top-[22%] -z-10 h-[280px] w-[560px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(125,211,252,0.35)_0%,rgba(125,211,252,0.05)_42%,transparent_72%)]"
           />
 

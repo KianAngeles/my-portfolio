@@ -34,6 +34,8 @@ import { Users } from "@/components/animate-ui/icons/users";
 import { BorderBeam } from "@/components/ui/border-beam";
 import usePrefersReducedMotion from "@/hooks/usePrefersReducedMotion";
 import useFirstVisit from "@/hooks/useFirstVisit";
+import useIsMobile from "@/hooks/useIsMobile";
+import { getMotionProps } from "@/utils/motion";
 
 type TraitIconVariant = "systems" | "quality" | "collaboration" | "growth";
 
@@ -177,7 +179,8 @@ function easeOutCubic(value: number) {
 }
 
 export default function SkillsExpertiseSection() {
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const isMobile = useIsMobile();
+  const prefersReducedMotion = usePrefersReducedMotion() || isMobile;
   const { isFirstVisit, markVisited } = useFirstVisit("aboutSkillsExpertiseAnimated");
   const shouldAnimateIntro = isFirstVisit && !prefersReducedMotion;
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -185,7 +188,7 @@ export default function SkillsExpertiseSection() {
     return document.body.classList.contains("dark");
   });
   const [activeTrait, setActiveTrait] = useState<TraitIconVariant | null>(null);
-  const [marqueeActive, setMarqueeActive] = useState(!shouldAnimateIntro);
+  const [marqueeActive, setMarqueeActive] = useState(!shouldAnimateIntro && !isMobile);
   const [hasPlayedSequence, setHasPlayedSequence] = useState(!shouldAnimateIntro);
   const [countActive, setCountActive] = useState(false);
 
@@ -233,7 +236,7 @@ export default function SkillsExpertiseSection() {
     headerControls.set("visible");
     marqueeControls.set("visible");
     cardsControls.set("visible");
-    setMarqueeActive(true);
+    setMarqueeActive(!isMobile);
     setHasPlayedSequence(true);
     setCountActive(false);
     setStatValues(statTargets);
@@ -263,7 +266,7 @@ export default function SkillsExpertiseSection() {
 
     await headerControls.start("visible");
     await marqueeControls.start("visible");
-    setMarqueeActive(true);
+    setMarqueeActive(!isMobile);
     await cardsControls.start("visible");
     setCountActive(true);
   }, [
@@ -305,21 +308,25 @@ export default function SkillsExpertiseSection() {
 
   return (
     <motion.section
+      {...getMotionProps(isMobile, {
+        viewport: { once: true, amount: 0.35 },
+      })}
       className="relative isolate pt-0 pb-20 md:pb-28"
       aria-labelledby="skills-expertise-title"
       onViewportEnter={() => {
         void playSequence();
       }}
-      viewport={{ once: true, amount: 0.35 }}
     >
       {isDarkMode && <SectionRadialGlow />}
 
       <div className="mx-auto max-w-6xl px-4">
         <motion.header
+          {...getMotionProps(isMobile, {
+            initial: shouldAnimateIntro ? "hidden" : "visible",
+            animate: headerControls,
+          })}
           className="mx-auto max-w-3xl text-center"
           variants={headerVariants}
-          initial={shouldAnimateIntro ? "hidden" : "visible"}
-          animate={headerControls}
         >
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-600 dark:text-white/60">Technical Foundation</p>
           <h2 id="skills-expertise-title" className="mt-3 text-3xl font-semibold text-slate-900 dark:text-white sm:text-4xl md:text-5xl">
@@ -332,10 +339,12 @@ export default function SkillsExpertiseSection() {
 
         <div className="relative left-1/2 mt-12 w-[min(92vw,86rem)] -translate-x-1/2">
           <motion.div
+            {...getMotionProps(isMobile, {
+              initial: shouldAnimateIntro ? "hidden" : "visible",
+              animate: marqueeControls,
+            })}
             className="relative"
             variants={marqueeVariants}
-            initial={shouldAnimateIntro ? "hidden" : "visible"}
-            animate={marqueeControls}
           >
             <div className="skills-marquee py-2">
               <div className={`skills-marquee-track ${marqueeActive ? "skills-marquee-track--active" : ""}`}>
@@ -372,10 +381,12 @@ export default function SkillsExpertiseSection() {
         </div>
 
         <motion.div
+          {...getMotionProps(isMobile, {
+            initial: shouldAnimateIntro ? "hidden" : "visible",
+            animate: cardsControls,
+          })}
           className="mt-10 grid gap-6 lg:grid-cols-2"
           variants={cardsParentVariants}
-          initial={shouldAnimateIntro ? "hidden" : "visible"}
-          animate={cardsControls}
         >
           <motion.div variants={cardVariants} className="h-full">
             <SpotlightCard
@@ -398,7 +409,7 @@ export default function SkillsExpertiseSection() {
                     onMouseLeave={() => setActiveTrait((current) => (current === item.icon ? null : current))}
                   >
                     <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-black transition-all duration-200 group-hover/trait:border-accent/45 group-hover/trait:shadow-[0_0_24px_-10px_rgba(96,165,250,0.9)] dark:border-white/15 dark:bg-white/[0.04] dark:text-white">
-                      <TraitIcon variant={item.icon} animate={activeTrait === item.icon} />
+                      <TraitIcon variant={item.icon} animate={!isMobile && activeTrait === item.icon} />
                     </span>
                     <span>
                       <span className="block text-base font-semibold text-slate-900 dark:text-white">{item.title}</span>
@@ -442,24 +453,28 @@ export default function SkillsExpertiseSection() {
                   </svg>
                   Current focus: scalable product architecture and high-clarity user journeys.
                 </p>
-                <BorderBeam
-                  duration={8}
-                  size={88}
-                  initialOffset={25}
-                  borderWidth={1.2}
-                  colorFrom="#3b82f6"
-                  colorTo="#93c5fd"
-                  className="opacity-95"
-                />
-                <BorderBeam
-                  duration={8}
-                  size={110}
-                  initialOffset={75}
-                  borderWidth={1.8}
-                  colorFrom="#22d3ee"
-                  colorTo="#60a5fa"
-                  className="opacity-75"
-                />
+                {!isMobile ? (
+                  <BorderBeam
+                    duration={8}
+                    size={88}
+                    initialOffset={25}
+                    borderWidth={1.2}
+                    colorFrom="#3b82f6"
+                    colorTo="#93c5fd"
+                    className="opacity-95"
+                  />
+                ) : null}
+                {!isMobile ? (
+                  <BorderBeam
+                    duration={8}
+                    size={110}
+                    initialOffset={75}
+                    borderWidth={1.8}
+                    colorFrom="#22d3ee"
+                    colorTo="#60a5fa"
+                    className="opacity-75"
+                  />
+                ) : null}
               </div>
             </SpotlightCard>
           </motion.div>

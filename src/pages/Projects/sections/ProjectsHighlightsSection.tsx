@@ -1,6 +1,8 @@
 import { featuredProjects } from "@/data/projects";
 import SectionRadialGlowAlt from "@/components/ui/SectionRadialGlowAlt";
 import { motion } from "framer-motion";
+import useIsMobile from "@/hooks/useIsMobile";
+import { getMotionProps } from "@/utils/motion";
 
 type ProjectsHighlightsSectionProps = {
   shouldAnimateIntro: boolean;
@@ -57,6 +59,8 @@ export default function ProjectsHighlightsSection({
   shouldAnimateIntro,
   phaseDelay,
 }: ProjectsHighlightsSectionProps) {
+  const isMobile = useIsMobile();
+
   return (
     <section className="relative pt-0 pb-14 md:pb-16" aria-labelledby="projects-highlights-title">
       <SectionRadialGlowAlt />
@@ -67,11 +71,13 @@ export default function ProjectsHighlightsSection({
         </h2>
 
         <motion.div
+          {...getMotionProps(isMobile, {
+            initial: shouldAnimateIntro ? "hidden" : false,
+            animate: "show",
+          })}
           className="grid gap-4 sm:grid-cols-3"
           variants={rowVariants}
           custom={phaseDelay}
-          initial={shouldAnimateIntro ? "hidden" : false}
-          animate="show"
         >
           {HIGHLIGHTS.map((item) => (
             <motion.article

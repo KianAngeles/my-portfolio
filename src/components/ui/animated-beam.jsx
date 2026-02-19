@@ -1,5 +1,7 @@
 import { useEffect, useId, useState } from "react";
 import { motion } from "motion/react"
+import useIsMobile from "@/hooks/useIsMobile";
+import { getMotionProps } from "@/utils/motion";
 
 import { cn } from "@/lib/utils"
 
@@ -26,6 +28,7 @@ export const AnimatedBeam = ({
   drawDuration = 0.9,
   instant = true,
 }) => {
+  const isMobile = useIsMobile();
   const id = useId()
   const [pathD, setPathD] = useState("")
   const [svgDimensions, setSvgDimensions] = useState({ width: 0, height: 0 })
@@ -140,28 +143,31 @@ export const AnimatedBeam = ({
         }} />
       <defs>
         <motion.linearGradient
+          {...getMotionProps(isMobile, {
+            initial: {
+              x1: "0%",
+              x2: "0%",
+              y1: "0%",
+              y2: "0%",
+            },
+            animate: {
+              x1: gradientCoordinates.x1,
+              x2: gradientCoordinates.x2,
+              y1: gradientCoordinates.y1,
+              y2: gradientCoordinates.y2,
+            },
+            transition: {
+              delay,
+              duration,
+              ease: [0.16, 1, 0.3, 1],
+              repeat: Infinity,
+              repeatDelay: 0,
+            },
+          })}
           className="transform-gpu"
           id={id}
           gradientUnits={"userSpaceOnUse"}
-          initial={{
-            x1: "0%",
-            x2: "0%",
-            y1: "0%",
-            y2: "0%",
-          }}
-          animate={{
-            x1: gradientCoordinates.x1,
-            x2: gradientCoordinates.x2,
-            y1: gradientCoordinates.y1,
-            y2: gradientCoordinates.y2,
-          }}
-          transition={{
-            delay,
-            duration,
-            ease: [0.16, 1, 0.3, 1], // https://easings.net/#easeOutExpo
-            repeat: Infinity,
-            repeatDelay: 0,
-          }}>
+        >
           <stop stopColor={gradientStartColor} stopOpacity="0"></stop>
           <stop stopColor={gradientStartColor}></stop>
           <stop offset="32.5%" stopColor={gradientStopColor}></stop>

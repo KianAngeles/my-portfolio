@@ -1,4 +1,6 @@
 import { motion } from "motion/react";
+import useIsMobile from "@/hooks/useIsMobile";
+import { getMotionProps } from "@/utils/motion";
 
 import { cn } from "@/lib/utils"
 
@@ -15,6 +17,8 @@ export const BorderBeam = ({
   initialOffset = 0,
   borderWidth = 1
 }) => {
+  const isMobile = useIsMobile();
+
   return (
     <div
       className="pointer-events-none absolute inset-0 rounded-[inherit]"
@@ -27,6 +31,21 @@ export const BorderBeam = ({
       }}
     >
       <motion.div
+        {...getMotionProps(isMobile, {
+          initial: { offsetDistance: `${initialOffset}%` },
+          animate: {
+            offsetDistance: reverse
+              ? [`${100 - initialOffset}%`, `${-initialOffset}%`]
+              : [`${initialOffset}%`, `${100 + initialOffset}%`],
+          },
+          transition: {
+            repeat: Infinity,
+            ease: "linear",
+            duration,
+            delay: -delay,
+            ...transition,
+          },
+        })}
         className={cn(
           "absolute aspect-square",
           className
@@ -37,19 +56,7 @@ export const BorderBeam = ({
           offsetPath: `rect(0 auto auto 0 round ${size}px)`,
           ...style,
         }}
-        initial={{ offsetDistance: `${initialOffset}%` }}
-        animate={{
-          offsetDistance: reverse
-            ? [`${100 - initialOffset}%`, `${-initialOffset}%`]
-            : [`${initialOffset}%`, `${100 + initialOffset}%`],
-        }}
-        transition={{
-          repeat: Infinity,
-          ease: "linear",
-          duration,
-          delay: -delay,
-          ...transition,
-        }} />
+      />
     </div>
   );
 }

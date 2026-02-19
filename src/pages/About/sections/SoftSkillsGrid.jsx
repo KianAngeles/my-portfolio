@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { cn } from "@/lib/utils";
+import useIsMobile from "@/hooks/useIsMobile";
+import { getMotionProps } from "@/utils/motion";
 import "./SoftSkillsGrid.css";
 
 const SOFT_SKILLS = [
@@ -64,6 +66,7 @@ export default function SoftSkillsGrid({
   introActive = true,
   introDelayMs = 0,
 }) {
+  const isMobile = useIsMobile();
   const [activeId, setActiveId] = useState(null);
   const hasActive = activeId !== null;
 
@@ -95,6 +98,23 @@ export default function SoftSkillsGrid({
 
             return (
               <motion.div
+                {...getMotionProps(isMobile, {
+                  initial: introEnabled ? { opacity: 0, y: 14 } : false,
+                  animate: {
+                    opacity: shouldHideForIntro ? 0 : 1,
+                    y: shouldHideForIntro ? 14 : 0,
+                  },
+                  whileHover: {
+                    y: -3,
+                    borderColor: "rgba(125, 211, 252, 0.3)",
+                    boxShadow: "0 10px 24px rgba(2, 12, 32, 0.3)",
+                  },
+                  transition: {
+                    ...TILE_TRANSITION,
+                    duration: 0.42,
+                    delay: cascadeDelay,
+                  },
+                })}
                 key={skill.id}
                 layout
                 role="button"
@@ -107,32 +127,19 @@ export default function SoftSkillsGrid({
                   isActive && "border-sky-300/40 dark:border-sky-300/30",
                   isDimmed ? "opacity-55 scale-[0.96]" : "opacity-100 scale-100"
                 )}
-                initial={introEnabled ? { opacity: 0, y: 14 } : false}
-                animate={{
-                  opacity: shouldHideForIntro ? 0 : 1,
-                  y: shouldHideForIntro ? 14 : 0,
-                }}
-                whileHover={{
-                  y: -3,
-                  borderColor: "rgba(125, 211, 252, 0.3)",
-                  boxShadow: "0 10px 24px rgba(2, 12, 32, 0.3)",
-                }}
-                transition={{
-                  ...TILE_TRANSITION,
-                  duration: 0.42,
-                  delay: cascadeDelay,
-                }}
               >
                 <h4 className="text-sm font-semibold text-slate-900 dark:text-white">{skill.title}</h4>
 
                 <AnimatePresence initial={false}>
                   {isActive ? (
                     <motion.div
+                      {...getMotionProps(isMobile, {
+                        initial: { opacity: 0, y: 8 },
+                        animate: { opacity: 1, y: 0 },
+                        exit: { opacity: 0, y: 6 },
+                        transition: { duration: 0.22, ease: [0.16, 1, 0.3, 1] },
+                      })}
                       layout
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 6 }}
-                      transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
                       className="mt-3 border-t border-slate-200 pt-3 dark:border-white/12"
                     >
                       <p className="text-xs leading-relaxed text-slate-700 dark:text-white/78">{skill.paragraph}</p>

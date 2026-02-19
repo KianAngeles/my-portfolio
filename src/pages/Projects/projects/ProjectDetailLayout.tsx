@@ -7,7 +7,9 @@ import Sheen from "@/components/ui/Sheen";
 import SectionRadialGlow from "@/components/ui/SectionRadialGlow";
 import SectionRadialGlowAlt from "@/components/ui/SectionRadialGlowAlt";
 import useFirstVisit from "@/hooks/useFirstVisit";
+import useIsMobile from "@/hooks/useIsMobile";
 import usePrefersReducedMotion from "@/hooks/usePrefersReducedMotion";
+import { getMotionProps } from "@/utils/motion";
 import {
   chipStagger,
   containerStagger,
@@ -79,6 +81,7 @@ export default function ProjectDetailLayout({
   focusAreas,
   outcomes,
 }: ProjectDetailLayoutProps) {
+  const isMobile = useIsMobile();
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof document === "undefined") return false;
     return document.body.classList.contains("dark");
@@ -88,7 +91,7 @@ export default function ProjectDetailLayout({
   const detailsGlowZoneRef = useRef<HTMLDivElement | null>(null);
   const detailsSpotlightRef = useRef<HTMLDivElement | null>(null);
   const hasMarkedVisitRef = useRef(false);
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const prefersReducedMotion = usePrefersReducedMotion() || isMobile;
   const { isFirstVisit, markVisited } = useFirstVisit(`projectDetailAnimated-${project.id}`);
 
   const displayStack = stack ?? project.stack;
@@ -239,7 +242,7 @@ export default function ProjectDetailLayout({
         }}
         aria-hidden="true"
       >
-        {isDarkMode && (
+        {isDarkMode && !isMobile && (
           <LightRays
             raysOrigin="top-center"
             raysColor="#7dd3fc"
@@ -270,12 +273,14 @@ export default function ProjectDetailLayout({
           <SectionRadialGlow />
           <div className="mx-auto max-w-6xl px-4">
             <motion.div
+              {...getMotionProps(isMobile, {
+                initial: shouldAnimateIntro ? "hidden" : false,
+                animate: "show",
+              })}
               variants={containerStagger(prefersReducedMotion, {
                 delayChildren: 0.04,
                 staggerChildren: 0.1,
               })}
-              initial={shouldAnimateIntro ? "hidden" : false}
-              animate="show"
             >
               <motion.div variants={itemFadeUp(prefersReducedMotion, { distance: 8, duration: 0.28 })}>
                 <Link
@@ -414,14 +419,16 @@ export default function ProjectDetailLayout({
             ) : null}
 
             <motion.div
+              {...getMotionProps(isMobile, {
+                initial: shouldAnimateIntro ? "hidden" : false,
+                whileInView: shouldAnimateIntro ? "show" : undefined,
+                viewport: shouldAnimateIntro ? revealViewport : undefined,
+              })}
               className="relative z-10 grid gap-6 lg:grid-cols-3"
               variants={metaRowStagger(prefersReducedMotion, {
                 delayChildren: 0.08,
                 staggerChildren: 0.16,
               })}
-              initial={shouldAnimateIntro ? "hidden" : false}
-              whileInView={shouldAnimateIntro ? "show" : undefined}
-              viewport={shouldAnimateIntro ? revealViewport : undefined}
             >
               <motion.article
                 variants={boxRevealVariants(prefersReducedMotion)}
@@ -455,14 +462,16 @@ export default function ProjectDetailLayout({
             </motion.div>
 
             <motion.div
+              {...getMotionProps(isMobile, {
+                initial: shouldAnimateIntro ? "hidden" : false,
+                whileInView: shouldAnimateIntro ? "show" : undefined,
+                viewport: shouldAnimateIntro ? revealViewport : undefined,
+              })}
               className="relative z-10 mt-6 grid gap-6 lg:grid-cols-3"
               variants={containerStagger(prefersReducedMotion, {
                 delayChildren: 0.08,
                 staggerChildren: 0.14,
               })}
-              initial={shouldAnimateIntro ? "hidden" : false}
-              whileInView={shouldAnimateIntro ? "show" : undefined}
-              viewport={shouldAnimateIntro ? revealViewport : undefined}
             >
               <motion.article
                 variants={boxRevealVariants(prefersReducedMotion)}
@@ -496,11 +505,13 @@ export default function ProjectDetailLayout({
             </motion.div>
 
             <motion.div
+              {...getMotionProps(isMobile, {
+                initial: shouldAnimateIntro ? "hidden" : false,
+                whileInView: shouldAnimateIntro ? "show" : undefined,
+                viewport: shouldAnimateIntro ? revealViewport : undefined,
+              })}
               className="relative z-10 mt-6"
               variants={containerStagger(prefersReducedMotion, { delayChildren: 0.08, staggerChildren: 0.12 })}
-              initial={shouldAnimateIntro ? "hidden" : false}
-              whileInView={shouldAnimateIntro ? "show" : undefined}
-              viewport={shouldAnimateIntro ? revealViewport : undefined}
             >
               <motion.article
                 variants={boxRevealVariants(prefersReducedMotion)}
@@ -518,11 +529,13 @@ export default function ProjectDetailLayout({
             </motion.div>
 
             <motion.div
+              {...getMotionProps(isMobile, {
+                initial: shouldAnimateIntro ? "hidden" : false,
+                whileInView: shouldAnimateIntro ? "show" : undefined,
+                viewport: shouldAnimateIntro ? revealViewport : undefined,
+              })}
               className="relative z-10 mt-6"
               variants={containerStagger(prefersReducedMotion, { delayChildren: 0.08, staggerChildren: 0.12 })}
-              initial={shouldAnimateIntro ? "hidden" : false}
-              whileInView={shouldAnimateIntro ? "show" : undefined}
-              viewport={shouldAnimateIntro ? revealViewport : undefined}
             >
               <motion.article
                 variants={boxRevealVariants(prefersReducedMotion)}
@@ -537,26 +550,26 @@ export default function ProjectDetailLayout({
 
                 {displayVideoEmbedHref ? (
                   <motion.div
+                    {...getMotionProps(isMobile, {
+                      initial:
+                        shouldAnimateIntro
+                          ? prefersReducedMotion
+                            ? { opacity: 0 }
+                            : { opacity: 0, clipPath: "inset(10% 0 0 0 round 1rem)" }
+                          : false,
+                      whileInView:
+                        shouldAnimateIntro
+                          ? prefersReducedMotion
+                            ? { opacity: 1 }
+                            : { opacity: 1, clipPath: "inset(0% 0 0 0 round 1rem)" }
+                          : undefined,
+                      viewport: shouldAnimateIntro ? revealViewport : undefined,
+                      transition: {
+                        duration: prefersReducedMotion ? 0.18 : 0.35,
+                        ease: [0.22, 1, 0.36, 1],
+                      },
+                    })}
                     className="mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 dark:border-white/10 dark:bg-black/20"
-                    initial={
-                      shouldAnimateIntro
-                        ? prefersReducedMotion
-                          ? { opacity: 0 }
-                          : { opacity: 0, clipPath: "inset(10% 0 0 0 round 1rem)" }
-                        : false
-                    }
-                    whileInView={
-                      shouldAnimateIntro
-                        ? prefersReducedMotion
-                          ? { opacity: 1 }
-                          : { opacity: 1, clipPath: "inset(0% 0 0 0 round 1rem)" }
-                        : undefined
-                    }
-                    viewport={shouldAnimateIntro ? revealViewport : undefined}
-                    transition={{
-                      duration: prefersReducedMotion ? 0.18 : 0.35,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
                   >
                     <iframe
                       title={displayVideoEmbedTitle}
@@ -570,26 +583,26 @@ export default function ProjectDetailLayout({
                   </motion.div>
                 ) : displayVideoHref ? (
                   <motion.div
+                    {...getMotionProps(isMobile, {
+                      initial:
+                        shouldAnimateIntro
+                          ? prefersReducedMotion
+                            ? { opacity: 0 }
+                            : { opacity: 0, clipPath: "inset(10% 0 0 0 round 1rem)" }
+                          : false,
+                      whileInView:
+                        shouldAnimateIntro
+                          ? prefersReducedMotion
+                            ? { opacity: 1 }
+                            : { opacity: 1, clipPath: "inset(0% 0 0 0 round 1rem)" }
+                          : undefined,
+                      viewport: shouldAnimateIntro ? revealViewport : undefined,
+                      transition: {
+                        duration: prefersReducedMotion ? 0.18 : 0.35,
+                        ease: [0.22, 1, 0.36, 1],
+                      },
+                    })}
                     className="mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 dark:border-white/10 dark:bg-black/20"
-                    initial={
-                      shouldAnimateIntro
-                        ? prefersReducedMotion
-                          ? { opacity: 0 }
-                          : { opacity: 0, clipPath: "inset(10% 0 0 0 round 1rem)" }
-                        : false
-                    }
-                    whileInView={
-                      shouldAnimateIntro
-                        ? prefersReducedMotion
-                          ? { opacity: 1 }
-                          : { opacity: 1, clipPath: "inset(0% 0 0 0 round 1rem)" }
-                        : undefined
-                    }
-                    viewport={shouldAnimateIntro ? revealViewport : undefined}
-                    transition={{
-                      duration: prefersReducedMotion ? 0.18 : 0.35,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
                   >
                     <video
                       className="aspect-video w-full object-cover"

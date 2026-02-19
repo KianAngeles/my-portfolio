@@ -2,6 +2,8 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import SectionRadialGlow from "@/components/ui/SectionRadialGlow";
 import useFirstVisit from "@/hooks/useFirstVisit";
+import useIsMobile from "@/hooks/useIsMobile";
+import { getMotionProps } from "@/utils/motion";
 import { profile, socialusernames } from "@/data/profile";
 import emailIcon from "@/assets/icons/contact-icons/email.png";
 import phoneIcon from "@/assets/icons/contact-icons/telephone.png";
@@ -129,10 +131,11 @@ const fieldItemVariants = {
 };
 
 export default function ContactFormSection() {
-  const prefersReducedMotion = !!useReducedMotion();
+  const isMobile = useIsMobile();
+  const prefersReducedMotion = !!useReducedMotion() || isMobile;
   const { isFirstVisit, markVisited } = useFirstVisit("contactPageAnimated");
   const hasMarkedVisitRef = useRef(false);
-  const shouldAnimateIntro = isFirstVisit;
+  const shouldAnimateIntro = isFirstVisit && !isMobile;
   const [submitState, setSubmitState] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [submitMessage, setSubmitMessage] = useState("");
   const [startSheen, setStartSheen] = useState(false);
@@ -219,11 +222,13 @@ export default function ContactFormSection() {
 
       <div className="mx-auto max-w-6xl px-4">
         <motion.header
+          {...getMotionProps(isMobile, {
+            initial: shouldAnimateIntro ? "hidden" : false,
+            animate: "show",
+          })}
           className="mx-auto max-w-3xl text-center"
           variants={heroContainerVariants}
           custom={prefersReducedMotion}
-          initial={shouldAnimateIntro ? "hidden" : false}
-          animate="show"
         >
           <motion.h1
             id="contact-heading"
@@ -244,10 +249,12 @@ export default function ContactFormSection() {
 
         <div className="mt-10 grid gap-6 lg:grid-cols-2">
           <motion.aside
+            {...getMotionProps(isMobile, {
+              initial: shouldAnimateIntro ? "hidden" : false,
+              animate: "show",
+            })}
             variants={cardVariants}
             custom={{ direction: -1, reduceMotion: prefersReducedMotion }}
-            initial={shouldAnimateIntro ? "hidden" : false}
-            animate="show"
             className="rounded-3xl border border-slate-300/70 bg-white/75 p-5 dark:border-slate-500/35 dark:bg-white/[0.03] dark:shadow-[0_0_30px_rgba(255,255,255,0.12)] sm:p-6"
           >
             <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Contact Information</h2>
@@ -317,21 +324,25 @@ export default function ContactFormSection() {
           </motion.aside>
 
           <motion.article
+            {...getMotionProps(isMobile, {
+              initial: shouldAnimateIntro ? "hidden" : false,
+              animate: "show",
+            })}
             variants={cardVariants}
             custom={{ direction: 1, reduceMotion: prefersReducedMotion }}
-            initial={shouldAnimateIntro ? "hidden" : false}
-            animate="show"
             className="rounded-3xl border border-slate-300/70 bg-white/75 p-5 dark:border-slate-500/35 dark:bg-white/[0.03] dark:shadow-[0_0_30px_rgba(255,255,255,0.12)] sm:p-6"
           >
             <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Send a Message</h2>
 
             <motion.form
+              {...getMotionProps(isMobile, {
+                initial: shouldAnimateIntro ? "hidden" : false,
+                animate: "show",
+              })}
               className="mt-5 space-y-4"
               onSubmit={handleSubmit}
               variants={fieldsContainerVariants}
               custom={prefersReducedMotion}
-              initial={shouldAnimateIntro ? "hidden" : false}
-              animate="show"
             >
               <motion.div variants={fieldItemVariants} custom={prefersReducedMotion}>
                 <label htmlFor="contact-name" className="text-sm font-medium text-slate-700 dark:text-white/75">
@@ -384,11 +395,13 @@ export default function ContactFormSection() {
                   <span className="relative z-10">{submitState === "sending" ? "Sending..." : "Send"}</span>
                   {startSheen ? (
                     <motion.span
+                      {...getMotionProps(isMobile, {
+                        initial: { x: "-120%", opacity: 0 },
+                        animate: { x: "340%", opacity: [0, 0.55, 0] },
+                        transition: { duration: 0.75, ease: "easeInOut" },
+                      })}
                       aria-hidden="true"
                       className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 bg-gradient-to-r from-transparent via-white/70 to-transparent dark:via-white/80"
-                      initial={{ x: "-120%", opacity: 0 }}
-                      animate={{ x: "340%", opacity: [0, 0.55, 0] }}
-                      transition={{ duration: 0.75, ease: "easeInOut" }}
                       onAnimationComplete={() => setStartSheen(false)}
                     />
                   ) : null}

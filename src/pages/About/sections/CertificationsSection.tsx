@@ -2,6 +2,8 @@ import { useMemo, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import CardSwap, { Card } from "@/components/CardSwap";
 import SectionRadialGlowAlt from "@/components/ui/SectionRadialGlowAlt";
+import useIsMobile from "@/hooks/useIsMobile";
+import { getMotionProps } from "@/utils/motion";
 import comptiaItfCertImage from "@/assets/images/certifications/Comptia-ITF-Cert.webp";
 import freeCodeCampBackendCertImage from "@/assets/images/certifications/freecodecamp-backend-development-apis-cert.webp";
 import freeCodeCampJsAlgoCertImage from "@/assets/images/certifications/freecodecamp-legacy-javascript-algo-datastruct-cert.webp";
@@ -123,7 +125,8 @@ function createStackLayerVariants(prefersReducedMotion: boolean) {
 }
 
 export default function CertificationsSection() {
-  const prefersReducedMotion = !!useReducedMotion();
+  const isMobile = useIsMobile();
+  const prefersReducedMotion = !!useReducedMotion() || isMobile;
   const [activeIndex, setActiveIndex] = useState(0);
   const [manualAdvanceSignal, setManualAdvanceSignal] = useState(0);
   const [hasEnteredView, setHasEnteredView] = useState(false);
@@ -173,11 +176,13 @@ export default function CertificationsSection() {
 
   return (
     <motion.section
+      {...getMotionProps(isMobile, {
+        initial: "hidden",
+        whileInView: "show",
+        viewport: { once: true, amount: 0.35 },
+      })}
       className="relative pt-0 pb-20 md:pb-28"
       aria-labelledby="certifications-title"
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, amount: 0.35 }}
       onViewportEnter={() => {
         setHasEnteredView(true);
       }}
@@ -282,49 +287,53 @@ export default function CertificationsSection() {
             </motion.div>
           </motion.article>
 
-          <motion.div
-            className="relative hidden min-h-[540px] overflow-visible rounded-3xl min-[1025px]:block"
-            style={{ perspective: 1200 }}
-            variants={stackContainerVariants}
-          >
-            <CardSwap
-              width={410}
-              height={250}
-              cardDistance={44}
-              verticalDistance={32}
-              delay={5200}
-              pauseOnHover={true}
-              easing="smooth"
-              onCardClick={setActiveIndex}
-              onActiveCardChange={setActiveIndex}
-              manualAdvanceSignal={manualAdvanceSignal}
-              containerClassName="!bottom-1/2 !right-12 !translate-x-0 !translate-y-1/2 !origin-right max-[900px]:!right-6 max-[768px]:!right-3 max-[768px]:!translate-x-0 max-[768px]:!translate-y-1/2 max-[480px]:!right-2 max-[480px]:!translate-x-0 max-[480px]:!translate-y-1/2"
+          {!isMobile ? (
+            <motion.div
+              className="relative hidden min-h-[540px] overflow-visible rounded-3xl min-[1025px]:block"
+              style={{ perspective: 1200 }}
+              variants={stackContainerVariants}
             >
-              {CERTIFICATIONS.map((certification, index) => (
-                <Card
-                  key={certification.id}
-                  customClass="!border-0 !bg-transparent !p-0 !shadow-none !backdrop-blur-none overflow-hidden"
-                >
-                  <motion.div
-                    className="h-full w-full"
-                    variants={stackLayerVariants}
-                    custom={index}
+              <CardSwap
+                width={410}
+                height={250}
+                cardDistance={44}
+                verticalDistance={32}
+                delay={5200}
+                pauseOnHover={true}
+                easing="smooth"
+                onCardClick={setActiveIndex}
+                onActiveCardChange={setActiveIndex}
+                manualAdvanceSignal={manualAdvanceSignal}
+                containerClassName="!bottom-1/2 !right-12 !translate-x-0 !translate-y-1/2 !origin-right max-[900px]:!right-6 max-[768px]:!right-3 max-[768px]:!translate-x-0 max-[768px]:!translate-y-1/2 max-[480px]:!right-2 max-[480px]:!translate-x-0 max-[480px]:!translate-y-1/2"
+              >
+                {CERTIFICATIONS.map((certification, index) => (
+                  <Card
+                    key={certification.id}
+                    customClass="!border-0 !bg-transparent !p-0 !shadow-none !backdrop-blur-none overflow-hidden"
                   >
                     <motion.div
-                      className="h-full w-full rounded-[inherit]"
-                      animate={index === 0 ? topCardPulseAnimation : undefined}
+                      className="h-full w-full"
+                      variants={stackLayerVariants}
+                      custom={index}
                     >
-                      <img
-                        src={certification.image}
-                        alt={`${certification.title} preview`}
-                        className="h-full w-full object-contain object-center"
-                      />
+                      <motion.div
+                        className="h-full w-full rounded-[inherit]"
+                        {...getMotionProps(isMobile, {
+                          animate: index === 0 ? topCardPulseAnimation : undefined,
+                        })}
+                      >
+                        <img
+                          src={certification.image}
+                          alt={`${certification.title} preview`}
+                          className="h-full w-full object-contain object-center"
+                        />
+                      </motion.div>
                     </motion.div>
-                  </motion.div>
-                </Card>
-              ))}
-            </CardSwap>
-          </motion.div>
+                  </Card>
+                ))}
+              </CardSwap>
+            </motion.div>
+          ) : null}
         </div>
       </div>
     </motion.section>

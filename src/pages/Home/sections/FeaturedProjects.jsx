@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import usePrefersReducedMotion from "@/hooks/usePrefersReducedMotion";
+import useIsMobile from "@/hooks/useIsMobile";
 import SectionRadialGlow from "@/components/ui/SectionRadialGlow";
 import { featuredProjects } from "@/data/projects";
 
@@ -265,7 +266,8 @@ function ProjectCard({ project, delay, isVisible, prefersReducedMotion }) {
 
 export default function FeaturedProjects() {
   const sectionRef = useRef(null);
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const isMobile = useIsMobile();
+  const prefersReducedMotion = usePrefersReducedMotion() || isMobile;
   const [isVisible, setIsVisible] = useState(() => {
     if (typeof window === "undefined") return false;
     return window.sessionStorage.getItem(FEATURED_PROJECTS_SEEN_KEY) === "1";

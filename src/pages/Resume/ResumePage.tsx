@@ -3,10 +3,12 @@ import LightRays from "@/components/LightRays";
 import Footer from "@/components/layout/Footer";
 import ResumeHero from "./sections/ResumeHero";
 import ResumeDetailsSection from "./sections/ResumeDetailsSection";
+import useIsMobile from "@/hooks/useIsMobile";
 
 const RESUME_ANIMATION_SEEN_KEY = "resume_page_animation_seen";
 
 export default function ResumePage() {
+  const isMobile = useIsMobile();
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof document === "undefined") return false;
     return document.body.classList.contains("dark");
@@ -62,7 +64,7 @@ export default function ResumePage() {
         }}
         aria-hidden="true"
       >
-        {isDarkMode && (
+        {isDarkMode && !isMobile && (
           <LightRays
             raysOrigin="top-center"
             raysColor="#7dd3fc"
@@ -109,8 +111,8 @@ export default function ResumePage() {
       </div>
 
       <div className="relative z-10">
-        <ResumeHero shouldAnimate={shouldAnimate} />
-        <ResumeDetailsSection shouldAnimate={shouldAnimate} />
+        <ResumeHero shouldAnimate={shouldAnimate && !isMobile} />
+        <ResumeDetailsSection shouldAnimate={shouldAnimate && !isMobile} />
         <Footer />
       </div>
     </main>

@@ -9,12 +9,12 @@ import outputReactIcon from "@/assets/icons/node-beam/output/React.png";
 import outputTestingIcon from "@/assets/icons/node-beam/output/testing.png";
 import outputDeploymentIcon from "@/assets/icons/node-beam/output/deployment.png";
 import SoftSkillsGrid from "./SoftSkillsGrid";
+import useIsMobile from "@/hooks/useIsMobile";
 import "./MagicBento.css";
 
 const DEFAULT_PARTICLE_COUNT = 12;
 const DEFAULT_SPOTLIGHT_RADIUS = 410;
 const DEFAULT_GLOW_COLOR = "96, 165, 250";
-const MOBILE_BREAKPOINT = 768;
 
 const cardData = [
   {
@@ -484,21 +484,6 @@ const BentoCardGrid = ({ children, gridRef, style }) => (
   </div>
 );
 
-const useMobileDetection = () => {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
-
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
-  return isMobile;
-};
-
 const useBodyDarkMode = () => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof document === "undefined") return false;
@@ -805,7 +790,7 @@ const MagicBento = ({
   introActive = true,
 }) => {
   const gridRef = useRef(null);
-  const isMobile = useMobileDetection();
+  const isMobile = useIsMobile();
   const isDarkMode = useBodyDarkMode();
   const shouldDisableAnimations = disableAnimations || isMobile;
   const shouldEnableBorderGlow = enableBorderGlow && isDarkMode;

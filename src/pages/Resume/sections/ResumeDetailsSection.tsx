@@ -2,6 +2,8 @@ import { motion, useReducedMotion } from "framer-motion";
 import { resume } from "@/data/resume";
 import SectionHeader from "../components/SectionHeader";
 import { containerStagger, EASE_OUT, fadeUp } from "../motionVariants";
+import useIsMobile from "@/hooks/useIsMobile";
+import { getMotionProps } from "@/utils/motion";
 
 const SECTION_VIEWPORT = { once: true, amount: 0.25 };
 
@@ -68,7 +70,8 @@ type ResumeDetailsSectionProps = {
 };
 
 export default function ResumeDetailsSection({ shouldAnimate = true }: ResumeDetailsSectionProps) {
-  const prefersReducedMotion = !!useReducedMotion();
+  const isMobile = useIsMobile();
+  const prefersReducedMotion = !!useReducedMotion() || isMobile;
 
   const skillGroups = [
     { label: "Frontend Development", items: resume.technicalSkills.frontendDevelopment },
@@ -80,16 +83,19 @@ export default function ResumeDetailsSection({ shouldAnimate = true }: ResumeDet
   const splitSoftSkillsAt = Math.ceil(resume.softSkills.length / 2);
   const softSkillsLeft = resume.softSkills.slice(0, splitSoftSkillsAt);
   const softSkillsRight = resume.softSkills.slice(splitSoftSkillsAt);
-  const sectionMotionProps = shouldAnimate
-    ? {
-      initial: "hidden" as const,
-      whileInView: "show" as const,
-      viewport: SECTION_VIEWPORT,
-    }
-    : {
-      initial: false as const,
-      animate: "show" as const,
-    };
+  const sectionMotionProps = getMotionProps(
+    isMobile,
+    shouldAnimate
+      ? {
+        initial: "hidden" as const,
+        whileInView: "show" as const,
+        viewport: SECTION_VIEWPORT,
+      }
+      : {
+        initial: false as const,
+        animate: "show" as const,
+      },
+  );
 
   return (
     <section className="relative px-4 pb-16 sm:px-6 md:pb-24">
@@ -250,9 +256,11 @@ export default function ResumeDetailsSection({ shouldAnimate = true }: ResumeDet
                           <h3 className="text-[30px] font-semibold leading-none text-slate-900 dark:text-white/75">{project.name}</h3>
                           <motion.a
                             href="/projects"
-                            initial="rest"
-                            animate="rest"
-                            whileHover={prefersReducedMotion ? "rest" : "hover"}
+                            {...getMotionProps(isMobile, {
+                              initial: "rest",
+                              animate: "rest",
+                              whileHover: prefersReducedMotion ? "rest" : "hover",
+                            })}
                             className="relative text-sm font-semibold text-slate-600 transition hover:text-slate-900 dark:text-white/75 dark:hover:text-white/90"
                           >
                             <span className="inline-flex items-center">

@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { featuredProjects } from "@/data/projects";
 import SectionRadialGlow from "@/components/ui/SectionRadialGlow";
 import usePrefersReducedMotion from "@/hooks/usePrefersReducedMotion";
+import useIsMobile from "@/hooks/useIsMobile";
+import { getMotionProps } from "@/utils/motion";
 import "./projects-grid-glow.css";
 
 type ProjectsGridSectionProps = {
@@ -70,10 +72,11 @@ export default function ProjectsGridSection({
   shouldAnimateIntro,
   phaseDelay,
 }: ProjectsGridSectionProps) {
+  const isMobile = useIsMobile();
   const sectionRef = useRef<HTMLElement | null>(null);
   const glowZoneRef = useRef<HTMLDivElement | null>(null);
   const spotlightRef = useRef<HTMLDivElement | null>(null);
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const prefersReducedMotion = usePrefersReducedMotion() || isMobile;
   const [glowEnabled, setGlowEnabled] = useState(false);
 
   useEffect(() => {
@@ -176,11 +179,13 @@ export default function ProjectsGridSection({
 
       <div className="mx-auto max-w-6xl px-4">
         <motion.header
+          {...getMotionProps(isMobile, {
+            initial: shouldAnimateIntro ? "hidden" : false,
+            animate: "show",
+          })}
           className="mx-auto max-w-3xl text-center"
           variants={headingContainerVariants}
           custom={phaseDelay}
-          initial={shouldAnimateIntro ? "hidden" : false}
-          animate="show"
         >
           <motion.p
             variants={headingItemVariants}
@@ -201,11 +206,13 @@ export default function ProjectsGridSection({
           {glowEnabled ? <div ref={spotlightRef} className="projects-spotlight" aria-hidden="true" /> : null}
 
           <motion.div
+            {...getMotionProps(isMobile, {
+              initial: shouldAnimateIntro ? "hidden" : false,
+              animate: "show",
+            })}
             className="relative z-10 grid grid-cols-1 gap-6 lg:grid-cols-2"
             variants={cardsContainerVariants}
             custom={phaseDelay + 0.15}
-            initial={shouldAnimateIntro ? "hidden" : false}
-            animate="show"
           >
           {featuredProjects.map((project) => {
             return (

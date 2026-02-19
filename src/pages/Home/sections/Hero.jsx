@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import avatarImage from "@/assets/images/pic.webp";
+import useIsMobile from "@/hooks/useIsMobile";
 
 const EtherealHeroBackground = lazy(() => import("../hero/EtherealHeroBackground"));
 
@@ -22,6 +23,7 @@ export default function Hero({
   phase = "ready",
   prefersReducedMotion = false,
 }) {
+  const isMobile = useIsMobile();
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof document === "undefined") return false;
     return document.body.classList.contains("dark");
@@ -97,9 +99,11 @@ export default function Hero({
           backgroundVisible ? "opacity-100" : "opacity-0"
         }`}
       >
-        <Suspense fallback={null}>
-          <EtherealHeroBackground isDarkMode={isDarkMode} />
-        </Suspense>
+        {!isMobile ? (
+          <Suspense fallback={null}>
+            <EtherealHeroBackground isDarkMode={isDarkMode} />
+          </Suspense>
+        ) : null}
         <div
           className={`absolute inset-0 ${
             isDarkMode

@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { fadeUp, lineDraw } from "../motionVariants";
+import useIsMobile from "@/hooks/useIsMobile";
+import { getMotionProps } from "@/utils/motion";
 
 const MotionIndex = motion.span;
 const MotionTitle = motion.h2;
@@ -10,22 +12,30 @@ export default function SectionHeader({
   title,
   prefersReducedMotion = false,
 }) {
+  const isMobile = useIsMobile();
+
   return (
     <header className="mb-5 flex items-center gap-3">
       <MotionIndex
-        variants={fadeUp(prefersReducedMotion, 0, 6, 0.24)}
+        {...getMotionProps(isMobile, {
+          variants: fadeUp(prefersReducedMotion, 0, 6, 0.24),
+        })}
         className="text-[10px] font-semibold uppercase tracking-[0.24em] text-slate-500 dark:text-white/45"
       >
         {index}
       </MotionIndex>
       <MotionTitle
-        variants={fadeUp(prefersReducedMotion, 0.12, 6, 0.28)}
+        {...getMotionProps(isMobile, {
+          variants: fadeUp(prefersReducedMotion, 0.12, 6, 0.28),
+        })}
         className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-700 dark:text-white/65"
       >
         {title}
       </MotionTitle>
       <MotionDivider
-        variants={lineDraw(prefersReducedMotion, 0.06, 0.4)}
+        {...getMotionProps(isMobile, {
+          variants: lineDraw(prefersReducedMotion, 0.06, 0.4),
+        })}
         className="h-px flex-1 bg-slate-300/70 dark:bg-white/12"
         style={{ transformOrigin: "left" }}
       />

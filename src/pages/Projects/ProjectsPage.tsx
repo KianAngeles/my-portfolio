@@ -6,6 +6,7 @@ import usePrefersReducedMotion from "@/hooks/usePrefersReducedMotion";
 import ProjectsGridSection from "./sections/ProjectsGridSection";
 import ProjectsHero from "./sections/ProjectsHero";
 import ProjectsHighlightsSection from "./sections/ProjectsHighlightsSection";
+import useIsMobile from "@/hooks/useIsMobile";
 
 const PHASE_DELAYS = {
   hero: 0,
@@ -14,11 +15,12 @@ const PHASE_DELAYS = {
 };
 
 export default function ProjectsPage() {
+  const isMobile = useIsMobile();
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof document === "undefined") return false;
     return document.body.classList.contains("dark");
   });
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const prefersReducedMotion = usePrefersReducedMotion() || isMobile;
   const { isFirstVisit, markVisited } = useFirstVisit("projectsPageAnimated");
   const hasMarkedVisitRef = useRef(false);
   const shouldAnimateIntro = isFirstVisit && !prefersReducedMotion;
@@ -62,7 +64,7 @@ export default function ProjectsPage() {
         }}
         aria-hidden="true"
       >
-        {isDarkMode && (
+        {isDarkMode && !isMobile && (
           <LightRays
             raysOrigin="top-center"
             raysColor="#7dd3fc"

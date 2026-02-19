@@ -5,8 +5,10 @@ import AboutHero from "./sections/AboutHero";
 import CertificationsSection from "./sections/CertificationsSection";
 import StoryBentoSection from "./sections/StoryBentoSection";
 import SkillsExpertiseSection from "./sections/SkillsExpertiseSection";
+import useIsMobile from "@/hooks/useIsMobile";
 
 export default function AboutPage() {
+  const isMobile = useIsMobile();
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof document === "undefined") return false;
     return document.body.classList.contains("dark");
@@ -43,7 +45,7 @@ export default function AboutPage() {
         }}
         aria-hidden="true"
       >
-        {isDarkMode && (
+        {isDarkMode && !isMobile && (
           <div
             className="absolute inset-x-0 top-0 h-[125vh]"
             style={{
