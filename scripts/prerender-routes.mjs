@@ -113,6 +113,26 @@ function escapeHtml(value) {
     .replaceAll("'", "&#39;");
 }
 
+function setHtmlLanguage(html, lang = "en", dir = "ltr") {
+  return html.replace(/<html\b[^>]*>/i, (tag) => {
+    let nextTag = tag;
+
+    if (/\blang\s*=\s*["'][^"']*["']/i.test(nextTag)) {
+      nextTag = nextTag.replace(/\blang\s*=\s*["'][^"']*["']/i, `lang="${lang}"`);
+    } else {
+      nextTag = nextTag.replace(/^<html\b/i, `<html lang="${lang}"`);
+    }
+
+    if (/\bdir\s*=\s*["'][^"']*["']/i.test(nextTag)) {
+      nextTag = nextTag.replace(/\bdir\s*=\s*["'][^"']*["']/i, `dir="${dir}"`);
+    } else {
+      nextTag = nextTag.replace(/^<html\b/i, `<html dir="${dir}"`);
+    }
+
+    return nextTag;
+  });
+}
+
 function setTitle(html, title) {
   return html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(title)}</title>`);
 }
@@ -181,7 +201,7 @@ function setNoscriptFallback(html, route, title, description, canonicalUrl) {
 
 function buildRouteHtml(template, route, siteUrl, meta) {
   const canonicalUrl = `${siteUrl}${route}`;
-  let nextHtml = template;
+  let nextHtml = setHtmlLanguage(template, "en", "ltr");
 
   nextHtml = setTitle(nextHtml, meta.title);
   nextHtml = setCanonical(nextHtml, canonicalUrl);

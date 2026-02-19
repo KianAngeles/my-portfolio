@@ -6,6 +6,8 @@ import App from "./App";
 import "@/styles/index.css";
 
 const HOME_INTRO_STORAGE_KEY = "homeIntroSeen";
+document.documentElement.lang = "en";
+document.documentElement.dir = "ltr";
 const savedTheme = window.localStorage.getItem("theme");
 const initialIsDark = savedTheme ? savedTheme === "dark" : true;
 document.body.classList.toggle("dark", initialIsDark);
