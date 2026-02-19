@@ -13,6 +13,36 @@
   to { background-position: -10% 50%; }
 }
 
+@keyframes aboutTechPulse {
+  0% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(0.88);
+  }
+  70% {
+    opacity: 0.2;
+    transform: translate(-50%, -50%) scale(1.12);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+@keyframes centerPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.95);
+    opacity: 0.35;
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(1.15);
+    opacity: 0.1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.25);
+    opacity: 0;
+  }
+}
+
 .about-rotate-cw {
   animation: aboutOrbitCw 28s linear infinite;
   will-change: transform;

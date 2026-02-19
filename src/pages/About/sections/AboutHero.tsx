@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import portraitImage from "@/assets/images/pic.webp";
 import typescriptIcon from "@/assets/icons/tech/typescript.png";
-import reactIcon from "@/assets/icons/tech/react.png";
-import nodejsIcon from "@/assets/icons/tech/nodejs.png";
-import vercelIcon from "@/assets/icons/tech/vercel.png";
+import reactIcon from "@/assets/icons/marquee-tech/React.png";
+import nodejsIcon from "@/assets/icons/marquee-tech/Node.js.png";
+import nextjsIcon from "@/assets/icons/marquee-tech/Next.js.png";
 import githubTechIcon from "@/assets/icons/tech/github.png";
 import mongodbIcon from "@/assets/icons/tech/mongodb.png";
-import figmaIcon from "@/assets/icons/tech/figma.png";
+import javascriptIcon from "@/assets/icons/marquee-tech/JavaScript.png";
 import flutterIcon from "@/assets/icons/tech/flutter.png";
 import pythonIcon from "@/assets/icons/tech/python.png";
 import linkedinSocialIcon from "@/assets/icons/socials/linkedin.png";
@@ -33,18 +33,18 @@ const INNER_RING_CIRCUMFERENCE = 2 * Math.PI * INNER_RING_RADIUS;
 const OUTER_RING_CIRCUMFERENCE = 2 * Math.PI * OUTER_RING_RADIUS;
 
 const INNER_RING_ITEMS = [
-  { src: typescriptIcon, name: "TypeScript" },
-  { src: reactIcon, name: "React" },
-  { src: nodejsIcon, name: "Node.js" },
-  { src: vercelIcon, name: "Next.js" },
+  { id: "typescript", src: typescriptIcon, label: "TypeScript", color: "#3178C6" },
+  { id: "react", src: reactIcon, label: "React", color: "#61DAFB" },
+  { id: "nodejs", src: nodejsIcon, label: "Node.js", color: "#68A063" },
+  { id: "nextjs", src: nextjsIcon, label: "Next.js", color: "#FFFFFF" },
 ];
 
 const OUTER_RING_ITEMS = [
-  { src: githubTechIcon, name: "GitHub" },
-  { src: mongodbIcon, name: "MongoDB" },
-  { src: figmaIcon, name: "Figma" },
-  { src: flutterIcon, name: "Flutter" },
-  { src: pythonIcon, name: "Python" },
+  { id: "github", src: githubTechIcon, label: "GitHub", color: "#FFFFFF" },
+  { id: "mongodb", src: mongodbIcon, label: "MongoDB", color: "#22C55E" },
+  { id: "javascript", src: javascriptIcon, label: "JavaScript", color: "#F7DF1E" },
+  { id: "flutter", src: flutterIcon, label: "Flutter", color: "#38BDF8" },
+  { id: "python", src: pythonIcon, label: "Python", color: "#3776AB" },
 ];
 
 // TODO: finalize and verify public social profile URLs in src/data/profile.js.
@@ -95,8 +95,11 @@ export default function AboutHero() {
     runIntro ? 0 : OUTER_RING_ITEMS.length,
   );
   const [rotationActive, setRotationActive] = useState(!runIntro && !prefersReducedMotion);
+  const [activeTech, setActiveTech] = useState(null);
+  const [centerActive, setCenterActive] = useState(false);
 
   const hasMarkedVisitRef = useRef(false);
+  const touchResetTimeoutRef = useRef(null);
 
   useEffect(() => {
     let typingIntervalId;
@@ -207,10 +210,43 @@ export default function AboutHero() {
     };
   }, [isFirstVisit, markVisited, prefersReducedMotion, runIntro]);
 
+  useEffect(() => {
+    return () => {
+      if (touchResetTimeoutRef.current) {
+        window.clearTimeout(touchResetTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const clearActiveTech = () => {
+    if (touchResetTimeoutRef.current) {
+      window.clearTimeout(touchResetTimeoutRef.current);
+      touchResetTimeoutRef.current = null;
+    }
+    setActiveTech(null);
+  };
+
+  const handleTechTouch = (tech) => {
+    setActiveTech(tech);
+
+    if (touchResetTimeoutRef.current) {
+      window.clearTimeout(touchResetTimeoutRef.current);
+    }
+
+    touchResetTimeoutRef.current = window.setTimeout(() => {
+      setActiveTech(null);
+      touchResetTimeoutRef.current = null;
+    }, 1200);
+  };
+
   const typedPrefix = typedText.slice(0, GREETING_PREFIX.length);
   const typedName = typedText.length > GREETING_PREFIX.length
     ? typedText.slice(GREETING_PREFIX.length)
     : "";
+  const neutralOrbitAccent = "#60A5FA";
+  const activeTechColor = activeTech?.color ?? null;
+  const centerRingColor = activeTechColor ?? (centerActive ? neutralOrbitAccent : null);
+  const centerPulseColor = activeTechColor ?? (centerActive ? neutralOrbitAccent : null);
 
   // TODO: replace this with your final portrait source if it changes.
   const profileImageSrc = portraitImage;
@@ -304,8 +340,14 @@ export default function AboutHero() {
           <div className="hidden min-[1100px]:order-2 min-[1100px]:block">
             <div className="mx-auto w-full max-w-[520px]">
               <div
+                onMouseLeave={() => {
+                  clearActiveTech();
+                  setCenterActive(false);
+                }}
                 className={`relative h-[500px] w-full overflow-visible transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:h-[540px] ${
                   showOrbit ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-4 scale-[0.96]"
+                } ${
+                  centerActive ? "scale-[1.02]" : "scale-100"
                 }`}
               >
                 <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox={`0 0 ${ORBIT_SIZE} ${ORBIT_SIZE}`} aria-hidden="true">
@@ -314,16 +356,22 @@ export default function AboutHero() {
                     cy={ORBIT_CENTER}
                     r={INNER_RING_RADIUS}
                     fill="none"
-                    stroke="rgba(255,255,255,0.14)"
+                    stroke={centerActive ? "rgba(255,255,255,0.22)" : "rgba(255,255,255,0.14)"}
                     strokeWidth="1.2"
+                    style={{
+                      filter: centerActive ? "drop-shadow(0 0 8px rgba(59,130,246,0.24))" : "none",
+                    }}
                   />
                   <circle
                     cx={ORBIT_CENTER}
                     cy={ORBIT_CENTER}
                     r={OUTER_RING_RADIUS}
                     fill="none"
-                    stroke="rgba(255,255,255,0.12)"
+                    stroke={centerActive ? "rgba(255,255,255,0.2)" : "rgba(255,255,255,0.12)"}
                     strokeWidth="1.2"
+                    style={{
+                      filter: centerActive ? "drop-shadow(0 0 8px rgba(59,130,246,0.24))" : "none",
+                    }}
                   />
 
                   <circle
@@ -331,15 +379,16 @@ export default function AboutHero() {
                     cy={ORBIT_CENTER}
                     r={INNER_RING_RADIUS}
                     fill="none"
-                    stroke="rgba(96,165,250,0.5)"
+                    stroke={centerActive ? "rgba(96,165,250,0.76)" : "rgba(96,165,250,0.5)"}
                     strokeWidth="1.5"
                     strokeLinecap="round"
                     strokeDasharray={INNER_RING_CIRCUMFERENCE}
                     strokeDashoffset={showInnerRing ? 0 : INNER_RING_CIRCUMFERENCE}
                     style={{
+                      filter: centerActive ? "drop-shadow(0 0 10px rgba(59,130,246,0.34))" : "none",
                       transition: prefersReducedMotion
                         ? "none"
-                        : "stroke-dashoffset 900ms cubic-bezier(0.22,1,0.36,1)",
+                        : "stroke-dashoffset 900ms cubic-bezier(0.22,1,0.36,1), filter 300ms ease-out, stroke 300ms ease-out",
                     }}
                   />
                   <circle
@@ -347,95 +396,224 @@ export default function AboutHero() {
                     cy={ORBIT_CENTER}
                     r={OUTER_RING_RADIUS}
                     fill="none"
-                    stroke="rgba(96,165,250,0.46)"
+                    stroke={centerActive ? "rgba(96,165,250,0.72)" : "rgba(96,165,250,0.46)"}
                     strokeWidth="1.5"
                     strokeLinecap="round"
                     strokeDasharray={OUTER_RING_CIRCUMFERENCE}
                     strokeDashoffset={showOuterRing ? 0 : OUTER_RING_CIRCUMFERENCE}
                     style={{
+                      filter: centerActive ? "drop-shadow(0 0 10px rgba(59,130,246,0.3))" : "none",
                       transition: prefersReducedMotion
                         ? "none"
-                        : "stroke-dashoffset 980ms cubic-bezier(0.22,1,0.36,1)",
+                        : "stroke-dashoffset 980ms cubic-bezier(0.22,1,0.36,1), filter 300ms ease-out, stroke 300ms ease-out",
                     }}
                   />
                 </svg>
 
                 <div
-                  className={`absolute inset-0 ${
+                  className={`pointer-events-none absolute inset-0 ${
                     rotationActive && !prefersReducedMotion ? "about-rotate-cw" : ""
                   }`}
                 >
                   {OUTER_RING_ITEMS.map((item, index) => {
                     const { x, y } = orbitPoint(OUTER_RING_RADIUS, index, OUTER_RING_ITEMS.length);
                     const isVisible = visibleOuterIcons > index;
+                    const isActive = activeTech?.id === item.id;
+                    const isEnhanced = isActive || centerActive;
+                    const needsHaloLayer = item.id === "github";
+                    const iconGlow = `drop-shadow(0 0 12px ${item.color}cc) drop-shadow(0 0 24px ${item.color}99)`;
 
                     return (
                       <div
-                        key={item.name}
+                        key={item.id}
                         className="absolute -translate-x-1/2 -translate-y-1/2"
                         style={{
                           left: `calc(50% + ${x}px)`,
                           top: `calc(50% + ${y}px)`,
                         }}
                       >
-                        <span
-                          className={`inline-flex h-12 w-12 items-center justify-center transition-all duration-500 ease-out ${
-                            isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"
-                          } ${rotationActive && !prefersReducedMotion ? "about-counter-outer" : ""}`}
+                        <button
+                          type="button"
+                          onMouseEnter={() => setActiveTech(item)}
+                          onMouseLeave={clearActiveTech}
+                          onFocus={() => setActiveTech(item)}
+                          onBlur={clearActiveTech}
+                          onTouchStart={() => handleTechTouch(item)}
+                          className={`group/tech relative inline-flex h-12 w-12 items-center justify-center transition-all duration-300 ease-out focus-visible:outline-none ${
+                            isVisible ? "pointer-events-auto" : "pointer-events-none"
+                          } ${
+                            isActive ? "z-20 scale-[1.2]" : centerActive ? "z-10 scale-105" : "scale-100"
+                          }`}
+                          aria-label={item.label}
                         >
-                          <img
-                            src={item.src}
-                            alt={item.name}
-                            className="h-full w-full object-contain drop-shadow-[0_8px_18px_rgba(11,30,58,0.45)]"
-                            loading="lazy"
-                            decoding="async"
+                          <span
+                            className={`absolute inset-[-6px] rounded-full transition-opacity duration-300 ${
+                              isEnhanced ? "opacity-100" : "opacity-0"
+                            }`}
+                            style={{
+                              background: `radial-gradient(circle, ${item.color}5c 0%, transparent 70%)`,
+                            }}
+                            aria-hidden="true"
                           />
-                        </span>
+                          <span
+                            className={`relative inline-flex h-12 w-12 items-center justify-center transition-all duration-500 ease-out ${
+                              isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"
+                            } ${rotationActive && !prefersReducedMotion ? "about-counter-outer" : ""}`}
+                          >
+                            <span
+                              className={`pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 rounded-full border border-white/10 bg-slate-950/60 px-2.5 py-1 text-xs font-medium text-white/95 backdrop-blur-md transition-all duration-200 ${
+                                isActive ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
+                              }`}
+                            >
+                              {item.label}
+                            </span>
+                            {needsHaloLayer && (
+                              <span
+                                className={`pointer-events-none absolute inset-0 rounded-full transition-opacity duration-300 ${
+                                  isEnhanced ? "opacity-100" : "opacity-0"
+                                }`}
+                                style={{
+                                  boxShadow: `0 0 12px ${item.color}cc, 0 0 24px ${item.color}80`,
+                                }}
+                                aria-hidden="true"
+                              />
+                            )}
+                            <img
+                              src={item.src}
+                              alt={item.label}
+                              className={`h-full w-full object-contain drop-shadow-[0_8px_18px_rgba(11,30,58,0.45)] transition-[filter] duration-300 ${
+                                item.id === "github" ? "dark:brightness-0 dark:invert" : ""
+                              }`}
+                              style={isEnhanced && item.id !== "github"
+                                ? { filter: `brightness(1.08) ${iconGlow}` }
+                                : undefined}
+                              loading="lazy"
+                              decoding="async"
+                            />
+                          </span>
+                        </button>
                       </div>
                     );
                   })}
                 </div>
 
                 <div
-                  className={`absolute inset-0 ${
+                  className={`pointer-events-none absolute inset-0 ${
                     rotationActive && !prefersReducedMotion ? "about-rotate-ccw" : ""
                   }`}
                 >
                   {INNER_RING_ITEMS.map((item, index) => {
                     const { x, y } = orbitPoint(INNER_RING_RADIUS, index, INNER_RING_ITEMS.length);
                     const isVisible = visibleInnerIcons > index;
+                    const isActive = activeTech?.id === item.id;
+                    const isEnhanced = isActive || centerActive;
+                    const needsHaloLayer = item.id === "nextjs";
+                    const iconGlow = `drop-shadow(0 0 12px ${item.color}cc) drop-shadow(0 0 24px ${item.color}99)`;
 
                     return (
                       <div
-                        key={item.name}
+                        key={item.id}
                         className="absolute -translate-x-1/2 -translate-y-1/2"
                         style={{
                           left: `calc(50% + ${x}px)`,
                           top: `calc(50% + ${y}px)`,
                         }}
                       >
-                        <span
-                          className={`inline-flex h-11 w-11 items-center justify-center transition-all duration-500 ease-out ${
-                            isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"
-                          } ${rotationActive && !prefersReducedMotion ? "about-counter-inner" : ""}`}
+                        <button
+                          type="button"
+                          onMouseEnter={() => setActiveTech(item)}
+                          onMouseLeave={clearActiveTech}
+                          onFocus={() => setActiveTech(item)}
+                          onBlur={clearActiveTech}
+                          onTouchStart={() => handleTechTouch(item)}
+                          className={`group/tech relative inline-flex h-11 w-11 items-center justify-center transition-all duration-300 ease-out focus-visible:outline-none ${
+                            isVisible ? "pointer-events-auto" : "pointer-events-none"
+                          } ${
+                            isActive ? "z-20 scale-[1.2]" : centerActive ? "z-10 scale-105" : "scale-100"
+                          }`}
+                          aria-label={item.label}
                         >
-                          <img
-                            src={item.src}
-                            alt={item.name}
-                            className="h-full w-full object-contain drop-shadow-[0_8px_18px_rgba(11,30,58,0.45)]"
-                            loading="lazy"
-                            decoding="async"
+                          <span
+                            className={`absolute inset-[-6px] rounded-full transition-opacity duration-300 ${
+                              isEnhanced ? "opacity-100" : "opacity-0"
+                            }`}
+                            style={{
+                              background: `radial-gradient(circle, ${item.color}5c 0%, transparent 70%)`,
+                            }}
+                            aria-hidden="true"
                           />
-                        </span>
+                          <span
+                            className={`relative inline-flex h-11 w-11 items-center justify-center transition-all duration-500 ease-out ${
+                              isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"
+                            } ${rotationActive && !prefersReducedMotion ? "about-counter-inner" : ""}`}
+                          >
+                            <span
+                              className={`pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 rounded-full border border-white/10 bg-slate-950/60 px-2.5 py-1 text-xs font-medium text-white/95 backdrop-blur-md transition-all duration-200 ${
+                                isActive ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
+                              }`}
+                            >
+                              {item.label}
+                            </span>
+                            {needsHaloLayer && (
+                              <span
+                                className={`pointer-events-none absolute inset-0 rounded-full transition-opacity duration-300 ${
+                                  isEnhanced ? "opacity-100" : "opacity-0"
+                                }`}
+                                style={{
+                                  boxShadow: `0 0 12px ${item.color}cc, 0 0 24px ${item.color}80`,
+                                }}
+                                aria-hidden="true"
+                              />
+                            )}
+                            <img
+                              src={item.src}
+                              alt={item.label}
+                              className={`h-full w-full object-contain drop-shadow-[0_8px_18px_rgba(11,30,58,0.45)] transition-[filter] duration-300 ${
+                                item.id === "nextjs" ? "dark:brightness-0 dark:invert" : ""
+                              }`}
+                              style={isEnhanced && item.id !== "nextjs"
+                                ? { filter: `brightness(1.08) ${iconGlow}` }
+                                : undefined}
+                              loading="lazy"
+                              decoding="async"
+                            />
+                          </span>
+                        </button>
                       </div>
                     );
                   })}
                 </div>
 
+                {centerPulseColor && (
+                  <div
+                    className="pointer-events-none absolute left-1/2 top-1/2 h-[260px] w-[260px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+                    style={{
+                      background: `radial-gradient(circle, ${centerPulseColor}5c 0%, ${centerPulseColor}1f 40%, transparent 72%)`,
+                      animation: prefersReducedMotion
+                        ? "none"
+                        : centerActive
+                          ? "centerPulse 1.5s ease-out infinite"
+                          : "aboutTechPulse 1.7s ease-out infinite",
+                    }}
+                    aria-hidden="true"
+                  />
+                )}
+
                 <figure
                   className={`absolute left-1/2 top-1/2 h-[188px] w-[188px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full border border-slate-300 bg-white p-1.5 shadow-2xl shadow-slate-300/55 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] dark:border-white/20 dark:bg-white/5 dark:shadow-black/35 ${
                     showPhoto ? "opacity-100 scale-100" : "opacity-0 scale-90"
                   }`}
+                  onMouseEnter={() => {
+                    clearActiveTech();
+                    setCenterActive(true);
+                  }}
+                  onMouseLeave={() => setCenterActive(false)}
+                  style={centerRingColor ? {
+                    borderColor: `${centerRingColor}`,
+                    boxShadow: centerActive
+                      ? `0 0 0 1px ${centerRingColor}80, 0 0 36px ${centerRingColor}66, 0 28px 60px -30px ${centerRingColor}88`
+                      : `0 0 0 1px ${centerRingColor}66, 0 0 28px ${centerRingColor}4d, 0 26px 56px -30px ${centerRingColor}80`,
+                  } : undefined}
                 >
                   <img
                     src={profileImageSrc}

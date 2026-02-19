@@ -58,6 +58,11 @@ type TechLogo = {
   darkToWhite?: boolean;
 };
 
+type TechLogoChipProps = {
+  logo: TechLogo;
+  itemClassName?: string;
+};
+
 const TECH_LOGOS: TechLogo[] = [
   { name: "TypeScript", src: typescriptIcon },
   { name: "React", src: reactIcon },
@@ -99,10 +104,10 @@ const DRIVE_ITEMS: DriveItem[] = [
 ];
 
 const STATS: StatItem[] = [
-  { target: 3, suffix: "+", label: "Years Building", accentClass: "text-sky-300" },
-  { target: 28, suffix: "+", label: "Tech Stacks Explored", accentClass: "text-indigo-300" },
-  { target: 9, suffix: "+", label: "Core Technologies", accentClass: "text-teal-300" },
-  { target: 99, suffix: "%", label: "Delivery Focus", accentClass: "text-amber-300" },
+  { target: 3, suffix: "+", label: "Years Building", accentClass: "text-black dark:text-white" },
+  { target: 28, suffix: "+", label: "Tech Stacks Explored", accentClass: "text-black dark:text-white" },
+  { target: 9, suffix: "+", label: "Core Technologies", accentClass: "text-black dark:text-white" },
+  { target: 99, suffix: "%", label: "Delivery Focus", accentClass: "text-black dark:text-white" },
 ];
 
 const REVEAL_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -176,6 +181,24 @@ function TraitIcon({ variant, animate }: { variant: TraitIconVariant; animate: b
 
 function easeOutCubic(value: number) {
   return 1 - Math.pow(1 - value, 3);
+}
+
+function TechLogoChip({ logo, itemClassName = "" }: TechLogoChipProps) {
+  return (
+    <li className={itemClassName}>
+      <div className="group/logo flex min-w-[96px] flex-col items-center justify-center gap-1 px-1 text-center text-slate-600 transition-all duration-200 hover:-translate-y-0.5 hover:text-slate-900 dark:text-white/65 dark:hover:text-white">
+        <img
+          src={logo.src}
+          alt={logo.name}
+          className={`h-9 w-9 object-contain drop-shadow-[0_8px_18px_rgba(0,0,0,0.35)] transition-all duration-200 group-hover/logo:scale-105 group-hover/logo:brightness-110 group-hover/logo:drop-shadow-[0_10px_22px_rgba(37,99,235,0.4)] ${
+            logo.darkToWhite ? "dark:brightness-0 dark:invert" : ""
+          }`}
+          loading="lazy"
+        />
+        <span className="text-sm font-medium">{logo.name}</span>
+      </div>
+    </li>
+  );
 }
 
 export default function SkillsExpertiseSection() {
@@ -346,37 +369,42 @@ export default function SkillsExpertiseSection() {
             className="relative"
             variants={marqueeVariants}
           >
-            <div className="skills-marquee py-2">
-              <div className={`skills-marquee-track ${marqueeActive ? "skills-marquee-track--active" : ""}`}>
-                {[0, 1].map((copyIndex) => (
-                  <ul
-                    key={copyIndex}
-                    data-duplicate={copyIndex === 1 ? "true" : "false"}
-                    className="flex min-w-max items-center gap-8 px-3"
-                    aria-hidden={copyIndex === 1}
-                  >
-                    {TECH_LOGOS.map((logo) => (
-                      <li key={`${copyIndex}-${logo.name}`}>
-                        <div className="group/logo flex min-w-[96px] flex-col items-center justify-center gap-1 px-1 text-center text-slate-600 transition-all duration-200 hover:-translate-y-0.5 hover:text-slate-900 dark:text-white/65 dark:hover:text-white">
-                          <img
-                            src={logo.src}
-                            alt={logo.name}
-                            className={`h-9 w-9 object-contain drop-shadow-[0_8px_18px_rgba(0,0,0,0.35)] transition-all duration-200 group-hover/logo:scale-105 group-hover/logo:brightness-110 group-hover/logo:drop-shadow-[0_10px_22px_rgba(37,99,235,0.4)] ${
-                              logo.darkToWhite ? "dark:brightness-0 dark:invert" : ""
-                            }`}
-                            loading="lazy"
-                          />
-                          <span className="text-sm font-medium">{logo.name}</span>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                ))}
+            {isMobile ? (
+              <div className="skills-marquee-mobile py-2">
+                <p className="mb-3 px-3 text-left text-xs font-medium uppercase tracking-[0.14em] text-slate-600 dark:text-white/58">
+                  Swipe To See More
+                </p>
+                <ul className="skills-marquee-mobile-track flex min-w-max items-center gap-6 overflow-x-auto px-3 pb-2">
+                  {TECH_LOGOS.map((logo) => (
+                    <TechLogoChip
+                      key={`mobile-${logo.name}`}
+                      logo={logo}
+                      itemClassName="skills-marquee-mobile-item"
+                    />
+                  ))}
+                </ul>
               </div>
+            ) : (
+              <div className="skills-marquee py-2">
+                <div className={`skills-marquee-track ${marqueeActive ? "skills-marquee-track--active" : ""}`}>
+                  {[0, 1].map((copyIndex) => (
+                    <ul
+                      key={copyIndex}
+                      data-duplicate={copyIndex === 1 ? "true" : "false"}
+                      className="flex min-w-max items-center gap-8 px-3"
+                      aria-hidden={copyIndex === 1}
+                    >
+                      {TECH_LOGOS.map((logo) => (
+                        <TechLogoChip key={`${copyIndex}-${logo.name}`} logo={logo} />
+                      ))}
+                    </ul>
+                  ))}
+                </div>
 
-              <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-14 bg-gradient-to-r from-slate-100 to-transparent dark:from-navy" />
-              <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-14 bg-gradient-to-l from-slate-100 to-transparent dark:from-navy" />
-            </div>
+                <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-14 bg-gradient-to-r from-slate-100 to-transparent dark:from-navy" />
+                <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-14 bg-gradient-to-l from-slate-100 to-transparent dark:from-navy" />
+              </div>
+            )}
           </motion.div>
         </div>
 

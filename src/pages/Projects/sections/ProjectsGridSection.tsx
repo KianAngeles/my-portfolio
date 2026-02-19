@@ -172,7 +172,7 @@ export default function ProjectsGridSection({
   return (
     <section
       ref={sectionRef}
-      className="relative pt-0 pb-20 md:pb-28"
+      className="relative pt-6 pb-20 md:pb-28"
       aria-labelledby="projects-grid-title"
     >
       <SectionRadialGlow />

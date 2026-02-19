@@ -26,6 +26,23 @@
   animation-play-state: paused;
 }
 
+.skills-marquee-mobile-track {
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  touch-action: pan-x;
+}
+
+.skills-marquee-mobile-track::-webkit-scrollbar {
+  display: none;
+}
+
+.skills-marquee-mobile-item {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .skills-marquee-track,
   .skills-marquee-track--active {

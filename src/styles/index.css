@@ -144,6 +144,22 @@
     100% { transform: translateX(60%); opacity: 0; }
   }
 
+  @keyframes introLineSweep {
+    0% { transform: translate(-120%, -50%); }
+    100% { transform: translate(220%, -50%); }
+  }
+
+  @keyframes introLoadingBreathe {
+    0%, 100% {
+      opacity: 0.78;
+      letter-spacing: 0.32em;
+    }
+    50% {
+      opacity: 0.98;
+      letter-spacing: 0.34em;
+    }
+  }
+
   @keyframes iconFxPlaneBack {
     0% {
       opacity: 0;
