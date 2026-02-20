@@ -26,16 +26,23 @@
   animation-play-state: paused;
 }
 
-.skills-marquee-mobile-track {
+.skills-marquee-mobile-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   scroll-snap-type: x proximity;
+  overscroll-behavior-x: contain;
   scrollbar-width: none;
   -ms-overflow-style: none;
   touch-action: pan-x;
 }
 
-.skills-marquee-mobile-track::-webkit-scrollbar {
+.skills-marquee-mobile-scroll::-webkit-scrollbar {
   display: none;
+}
+
+.skills-marquee-mobile-track {
+  will-change: transform;
 }
 
 .skills-marquee-mobile-item {

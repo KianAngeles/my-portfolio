@@ -374,15 +374,17 @@ export default function SkillsExpertiseSection() {
                 <p className="mb-3 px-3 text-left text-xs font-medium uppercase tracking-[0.14em] text-slate-600 dark:text-white/58">
                   Swipe To See More
                 </p>
-                <ul className="skills-marquee-mobile-track flex min-w-max items-center gap-6 overflow-x-auto px-3 pb-2">
-                  {TECH_LOGOS.map((logo) => (
-                    <TechLogoChip
-                      key={`mobile-${logo.name}`}
-                      logo={logo}
-                      itemClassName="skills-marquee-mobile-item"
-                    />
-                  ))}
-                </ul>
+                <div className="skills-marquee-mobile-scroll px-3 pb-2">
+                  <ul className="skills-marquee-mobile-track flex w-max items-center gap-6">
+                    {TECH_LOGOS.map((logo) => (
+                      <TechLogoChip
+                        key={`mobile-${logo.name}`}
+                        logo={logo}
+                        itemClassName="skills-marquee-mobile-item"
+                      />
+                    ))}
+                  </ul>
+                </div>
               </div>
             ) : (
               <div className="skills-marquee py-2">
