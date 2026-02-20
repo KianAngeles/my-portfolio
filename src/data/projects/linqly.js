@@ -13,7 +13,7 @@ export const linqlyProjectDetails = {
     "WebRTC",
     "JWT",
   ],
-  demoHref: "https://example.com/linqly-demo",
+  demoHref: "https://linqly.kianangeles.dev/",
   videoHref: "/videos/projects/linqly/demo.mp4",
   videoEmbedHref:
     "https://player.vimeo.com/video/1166026407?badge=0&autopause=0&player_id=0&app_id=58479",
@@ -29,10 +29,13 @@ export const linqlyProjectDetails = {
     "Friend graph features including add/manage friends and online presence visibility",
     "Responsive React UI architecture across chat, profile, notifications, and hangout screens",
   ],
-  outcomes: [
-    "Delivered a stable messaging experience across active sessions.",
-    "Reduced interaction friction through instant UI updates.",
-    "Established a backend pattern reusable for future chat features.",
-    "Created a maintainable full-stack baseline for social features.",
+  outcomes:[
+    "Delivered a stable real-time messaging experience across active sessions while reducing interaction friction through instant UI updates. ",
+    "Established a reusable backend pattern for future chat features and created a maintainable full-stack foundation for expanding social capabilities."
+  ],
+  keyFeatures: [
+    "Map-based hangout discovery with pinned meetup spots and location-driven planning",
+    "Real-time direct and group chat with replies, reactions, media sharing, and read receipts",
+    "Built-in 1-to-1 audio/video calling from chat with essential mic and camera controls",
   ],
 };

@@ -17,7 +17,6 @@ import {
   itemSlideRight,
   metaRowStagger,
 } from "@/pages/ProjectsDetail/motionVariants";
-import "./project-detail-glow.css";
 
 type ProjectDetailLayoutProps = {
   project: any;
@@ -34,6 +33,7 @@ type ProjectDetailLayoutProps = {
   overview: string[];
   focusAreas: string[];
   outcomes: string[];
+  keyFeatures?: string[];
 };
 
 const revealViewport = { once: true, amount: 0.3 };
@@ -80,16 +80,14 @@ export default function ProjectDetailLayout({
   overview,
   focusAreas,
   outcomes,
+  keyFeatures,
 }: ProjectDetailLayoutProps) {
   const isMobile = useIsMobile();
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof document === "undefined") return false;
     return document.body.classList.contains("dark");
   });
-  const [glowEnabled, setGlowEnabled] = useState(false);
   const [showCtaSheen, setShowCtaSheen] = useState(false);
-  const detailsGlowZoneRef = useRef<HTMLDivElement | null>(null);
-  const detailsSpotlightRef = useRef<HTMLDivElement | null>(null);
   const hasMarkedVisitRef = useRef(false);
   const prefersReducedMotion = usePrefersReducedMotion() || isMobile;
   const { isFirstVisit, markVisited } = useFirstVisit(`projectDetailAnimated-${project.id}`);
@@ -102,6 +100,7 @@ export default function ProjectDetailLayout({
   const displayVideoPoster = videoPoster ?? project.preview;
   const displayVideoPlaceholderText =
     videoPlaceholderText ?? "Add a demo video file and set videoHref in this project detail data.";
+  const displayKeyFeatures = keyFeatures ?? project.keyFeatures ?? [];
   const shouldAnimateIntro = isFirstVisit && !prefersReducedMotion;
 
   useEffect(() => {
@@ -124,12 +123,6 @@ export default function ProjectDetailLayout({
   }, []);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    setGlowEnabled(canHover && !prefersReducedMotion);
-  }, [prefersReducedMotion]);
-
-  useEffect(() => {
     if (!isFirstVisit || hasMarkedVisitRef.current) return undefined;
 
     hasMarkedVisitRef.current = true;
@@ -146,89 +139,6 @@ export default function ProjectDetailLayout({
 
     return () => window.clearTimeout(timerId);
   }, [displayDemoHref, prefersReducedMotion, shouldAnimateIntro]);
-
-  useEffect(() => {
-    if (!glowEnabled) return undefined;
-
-    const glowZoneNode = detailsGlowZoneRef.current;
-    const spotlightNode = detailsSpotlightRef.current;
-    if (!glowZoneNode || !spotlightNode) return undefined;
-
-    const cards = Array.from(
-      glowZoneNode.querySelectorAll<HTMLElement>(".project-detail-glow-card"),
-    );
-
-    const nearDistance = 220;
-    const fadeDistance = 560;
-
-    const resetGlow = () => {
-      spotlightNode.style.opacity = "0";
-      cards.forEach((card) => {
-        card.style.setProperty("--glow-intensity", "0");
-      });
-    };
-
-    const onMouseMove = (event: MouseEvent) => {
-      const zoneRect = glowZoneNode.getBoundingClientRect();
-      const isInside =
-        event.clientX >= zoneRect.left &&
-        event.clientX <= zoneRect.right &&
-        event.clientY >= zoneRect.top &&
-        event.clientY <= zoneRect.bottom;
-
-      if (!isInside) {
-        resetGlow();
-        return;
-      }
-
-      spotlightNode.style.left = `${event.clientX}px`;
-      spotlightNode.style.top = `${event.clientY}px`;
-      spotlightNode.style.opacity = "1";
-
-      cards.forEach((card) => {
-        const rect = card.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const distance =
-          Math.hypot(event.clientX - centerX, event.clientY - centerY) -
-          Math.max(rect.width, rect.height) / 2;
-        const effectiveDistance = Math.max(0, distance);
-
-        let intensity = 0;
-        if (effectiveDistance <= nearDistance) {
-          intensity = 1;
-        } else if (effectiveDistance <= fadeDistance) {
-          intensity = (fadeDistance - effectiveDistance) / (fadeDistance - nearDistance);
-        }
-
-        const xPercent = Math.min(
-          100,
-          Math.max(0, ((event.clientX - rect.left) / rect.width) * 100),
-        );
-        const yPercent = Math.min(
-          100,
-          Math.max(0, ((event.clientY - rect.top) / rect.height) * 100),
-        );
-
-        card.style.setProperty("--glow-x", `${xPercent}%`);
-        card.style.setProperty("--glow-y", `${yPercent}%`);
-        card.style.setProperty("--glow-intensity", intensity.toFixed(3));
-      });
-    };
-
-    const onMouseLeave = () => {
-      resetGlow();
-    };
-
-    glowZoneNode.addEventListener("mousemove", onMouseMove);
-    glowZoneNode.addEventListener("mouseleave", onMouseLeave);
-
-    return () => {
-      glowZoneNode.removeEventListener("mousemove", onMouseMove);
-      glowZoneNode.removeEventListener("mouseleave", onMouseLeave);
-      resetGlow();
-    };
-  }, [glowEnabled]);
 
   return (
     <main className="relative isolate min-h-screen overflow-x-clip bg-gradient-to-b from-slate-50 via-sky-50/70 to-white dark:from-navy dark:to-navy-light">
@@ -413,52 +323,45 @@ export default function ProjectDetailLayout({
             className="pointer-events-none absolute right-[4%] top-[68%] h-[220px] w-[220px] -translate-y-1/2 rounded-full bg-sky-300/14 blur-[90px] dark:bg-sky-300/22"
           />
 
-          <div ref={detailsGlowZoneRef} className="project-detail-glow-zone mx-auto max-w-6xl px-4">
-            {glowEnabled ? (
-              <div ref={detailsSpotlightRef} className="project-detail-spotlight" aria-hidden="true" />
-            ) : null}
-
+          <div className="mx-auto max-w-6xl px-4">
             <motion.div
               {...getMotionProps(isMobile, {
                 initial: shouldAnimateIntro ? "hidden" : false,
                 whileInView: shouldAnimateIntro ? "show" : undefined,
                 viewport: shouldAnimateIntro ? revealViewport : undefined,
               })}
-              className="relative z-10 grid gap-6 lg:grid-cols-3"
+              className="relative z-10 border-y border-slate-200/75 py-5 dark:border-white/10"
               variants={metaRowStagger(prefersReducedMotion, {
                 delayChildren: 0.08,
                 staggerChildren: 0.16,
               })}
             >
-              <motion.article
-                variants={boxRevealVariants(prefersReducedMotion)}
-                className={`rounded-2xl border border-slate-200 bg-white/75 p-5 dark:border-white/10 dark:bg-white/[0.03] ${
-                  glowEnabled ? "project-detail-glow-card" : ""
-                }`}
-              >
-                <p className="text-[11px] uppercase tracking-[0.14em] text-slate-500 dark:text-white/55">Timeline</p>
-                <p className="mt-2 text-base font-semibold text-slate-900 dark:text-white">{timeline}</p>
-              </motion.article>
-
-              <motion.article
-                variants={boxRevealVariants(prefersReducedMotion)}
-                className={`rounded-2xl border border-slate-200 bg-white/75 p-5 dark:border-white/10 dark:bg-white/[0.03] ${
-                  glowEnabled ? "project-detail-glow-card" : ""
-                }`}
-              >
-                <p className="text-[11px] uppercase tracking-[0.14em] text-slate-500 dark:text-white/55">Role</p>
-                <p className="mt-2 text-base font-semibold text-slate-900 dark:text-white">{role}</p>
-              </motion.article>
-
-              <motion.article
-                variants={boxRevealVariants(prefersReducedMotion)}
-                className={`rounded-2xl border border-slate-200 bg-white/75 p-5 dark:border-white/10 dark:bg-white/[0.03] ${
-                  glowEnabled ? "project-detail-glow-card" : ""
-                }`}
-              >
-                <p className="text-[11px] uppercase tracking-[0.14em] text-slate-500 dark:text-white/55">Category</p>
-                <p className="mt-2 text-base font-semibold text-slate-900 dark:text-white">{category}</p>
-              </motion.article>
+              <dl className="grid gap-5 sm:grid-cols-3 sm:gap-6">
+                <motion.div variants={boxRevealVariants(prefersReducedMotion)} className="space-y-2 sm:pr-4">
+                  <dt className="text-[11px] uppercase tracking-[0.14em] text-slate-500 dark:text-white/55">
+                    Timeline
+                  </dt>
+                  <dd className="text-base font-semibold text-slate-900 dark:text-white">{timeline}</dd>
+                </motion.div>
+                <motion.div
+                  variants={boxRevealVariants(prefersReducedMotion)}
+                  className="space-y-2 sm:border-l sm:border-slate-200/70 sm:px-4 dark:sm:border-white/10"
+                >
+                  <dt className="text-[11px] uppercase tracking-[0.14em] text-slate-500 dark:text-white/55">
+                    Role
+                  </dt>
+                  <dd className="text-base font-semibold text-slate-900 dark:text-white">{role}</dd>
+                </motion.div>
+                <motion.div
+                  variants={boxRevealVariants(prefersReducedMotion)}
+                  className="space-y-2 sm:border-l sm:border-slate-200/70 sm:pl-4 dark:sm:border-white/10"
+                >
+                  <dt className="text-[11px] uppercase tracking-[0.14em] text-slate-500 dark:text-white/55">
+                    Category
+                  </dt>
+                  <dd className="text-base font-semibold text-slate-900 dark:text-white">{category}</dd>
+                </motion.div>
+              </dl>
             </motion.div>
 
             <motion.div
@@ -467,163 +370,151 @@ export default function ProjectDetailLayout({
                 whileInView: shouldAnimateIntro ? "show" : undefined,
                 viewport: shouldAnimateIntro ? revealViewport : undefined,
               })}
-              className="relative z-10 mt-6 grid gap-6 lg:grid-cols-3"
+              className="relative z-10 mt-10 grid gap-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-14"
               variants={containerStagger(prefersReducedMotion, {
                 delayChildren: 0.08,
                 staggerChildren: 0.14,
               })}
             >
-              <motion.article
-                variants={boxRevealVariants(prefersReducedMotion)}
-                className={`rounded-3xl border border-slate-200 bg-white/80 p-6 dark:border-white/10 dark:bg-white/[0.03] lg:col-span-2 ${
-                  glowEnabled ? "project-detail-glow-card" : ""
-                }`}
+              <motion.div
+                variants={containerStagger(prefersReducedMotion, {
+                  delayChildren: 0.08,
+                  staggerChildren: 0.12,
+                })}
+                className="space-y-10"
               >
-                <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Project Overview</h2>
-                <div className="mt-4 space-y-3">
-                  {overview.map((paragraph) => (
-                    <p key={paragraph} className="text-sm leading-relaxed text-slate-700 dark:text-white/75">
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
-              </motion.article>
+                <motion.section variants={boxRevealVariants(prefersReducedMotion)} className="border-t border-slate-200/70 pt-6 dark:border-white/10">
+                  <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Project Overview</h2>
+                  <div className="mt-4 space-y-3">
+                    {overview.map((paragraph) => (
+                      <p key={paragraph} className="text-sm leading-relaxed text-slate-700 dark:text-white/75">
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+                </motion.section>
 
-              <motion.article
-                variants={boxRevealVariants(prefersReducedMotion)}
-                className={`rounded-3xl border border-slate-200 bg-white/80 p-6 dark:border-white/10 dark:bg-white/[0.03] ${
-                  glowEnabled ? "project-detail-glow-card" : ""
-                }`}
-              >
-                <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Focus Areas</h3>
-                <ul className="mt-4 space-y-2 text-sm text-slate-700 dark:text-white/75">
-                  {focusAreas.map((item) => (
-                    <li key={item}>- {item}</li>
-                  ))}
-                </ul>
-              </motion.article>
-            </motion.div>
+                <motion.section variants={boxRevealVariants(prefersReducedMotion)} className="border-t border-slate-200/70 pt-6 dark:border-white/10">
+                  <h2 className="text-xl font-semibold text-slate-900 dark:text-white sm:text-2xl">Quick Demo</h2>
+                  <p className="mt-2 text-sm text-slate-600 dark:text-white/65">
+                    Short walkthrough of the product in action.
+                  </p>
 
-            <motion.div
-              {...getMotionProps(isMobile, {
-                initial: shouldAnimateIntro ? "hidden" : false,
-                whileInView: shouldAnimateIntro ? "show" : undefined,
-                viewport: shouldAnimateIntro ? revealViewport : undefined,
-              })}
-              className="relative z-10 mt-6"
-              variants={containerStagger(prefersReducedMotion, { delayChildren: 0.08, staggerChildren: 0.12 })}
-            >
-              <motion.article
-                variants={boxRevealVariants(prefersReducedMotion)}
-                className={`rounded-3xl border border-slate-200 bg-white/80 p-6 dark:border-white/10 dark:bg-white/[0.03] ${
-                  glowEnabled ? "project-detail-glow-card" : ""
-                }`}
-              >
-                <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Outcome</h3>
-                <ul className="mt-4 grid gap-2 text-sm text-slate-700 dark:text-white/75 md:grid-cols-2">
-                  {outcomes.map((item) => (
-                    <li key={item}>- {item}</li>
-                  ))}
-                </ul>
-              </motion.article>
-            </motion.div>
-
-            <motion.div
-              {...getMotionProps(isMobile, {
-                initial: shouldAnimateIntro ? "hidden" : false,
-                whileInView: shouldAnimateIntro ? "show" : undefined,
-                viewport: shouldAnimateIntro ? revealViewport : undefined,
-              })}
-              className="relative z-10 mt-6"
-              variants={containerStagger(prefersReducedMotion, { delayChildren: 0.08, staggerChildren: 0.12 })}
-            >
-              <motion.article
-                variants={boxRevealVariants(prefersReducedMotion)}
-                className={`rounded-3xl border border-slate-200 bg-white/80 p-5 dark:border-white/10 dark:bg-white/[0.03] sm:p-6 ${
-                  glowEnabled ? "project-detail-glow-card" : ""
-                }`}
-              >
-                <h2 className="text-xl font-semibold text-slate-900 dark:text-white sm:text-2xl">Quick Demo</h2>
-                <p className="mt-2 text-sm text-slate-600 dark:text-white/65">
-                  Short walkthrough of the product in action.
-                </p>
-
-                {displayVideoEmbedHref ? (
-                  <motion.div
-                    {...getMotionProps(isMobile, {
-                      initial:
-                        shouldAnimateIntro
-                          ? prefersReducedMotion
-                            ? { opacity: 0 }
-                            : { opacity: 0, clipPath: "inset(10% 0 0 0 round 1rem)" }
-                          : false,
-                      whileInView:
-                        shouldAnimateIntro
-                          ? prefersReducedMotion
-                            ? { opacity: 1 }
-                            : { opacity: 1, clipPath: "inset(0% 0 0 0 round 1rem)" }
-                          : undefined,
-                      viewport: shouldAnimateIntro ? revealViewport : undefined,
-                      transition: {
-                        duration: prefersReducedMotion ? 0.18 : 0.35,
-                        ease: [0.22, 1, 0.36, 1],
-                      },
-                    })}
-                    className="mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 dark:border-white/10 dark:bg-black/20"
-                  >
-                    <iframe
-                      title={displayVideoEmbedTitle}
-                      src={displayVideoEmbedHref}
-                      className="aspect-video w-full"
-                      frameBorder="0"
-                      referrerPolicy="strict-origin-when-cross-origin"
-                      allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                      allowFullScreen
-                    />
-                  </motion.div>
-                ) : displayVideoHref ? (
-                  <motion.div
-                    {...getMotionProps(isMobile, {
-                      initial:
-                        shouldAnimateIntro
-                          ? prefersReducedMotion
-                            ? { opacity: 0 }
-                            : { opacity: 0, clipPath: "inset(10% 0 0 0 round 1rem)" }
-                          : false,
-                      whileInView:
-                        shouldAnimateIntro
-                          ? prefersReducedMotion
-                            ? { opacity: 1 }
-                            : { opacity: 1, clipPath: "inset(0% 0 0 0 round 1rem)" }
-                          : undefined,
-                      viewport: shouldAnimateIntro ? revealViewport : undefined,
-                      transition: {
-                        duration: prefersReducedMotion ? 0.18 : 0.35,
-                        ease: [0.22, 1, 0.36, 1],
-                      },
-                    })}
-                    className="mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 dark:border-white/10 dark:bg-black/20"
-                  >
-                    <video
-                      className="aspect-video w-full object-cover"
-                      controls
-                      playsInline
-                      preload="metadata"
-                      poster={displayVideoPoster}
+                  {displayVideoEmbedHref ? (
+                    <motion.div
+                      {...getMotionProps(isMobile, {
+                        initial:
+                          shouldAnimateIntro
+                            ? prefersReducedMotion
+                              ? { opacity: 0 }
+                              : { opacity: 0, clipPath: "inset(10% 0 0 0 round 1rem)" }
+                            : false,
+                        whileInView:
+                          shouldAnimateIntro
+                            ? prefersReducedMotion
+                              ? { opacity: 1 }
+                              : { opacity: 1, clipPath: "inset(0% 0 0 0 round 1rem)" }
+                            : undefined,
+                        viewport: shouldAnimateIntro ? revealViewport : undefined,
+                        transition: {
+                          duration: prefersReducedMotion ? 0.18 : 0.35,
+                          ease: [0.22, 1, 0.36, 1],
+                        },
+                      })}
+                      className="mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 dark:border-white/10 dark:bg-black/20"
                     >
-                      <source src={displayVideoHref} type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    className="mt-4 rounded-2xl border border-dashed border-slate-300 bg-slate-100/70 p-5 text-sm text-slate-600 dark:border-white/20 dark:bg-white/[0.02] dark:text-white/60"
-                    variants={itemFadeUp(prefersReducedMotion, { distance: 8, duration: 0.24 })}
+                      <iframe
+                        title={displayVideoEmbedTitle}
+                        src={displayVideoEmbedHref}
+                        className="aspect-video w-full"
+                        frameBorder="0"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                        allowFullScreen
+                      />
+                    </motion.div>
+                  ) : displayVideoHref ? (
+                    <motion.div
+                      {...getMotionProps(isMobile, {
+                        initial:
+                          shouldAnimateIntro
+                            ? prefersReducedMotion
+                              ? { opacity: 0 }
+                              : { opacity: 0, clipPath: "inset(10% 0 0 0 round 1rem)" }
+                            : false,
+                        whileInView:
+                          shouldAnimateIntro
+                            ? prefersReducedMotion
+                              ? { opacity: 1 }
+                              : { opacity: 1, clipPath: "inset(0% 0 0 0 round 1rem)" }
+                            : undefined,
+                        viewport: shouldAnimateIntro ? revealViewport : undefined,
+                        transition: {
+                          duration: prefersReducedMotion ? 0.18 : 0.35,
+                          ease: [0.22, 1, 0.36, 1],
+                        },
+                      })}
+                      className="mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 dark:border-white/10 dark:bg-black/20"
+                    >
+                      <video
+                        className="aspect-video w-full object-cover"
+                        controls
+                        playsInline
+                        preload="metadata"
+                        poster={displayVideoPoster}
+                      >
+                        <source src={displayVideoHref} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      className="mt-4 rounded-2xl border border-dashed border-slate-300 p-5 text-sm text-slate-600 dark:border-white/20 dark:text-white/60"
+                      variants={itemFadeUp(prefersReducedMotion, { distance: 8, duration: 0.24 })}
+                    >
+                      {displayVideoPlaceholderText}
+                    </motion.div>
+                  )}
+                </motion.section>
+              </motion.div>
+
+              <motion.aside
+                variants={containerStagger(prefersReducedMotion, {
+                  delayChildren: 0.08,
+                  staggerChildren: 0.12,
+                })}
+                className="space-y-10 lg:border-l lg:border-slate-200/70 lg:pl-10 dark:lg:border-white/10"
+              >
+                {displayKeyFeatures.length > 0 ? (
+                  <motion.section
+                    variants={boxRevealVariants(prefersReducedMotion)}
+                    className="border-t border-slate-200/70 pt-6 dark:border-white/10"
                   >
-                    {displayVideoPlaceholderText}
-                  </motion.div>
-                )}
-              </motion.article>
+                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Key Features</h3>
+                    <ul className="mt-4 space-y-2 text-sm text-slate-700 dark:text-white/75">
+                      {displayKeyFeatures.map((item: string) => (
+                        <li key={item}>- {item}</li>
+                      ))}
+                    </ul>
+                  </motion.section>
+                ) : null}
+
+                <motion.section variants={boxRevealVariants(prefersReducedMotion)} className="border-t border-slate-200/70 pt-6 dark:border-white/10">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Focus Areas</h3>
+                  <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-700 marker:text-slate-400 dark:text-white/75 dark:marker:text-white/40">
+                    {focusAreas.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </motion.section>
+
+                <motion.section variants={boxRevealVariants(prefersReducedMotion)} className="border-t border-slate-200/70 pt-6 dark:border-white/10">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Outcome</h3>
+                  <p className="mt-4 text-sm leading-relaxed text-slate-700 dark:text-white/75">
+                    {outcomes.join(" ")}
+                  </p>
+                </motion.section>
+              </motion.aside>
             </motion.div>
           </div>
         </section>

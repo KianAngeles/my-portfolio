@@ -13,7 +13,7 @@ export const featuredProjects = [
     stack: ["React", "Node", "MongoDB", "Socket.IO", "JWT"],
     preview: linqlyPreview,
     demoHref: "https://example.com/linqly-demo",
-    sourceHref: null,
+    sourceHref: "https://github.com/KianAngeles/Linqly",
   },
   {
     id: "thryve",

@@ -2,14 +2,7 @@ export const xpensyncProjectDetails = {
   category: "Personal Finance System",
   timeline: "2023",
   role: "Full-Stack Developer",
-  stack: [
-    "PHP",
-    "MySQL",
-    "JavaScript",
-    "HTML",
-    "CSS",
-    "Bootstrap",
-  ],
+  stack: ["PHP", "MySQL", "JavaScript", "HTML", "CSS", "Bootstrap"],
   demoHref: "/XpenSync/",
   videoHref: "",
   videoPlaceholderText: "Quick demo coming soon.",
@@ -25,9 +18,13 @@ export const xpensyncProjectDetails = {
     "Operational reliability across CRUD-heavy user tasks",
   ],
   outcomes: [
-    "Delivered a complete finance tracking workflow.",
-    "Created structured data visibility through dashboard charts.",
-    "Balanced feature coverage with straightforward UI behavior.",
-    "Built a scalable base for additional financial modules.",
+    "Delivered a complete finance tracking workflow with structured data visibility through dashboard charts.",
+    "Balanced comprehensive feature coverage with straightforward UI behavior while establishing a scalable foundation for future financial modules.",
+  ],
+  keyFeatures: [
+    "Add and categorize daily transactions with support for both income and expense entries",
+    "Manage records efficiently with search, filters, and full edit/delete controls for expenses and lending",
+    "Analytics dashboard with monthly totals, top spending category, average daily spend, and visual trend/breakdown charts",
+    "Category comparison tools and lending tracking to monitor debts, due dates, and payment status",
   ],
 };

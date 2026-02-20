@@ -26,12 +26,15 @@ export const thryveProjectDetails = {
     "Feature-based route and module composition across frontend views and backend API endpoints",
     "Authentication and session flow using JWT, route protection, and Axios request/response interceptors",
     "Daily and weekly data aggregation for calories, protein, workout minutes, hydration, and sleep duration",
-    "Goal-oriented tracking via user preferences, progress documents, and automatic achievement evaluation",
   ],
   outcomes: [
-    "Delivered an integrated wellness platform where users can log and monitor nutrition, exercise, hydration, and sleep in one system.",
-    "Implemented end-to-end account workflows including registration, login, profile updates, preferences, and password reset.",
-    "Enabled actionable progress feedback through dashboard endpoints (/today, /weekly, /highlights) and per-goal completion metrics.",
-    "Established a scalable MEVN foundation with clear separation of concerns, making future feature expansion and maintenance straightforward.",
+    "Built an integrated wellness platform to track nutrition, exercise, hydration, and sleep while implementing complete account workflows from registration to password reset.",
+    "Delivered actionable progress insights through dashboard endpoints and goal metrics, and established a scalable MEVN architecture with clear separation of concerns for future expansion.",
+  ],
+  keyFeatures: [
+    "Unified health tracking for workouts, meals, water intake, and sleep",
+    "Dashboard analytics with visual progress insights",
+    "Goal setting with achievement and streak tracking",
+    "Secure account system with registration, login, password recovery, and profile customization",
   ],
 };

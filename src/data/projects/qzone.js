@@ -19,9 +19,13 @@ export const qzoneProjectDetails = {
     "Responsive layouts for desktop and mobile visitors",
   ],
   outcomes: [
-    "Delivered a full-stack real-time communication platform for direct and group conversations.",
-    "Enabled location-based social coordination through map-integrated hangout creation and joining.",
-    "Implemented core social networking loops with friend management and live online presence.",
-    "Established a scalable React + Node + MongoDB foundation with reusable patterns for future features.",
+    "Delivered a responsive multi-page website for Q-Zone Professional Detailers that presents the brand story, services, pricing, portfolio, and FAQs in one clear customer journey.",
+    "Established a maintainable Angular structure with routed pages for home, about, services, and employee directory, making future content updates and feature expansion straightforward.",
+  ],
+  keyFeatures: [
+    "Multi-page Angular site with Home, About, Services, and Employee pages",
+    "Service packages with pricing and premium detailing options",
+    "Interactive homepage with carousel, process steps, projects, testimonials, and FAQs",
+    "Team directory and company profile with mission, stats, and branch map",
   ],
 };
