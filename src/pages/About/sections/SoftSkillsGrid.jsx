@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import useIsMobile from "@/hooks/useIsMobile";
 import { getMotionProps } from "@/utils/motion";
@@ -116,36 +116,29 @@ export default function SoftSkillsGrid({
                   },
                 })}
                 key={skill.id}
-                layout
                 role="button"
                 tabIndex={0}
                 aria-pressed={isActive}
                 onClick={() => toggleTile(skill.id)}
                 onKeyDown={(event) => onTileKeyDown(event, skill.id)}
                 className={cn(
-                  "group relative h-fit self-start cursor-pointer rounded-xl border border-slate-400 bg-transparent px-4 py-3 text-left outline-none transition-[opacity,transform,border-color,box-shadow] duration-200 ease-out focus-visible:ring-2 focus-visible:ring-sky-300/60 dark:border-white/10 dark:bg-transparent",
+                  "group relative h-fit self-start cursor-pointer overflow-hidden rounded-xl border border-slate-400 bg-transparent px-4 py-3 text-left outline-none transition-[opacity,transform,border-color,box-shadow] duration-200 ease-out focus-visible:ring-2 focus-visible:ring-sky-300/60 dark:border-white/10 dark:bg-transparent",
                   isActive && "border-sky-300/40 dark:border-sky-300/30",
                   isDimmed ? "opacity-55 scale-[0.96]" : "opacity-100 scale-100"
                 )}
               >
                 <h4 className="text-sm font-semibold text-slate-900 dark:text-white">{skill.title}</h4>
-
-                <AnimatePresence initial={false}>
-                  {isActive ? (
-                    <motion.div
-                      {...getMotionProps(isMobile, {
-                        initial: { opacity: 0, y: 8 },
-                        animate: { opacity: 1, y: 0 },
-                        exit: { opacity: 0, y: 6 },
-                        transition: { duration: 0.22, ease: [0.16, 1, 0.3, 1] },
-                      })}
-                      layout
-                      className="mt-3 border-t border-slate-200 pt-3 dark:border-white/12"
-                    >
-                      <p className="text-xs leading-relaxed text-slate-700 dark:text-white/78">{skill.paragraph}</p>
-                    </motion.div>
-                  ) : null}
-                </AnimatePresence>
+                <div
+                  className={cn(
+                    "overflow-hidden transition-all duration-200 ease-out",
+                    isActive
+                      ? "mt-3 max-h-40 border-t border-slate-200 pt-3 opacity-100 dark:border-white/12"
+                      : "mt-0 max-h-0 border-t border-transparent pt-0 opacity-0"
+                  )}
+                  aria-hidden={!isActive}
+                >
+                  <p className="text-xs leading-relaxed text-slate-700 dark:text-white/78">{skill.paragraph}</p>
+                </div>
               </motion.div>
             );
           })}

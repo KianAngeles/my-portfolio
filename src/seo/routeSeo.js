@@ -5,7 +5,7 @@ const SITE_NAME = "Kian Angeles Portfolio";
 const DEFAULT_TITLE = "Kian Angeles | Full-Stack Developer";
 const DEFAULT_DESCRIPTION =
   "Portfolio of Kian Angeles, a full-stack developer building modern web apps with React, Node.js, and MongoDB.";
-const DEFAULT_IMAGE = "/og-image.png";
+const DEFAULT_IMAGE = "/og-image-v2.webp";
 const AUTHOR_NAME = "Kian Angeles";
 
 const STATIC_ROUTE_SEO = {
