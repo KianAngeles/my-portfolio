@@ -5,6 +5,9 @@ import avatarImage from "@/assets/images/pic.webp";
 import useIsMobile from "@/hooks/useIsMobile";
 
 const EtherealHeroBackground = lazy(() => import("../hero/EtherealHeroBackground"));
+const HERO_AVATAR_OBJECT_POSITION = "45% 20%";
+const HERO_AVATAR_NUDGE_X = -3;
+const HERO_AVATAR_ZOOM = 1.04;
 
 const getRevealClass = (isVisible) => {
   if (isVisible) {
@@ -138,11 +141,15 @@ export default function Hero({
               alt="Kian Charles S. Angeles avatar"
               width="144"
               height="144"
-              className={`h-28 w-28 rounded-full object-cover object-top ring-1 md:h-36 md:w-36 ${
+              className={`h-28 w-28 rounded-full object-cover ring-1 md:h-36 md:w-36 ${
                 isDarkMode
                   ? "ring-white/20 shadow-lg shadow-black/30"
                   : "ring-slate-300/70 shadow-lg shadow-slate-300/40"
               }`}
+              style={{
+                objectPosition: HERO_AVATAR_OBJECT_POSITION,
+                transform: `translateX(${HERO_AVATAR_NUDGE_X}px) scale(${HERO_AVATAR_ZOOM})`,
+              }}
               draggable="false"
               fetchPriority="high"
               decoding="async"

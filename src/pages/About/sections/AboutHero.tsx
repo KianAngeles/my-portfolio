@@ -31,6 +31,9 @@ const OUTER_RING_RADIUS = 206;
 
 const INNER_RING_CIRCUMFERENCE = 2 * Math.PI * INNER_RING_RADIUS;
 const OUTER_RING_CIRCUMFERENCE = 2 * Math.PI * OUTER_RING_RADIUS;
+const ABOUT_HERO_IMAGE_OFFSET_X = -1;
+const ABOUT_HERO_IMAGE_OFFSET_Y = 37;
+const ABOUT_HERO_IMAGE_ZOOM = 142;
 
 const INNER_RING_ITEMS = [
   { id: "typescript", src: typescriptIcon, label: "TypeScript", color: "#3178C6" },
@@ -602,7 +605,7 @@ export default function AboutHero() {
                 <figure
                   className={`absolute left-1/2 top-1/2 h-[188px] w-[188px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full border border-slate-300 bg-white p-1.5 shadow-2xl shadow-slate-300/55 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] dark:border-white/20 dark:bg-white/5 dark:shadow-black/35 ${
                     showPhoto ? "opacity-100 scale-100" : "opacity-0 scale-90"
-                  }`}
+                  } relative`}
                   onMouseEnter={() => {
                     clearActiveTech();
                     setCenterActive(true);
@@ -618,7 +621,14 @@ export default function AboutHero() {
                   <img
                     src={profileImageSrc}
                     alt="Portrait of Kian Charles S. Angeles"
-                    className="h-full w-full rounded-full object-cover"
+                    className="absolute rounded-full object-cover"
+                    style={{
+                      width: `${ABOUT_HERO_IMAGE_ZOOM}%`,
+                      height: `${ABOUT_HERO_IMAGE_ZOOM}%`,
+                      left: "50%",
+                      top: "50%",
+                      transform: `translate(calc(-50% + ${ABOUT_HERO_IMAGE_OFFSET_X}px), calc(-50% + ${ABOUT_HERO_IMAGE_OFFSET_Y}px))`,
+                    }}
                     loading="eager"
                     fetchPriority="high"
                     decoding="async"
