@@ -8,6 +8,7 @@
     "seo:generate": "node scripts/generate-seo-files.mjs",
     "prerender:routes": "node scripts/prerender-routes.mjs",
     "build": "npm run seo:generate && vite build && npm run prerender:routes",
+    "postbuild": "node scripts/copy-sitemap.js",
     "lint": "eslint .",
     "preview": "vite preview"
   },
