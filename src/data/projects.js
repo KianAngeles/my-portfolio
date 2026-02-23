@@ -53,7 +53,7 @@ export const featuredProjects = [
     ],
     preview: xpensyncPreview,
     demoHref: "/XpenSync/",
-    sourceHref: "https://github.com/your-username/xpensync",
+    sourceHref: "https://github.com/KianAngeles/XpenSync-Finals",
   },
 ];
 

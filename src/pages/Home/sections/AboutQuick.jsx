@@ -283,12 +283,12 @@ export default function AboutQuick() {
                     href="mailto:you@example.com"
                     className="underline-offset-4 hover:underline"
                   >
-                    aneglekiancharles@gmaill.com
+                    angeleskiancharles@gmail.com
                   </a>
                 </div>
                 <div className="flex items-center gap-3">
                   <PinIcon className="h-5 w-5 shrink-0 text-black dark:text-white" aria-hidden />
-                  <span>Location: Angeles City</span>
+                  <span>Angeles City, Pampanga</span>
                 </div>
               </div>
 

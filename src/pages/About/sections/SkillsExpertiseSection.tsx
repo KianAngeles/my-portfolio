@@ -438,7 +438,7 @@ export default function SkillsExpertiseSection() {
                     onMouseEnter={() => setActiveTrait(item.icon)}
                     onMouseLeave={() => setActiveTrait((current) => (current === item.icon ? null : current))}
                   >
-                    <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-black transition-all duration-200 group-hover/trait:border-accent/45 group-hover/trait:shadow-[0_0_24px_-10px_rgba(96,165,250,0.9)] dark:border-white/15 dark:bg-white/[0.04] dark:text-white">
+                    <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-black transition-all duration-200 group-hover/trait:border-sky-300/60 group-hover/trait:bg-sky-100 group-hover/trait:text-sky-700 group-hover/trait:shadow-[0_0_24px_-10px_rgba(96,165,250,0.9)] dark:border-white/15 dark:bg-white/[0.04] dark:text-white dark:group-hover/trait:border-sky-300/40 dark:group-hover/trait:bg-sky-400/20 dark:group-hover/trait:text-sky-100">
                       <TraitIcon variant={item.icon} animate={!isMobile && activeTrait === item.icon} />
                     </span>
                     <span>

@@ -5,6 +5,7 @@ import useFirstVisit from "@/hooks/useFirstVisit";
 import useIsMobile from "@/hooks/useIsMobile";
 import { getMotionProps } from "@/utils/motion";
 import { profile, socialusernames } from "@/data/profile";
+import { resume } from "@/data/resume";
 import emailIcon from "@/assets/icons/contact-icons/email.png";
 import phoneIcon from "@/assets/icons/contact-icons/telephone.png";
 import locationIcon from "@/assets/icons/contact-icons/location.png";
@@ -320,6 +321,17 @@ export default function ContactFormSection() {
                   </a>
                 ))}
               </div>
+            </div>
+
+            <div className="mt-6">
+              <a
+                href={resume.resumeUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex h-10 w-full items-center justify-center rounded-md border border-slate-300/80 bg-transparent px-5 text-sm font-semibold text-slate-800 transition-colors hover:bg-white hover:text-black dark:border-slate-500/40 dark:bg-transparent dark:text-white dark:hover:bg-white dark:hover:text-black"
+              >
+                Download Resume
+              </a>
             </div>
           </motion.aside>
 

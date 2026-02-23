@@ -120,10 +120,10 @@ function InfoCard({ title, detail, Icon, index, statusClass }) {
         >
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-3 shrink-0">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-navy/10 bg-white text-black dark:border-white/10 dark:bg-white/10 dark:text-white">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-navy/10 bg-white text-black transition-all duration-300 group-hover:border-sky-300/60 group-hover:bg-sky-100 group-hover:text-sky-700 dark:border-white/10 dark:bg-white/10 dark:text-white dark:group-hover:border-sky-300/40 dark:group-hover:bg-sky-400/20 dark:group-hover:text-sky-100">
                 <Icon
                   animate={!isMobile && isHovered}
-                  className="h-5 w-5 text-black transition-colors duration-300 dark:text-white"
+                  className="h-5 w-5 text-black transition-colors duration-300 group-hover:text-sky-700 dark:text-white dark:group-hover:text-sky-100"
                   aria-hidden="true"
                 />
               </div>
@@ -172,7 +172,7 @@ export default function ContactCTA() {
                   aria-label="LinkedIn"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-navy/10 bg-white/70 text-navy/75 transition duration-200 hover:-translate-y-0.5 hover:border-navy/25 hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-white/80 dark:hover:border-white/20 dark:hover:bg-white/10"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-navy/10 bg-white/70 text-navy/75 transition duration-200 hover:-translate-y-0.5 hover:border-navy/25 hover:bg-sky-100 hover:text-sky-700 dark:border-white/10 dark:bg-white/5 dark:text-white/80 dark:hover:border-white/20 dark:hover:bg-sky-400/20 dark:hover:text-sky-100"
                 >
                   <LinkedInIcon className="h-5 w-5" aria-hidden="true" />
                 </a>
@@ -181,7 +181,7 @@ export default function ContactCTA() {
                   aria-label="GitHub"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-navy/10 bg-white/70 text-navy/75 transition duration-200 hover:-translate-y-0.5 hover:border-navy/25 hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-white/80 dark:hover:border-white/20 dark:hover:bg-white/10"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-navy/10 bg-white/70 text-navy/75 transition duration-200 hover:-translate-y-0.5 hover:border-navy/25 hover:bg-sky-100 hover:text-sky-700 dark:border-white/10 dark:bg-white/5 dark:text-white/80 dark:hover:border-white/20 dark:hover:bg-sky-400/20 dark:hover:text-sky-100"
                 >
                   <GithubIcon className="h-5 w-5" aria-hidden="true" />
                 </a>
@@ -190,7 +190,7 @@ export default function ContactCTA() {
                   aria-label="Facebook"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-navy/10 bg-white/70 text-navy/75 transition duration-200 hover:-translate-y-0.5 hover:border-navy/25 hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-white/80 dark:hover:border-white/20 dark:hover:bg-white/10"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-navy/10 bg-white/70 text-navy/75 transition duration-200 hover:-translate-y-0.5 hover:border-navy/25 hover:bg-sky-100 hover:text-sky-700 dark:border-white/10 dark:bg-white/5 dark:text-white/80 dark:hover:border-white/20 dark:hover:bg-sky-400/20 dark:hover:text-sky-100"
                 >
                   <FacebookIcon className="h-5 w-5" aria-hidden="true" />
                 </a>

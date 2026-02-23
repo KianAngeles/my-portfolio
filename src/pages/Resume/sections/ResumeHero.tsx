@@ -109,7 +109,7 @@ export default function ResumeHero({ shouldAnimate = true }: ResumeHeroProps) {
       })}
       className="relative px-4 pb-10 pt-28 sm:px-6 md:pb-14 md:pt-32"
     >
-      <div className="mx-auto w-full max-w-[84rem]">
+      <div className="mx-auto w-full max-w-[88rem]">
         <div className="relative mx-auto max-w-4xl text-center">
           <motion.div
             {...getMotionProps(isMobile, {
@@ -180,7 +180,7 @@ export default function ResumeHero({ shouldAnimate = true }: ResumeHeroProps) {
         </div>
 
         <motion.div
-          className="mx-auto mt-14 max-w-[82rem] rounded-2xl border border-slate-300/70 bg-white/75 p-4 shadow-[0_24px_60px_-45px_rgba(15,23,42,0.9)] backdrop-blur-md dark:border-white/10 dark:bg-[#16305a]/55 sm:p-6"
+          className="mx-auto mt-14 max-w-[86rem] rounded-2xl border border-slate-300/70 bg-white/75 p-4 shadow-[0_24px_60px_-45px_rgba(15,23,42,0.9)] backdrop-blur-md dark:border-white/10 dark:bg-[#16305a]/55 sm:p-6"
           variants={contactStripVariants}
           style={{ transformOrigin: "center" }}
         >
