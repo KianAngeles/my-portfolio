@@ -13,6 +13,11 @@ const routes = [
   "/contact",
 ];
 
+function withTrailingSlash(route) {
+  if (route === "/") return route;
+  return route.endsWith("/") ? route : `${route}/`;
+}
+
 function parseEnvContent(content) {
   const env = {};
   const lines = content.split(/\r?\n/);
@@ -78,7 +83,7 @@ const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 ${routes
   .map(
     (route) => `  <url>
-    <loc>${siteUrl}${route}</loc>
+    <loc>${siteUrl}${withTrailingSlash(route)}</loc>
     <changefreq>weekly</changefreq>
     <priority>${route === "/" ? "1.0" : "0.8"}</priority>
     <lastmod>${today}</lastmod>
