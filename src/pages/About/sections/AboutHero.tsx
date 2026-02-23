@@ -305,17 +305,25 @@ export default function AboutHero() {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={social.label}
-                    className="inline-flex items-center gap-3 text-base font-semibold text-slate-800 transition duration-200 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 dark:text-white/85"
+                    className="about-social-link group inline-flex items-center gap-3 text-base font-semibold text-slate-800 transition duration-200 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 dark:text-white/85"
                   >
-                    <img
-                      src={social.icon}
-                      alt=""
-                      className="h-6 w-6 object-contain dark:[filter:brightness(0)_invert(1)]"
-                      aria-hidden="true"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    {social.label}
+                    <span className="about-social-icon-wrap relative inline-flex h-7 w-7 items-center justify-center">
+                      <img
+                        src={social.icon}
+                        alt=""
+                        className="about-social-icon h-6 w-6 object-contain dark:[filter:brightness(0)_invert(1)]"
+                        aria-hidden="true"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </span>
+                    <span className="relative inline-flex">
+                      {social.label}
+                      <span
+                        className="pointer-events-none absolute -bottom-0.5 left-0 h-0.5 w-full origin-left scale-x-0 bg-current transition-transform duration-300 ease-out group-hover:scale-x-100 group-focus-visible:scale-x-100"
+                        aria-hidden="true"
+                      />
+                    </span>
                   </a>
                 ))}
               </div>

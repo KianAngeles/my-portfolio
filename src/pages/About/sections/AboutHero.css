@@ -67,12 +67,41 @@
   animation: aboutNameSweep 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+.about-social-icon-wrap::after {
+  content: "";
+  position: absolute;
+  inset: -0.35rem;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.28) 0%, rgba(37, 99, 235, 0) 72%);
+  opacity: 0;
+  transform: scale(0.82);
+  transition: transform 240ms ease, opacity 240ms ease;
+}
+
+.about-social-icon {
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), filter 260ms ease;
+}
+
+.about-social-link:hover .about-social-icon-wrap::after,
+.about-social-link:focus-visible .about-social-icon-wrap::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.about-social-link:hover .about-social-icon,
+.about-social-link:focus-visible .about-social-icon {
+  transform: translateY(-1px) scale(1.1) rotate(-8deg);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .about-rotate-cw,
   .about-rotate-ccw,
   .about-counter-outer,
   .about-counter-inner,
-  .about-name-sweep {
+  .about-name-sweep,
+  .about-social-icon,
+  .about-social-icon-wrap::after {
     animation: none !important;
+    transition: none !important;
   }
 }

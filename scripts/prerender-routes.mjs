@@ -58,6 +58,18 @@ const ROUTE_META = {
   },
 };
 
+const CRAWLABLE_ROUTES = [
+  { path: "/", label: "Home" },
+  { path: "/about", label: "About" },
+  { path: "/projects", label: "Projects" },
+  { path: "/projects/linqly", label: "Linqly Case Study" },
+  { path: "/projects/thryve", label: "Thryve Case Study" },
+  { path: "/projects/qzone", label: "Q-Zone Case Study" },
+  { path: "/projects/xpensync", label: "XpenSync Case Study" },
+  { path: "/resume", label: "Resume" },
+  { path: "/contact", label: "Contact" },
+];
+
 function parseEnvContent(content) {
   const env = {};
   const lines = content.split(/\r?\n/);
@@ -178,12 +190,55 @@ function setCanonical(html, canonicalUrl) {
   );
 }
 
-function setNoscriptFallback(html, route, title, description, canonicalUrl) {
+function buildRouteSupportText(route) {
+  if (route === "/projects") {
+    return "Browse all case studies with architecture choices, stack details, and delivery outcomes.";
+  }
+
+  if (route.startsWith("/projects/")) {
+    return "This case study includes project goals, implementation details, and the technical stack used in production.";
+  }
+
+  if (route === "/resume") {
+    return "Review technical skills, experience highlights, and the current downloadable resume.";
+  }
+
+  if (route === "/contact") {
+    return "Use the contact page for collaboration, freelance work, and software development opportunities.";
+  }
+
+  if (route === "/about") {
+    return "Learn more about development approach, strengths, and professional background.";
+  }
+
+  return "Explore this page for portfolio details and relevant project information.";
+}
+
+function buildStaticRouteLinks(siteUrl, activeRoute) {
+  return CRAWLABLE_ROUTES.map(({ path, label }) => {
+    const isActive = path === activeRoute;
+    const style = isActive
+      ? "font-weight:700;text-decoration:underline;"
+      : "font-weight:500;";
+    return `<li style="margin:0;">
+            <a href="${escapeHtml(`${siteUrl}${path}`)}" style="color:#0f172a;${style}">${escapeHtml(label)}</a>
+          </li>`;
+  }).join("\n");
+}
+
+function setNoscriptFallback(html, route, title, description, canonicalUrl, siteUrl) {
+  const supportText = buildRouteSupportText(route);
+  const staticLinks = buildStaticRouteLinks(siteUrl, route);
   const noscript = `<noscript id="route-prerender-noscript">
       <main style="padding:1.25rem;font-family:system-ui,Arial,sans-serif;max-width:760px;margin:0 auto;color:#0f172a;">
         <h1 style="font-size:1.5rem;line-height:1.2;margin-bottom:.75rem;">${escapeHtml(title)}</h1>
         <p style="line-height:1.5;margin-bottom:.75rem;">${escapeHtml(description)}</p>
-        <p style="line-height:1.5;margin:0;">Canonical URL: <a href="${escapeHtml(canonicalUrl)}">${escapeHtml(route)}</a></p>
+        <p style="line-height:1.5;margin-bottom:.9rem;">${escapeHtml(supportText)}</p>
+        <p style="line-height:1.5;margin-bottom:.9rem;">Canonical URL: <a href="${escapeHtml(canonicalUrl)}">${escapeHtml(route)}</a></p>
+        <h2 style="font-size:1rem;line-height:1.2;margin:0 0 .55rem;">Site Pages</h2>
+        <ul style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.4rem 1rem;padding-left:1rem;margin:0;">
+${staticLinks}
+        </ul>
       </main>
     </noscript>`;
 
@@ -218,6 +273,7 @@ function buildRouteHtml(template, route, siteUrl, meta) {
     meta.title,
     meta.description,
     canonicalUrl,
+    siteUrl,
   );
 
   return nextHtml;

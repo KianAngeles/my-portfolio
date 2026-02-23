@@ -192,16 +192,24 @@ export default function ResumeHero({ shouldAnimate = true }: ResumeHeroProps) {
               <motion.li
                 key={label}
                 variants={fadeUp(prefersReducedMotion, 0, 6, 0.24)}
-                className="rounded-xl border border-slate-200/70 bg-white/60 p-4 dark:border-white/10 dark:bg-[#1d3b67]/55"
+                className="group relative overflow-hidden rounded-xl border border-slate-200/70 bg-white/60 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-sky-300/75 hover:bg-white/85 dark:border-white/10 dark:bg-[#1d3b67]/55 dark:hover:border-sky-300/40 dark:hover:bg-[#214878]/72"
               >
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -left-10 top-1/2 h-24 w-24 -translate-y-1/2 rounded-full bg-sky-300/30 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100 dark:bg-sky-300/25"
+                />
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 -translate-x-[130%] bg-[linear-gradient(115deg,transparent_0%,rgba(255,255,255,0.34)_50%,transparent_100%)] opacity-0 transition-all duration-500 group-hover:translate-x-[130%] group-hover:opacity-100 dark:bg-[linear-gradient(115deg,transparent_0%,rgba(148,197,255,0.22)_50%,transparent_100%)]"
+                />
                 {href ? (
                   <a
                     href={href}
                     target={label === "Website" ? "_blank" : undefined}
                     rel={label === "Website" ? "noreferrer" : undefined}
-                    className="flex items-center gap-4 transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/70"
+                    className="relative flex items-center gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/70"
                   >
-                    <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-200/80 text-slate-700 dark:bg-white/10 dark:text-white/80">
+                    <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-200/80 text-slate-700 transition-all duration-300 group-hover:scale-110 group-hover:bg-sky-100 group-hover:text-sky-700 dark:bg-white/10 dark:text-white/80 dark:group-hover:bg-sky-400/20 dark:group-hover:text-sky-100">
                       <Icon className="h-5 w-5" aria-hidden="true" />
                     </span>
                     <span className="min-w-0">
@@ -210,15 +218,15 @@ export default function ResumeHero({ shouldAnimate = true }: ResumeHeroProps) {
                       </span>
                       <span
                         title={value}
-                        className="block truncate text-[15px] font-semibold text-slate-800 dark:text-white/90"
+                        className="block truncate text-[15px] font-semibold text-slate-800 transition-colors duration-300 group-hover:text-slate-900 dark:text-white/90 dark:group-hover:text-white"
                       >
                         {value}
                       </span>
                     </span>
                   </a>
                 ) : (
-                  <div className="flex items-center gap-4">
-                    <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-200/80 text-slate-700 dark:bg-white/10 dark:text-white/80">
+                  <div className="relative flex items-center gap-4">
+                    <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-200/80 text-slate-700 transition-all duration-300 group-hover:scale-110 group-hover:bg-sky-100 group-hover:text-sky-700 dark:bg-white/10 dark:text-white/80 dark:group-hover:bg-sky-400/20 dark:group-hover:text-sky-100">
                       <Icon className="h-5 w-5" aria-hidden="true" />
                     </span>
                     <span className="min-w-0">
@@ -227,7 +235,7 @@ export default function ResumeHero({ shouldAnimate = true }: ResumeHeroProps) {
                       </span>
                       <span
                         title={value}
-                        className="block truncate text-[15px] font-semibold text-slate-800 dark:text-white/90"
+                        className="block truncate text-[15px] font-semibold text-slate-800 transition-colors duration-300 group-hover:text-slate-900 dark:text-white/90 dark:group-hover:text-white"
                       >
                         {value}
                       </span>

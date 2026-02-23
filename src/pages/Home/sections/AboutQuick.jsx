@@ -7,6 +7,7 @@ import { Gauge } from "@/components/animate-ui/icons/gauge";
 import SectionRadialGlow from "@/components/ui/SectionRadialGlow";
 import usePrefersReducedMotion from "@/hooks/usePrefersReducedMotion";
 import useIsMobile from "@/hooks/useIsMobile";
+import { resume } from "@/data/resume";
 
 const ABOUT_QUICK_SEEN_KEY = "homeAboutQuickSeen";
 
@@ -292,7 +293,9 @@ export default function AboutQuick() {
               </div>
 
               <a
-                href="/resume.pdf"
+                href={resume.resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-primary mt-8 inline-flex w-fit"
               >
                 Download Resume
