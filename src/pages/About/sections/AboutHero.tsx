@@ -14,6 +14,7 @@ import githubSocialIcon from "@/assets/icons/socials/github.png";
 import facebookSocialIcon from "@/assets/icons/socials/facebook.png";
 import instagramSocialIcon from "@/assets/icons/socials/instagram.png";
 import { profile } from "@/data/profile";
+import { resume } from "@/data/resume";
 import SectionRadialGlow from "@/components/ui/SectionRadialGlow";
 import usePrefersReducedMotion from "@/hooks/usePrefersReducedMotion";
 import useFirstVisit from "@/hooks/useFirstVisit";
@@ -324,11 +325,13 @@ export default function AboutHero() {
               className={`mt-10 grid grid-cols-1 gap-3 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:flex sm:flex-wrap ${revealClass(showSocials)}`}
             >
               <a
-                href="#"
-                aria-label="Download CV"
+                href={resume.resumeUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Download Resume"
                 className="btn-primary inline-flex min-w-[320px] w-full items-center justify-center px-8 py-4 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 sm:w-auto"
               >
-                Download CV
+                Download Resume
               </a>
               <a
                 href="/contact"

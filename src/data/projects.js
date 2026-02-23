@@ -12,7 +12,7 @@ export const featuredProjects = [
       "Linqly is a real-time social messaging web app built with React and Bootstrap on the frontend, and Node.js/Express with MongoDB on the backend.",
     stack: ["React", "Node", "MongoDB", "Socket.IO", "JWT"],
     preview: linqlyPreview,
-    demoHref: "https://example.com/linqly-demo",
+    demoHref: "https://linqly.kianangeles.dev/",
     sourceHref: "https://github.com/KianAngeles/Linqly",
   },
   {
