@@ -160,3 +160,7 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 >>>>>>> bd08387edc85d0637cf87f632d731e834338cb56
+
+# Local docs/notes that should not be versioned
+docs/
+full-file-structure.txt
