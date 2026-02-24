@@ -40,7 +40,7 @@ const cardData = [
     title: "How I Work",
     points: [
       "Clarify the problem before touching the solution.",
-      "Ship in small, testable increments.",
+      "Work in small steps and check as I go",
       "Refine for performance and readability.",
     ],
     label: "Process",
