@@ -24,6 +24,7 @@ type ProjectDetailLayoutProps = {
   role: string;
   stack?: string[];
   demoHref?: string;
+  demoDisabled?: boolean;
   videoHref?: string;
   videoEmbedHref?: string;
   videoEmbedTitle?: string;
@@ -71,6 +72,7 @@ export default function ProjectDetailLayout({
   role,
   stack,
   demoHref,
+  demoDisabled = false,
   videoHref,
   videoEmbedHref,
   videoEmbedTitle,
@@ -246,27 +248,52 @@ export default function ProjectDetailLayout({
                       delay: 0.08,
                     })}
                   >
-                    {displayDemoHref ? (
-                      <a
-                        href={displayDemoHref}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="btn-primary inline-flex h-10 items-center gap-2 px-4 text-sm"
-                      >
-                        <svg
-                          viewBox="0 0 24 24"
-                          className="h-4 w-4"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          aria-hidden="true"
+                    {displayDemoHref || demoDisabled ? (
+                      demoDisabled ? (
+                        <button
+                          type="button"
+                          aria-disabled="true"
+                          title="Coming Soon"
+                          className="btn-primary group inline-flex h-10 cursor-not-allowed items-center gap-2 px-4 text-sm opacity-90"
+                          onClick={(event) => event.preventDefault()}
                         >
-                          <path d="M14 4h6v6" />
-                          <path d="M10 14 20 4" />
-                          <path d="M20 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4" />
-                        </svg>
-                        Live Demo
-                      </a>
+                          <svg
+                            viewBox="0 0 24 24"
+                            className="h-4 w-4"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            aria-hidden="true"
+                          >
+                            <path d="M14 4h6v6" />
+                            <path d="M10 14 20 4" />
+                            <path d="M20 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4" />
+                          </svg>
+                          <span className="group-hover:hidden">Live Demo</span>
+                          <span className="hidden group-hover:inline">Coming Soon</span>
+                        </button>
+                      ) : (
+                        <a
+                          href={displayDemoHref}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="btn-primary inline-flex h-10 items-center gap-2 px-4 text-sm"
+                        >
+                          <svg
+                            viewBox="0 0 24 24"
+                            className="h-4 w-4"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            aria-hidden="true"
+                          >
+                            <path d="M14 4h6v6" />
+                            <path d="M10 14 20 4" />
+                            <path d="M20 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4" />
+                          </svg>
+                          Live Demo
+                        </a>
+                      )
                     ) : null}
 
                     {project.sourceHref ? (

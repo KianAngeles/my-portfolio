@@ -7,5 +7,5 @@ export default function XpenSyncProjectPage() {
   const project = getProjectById("xpensync");
   if (!project) return <Navigate to="/projects" replace />;
 
-  return <ProjectDetailLayout project={project} {...xpensyncProjectDetails} />;
+  return <ProjectDetailLayout project={project} {...xpensyncProjectDetails} demoDisabled />;
 }
