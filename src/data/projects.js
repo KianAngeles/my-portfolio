@@ -2,6 +2,7 @@ import linqlyPreview from "@/assets/images/projects/linqlypreview.webp";
 import qzonePreview from "@/assets/images/projects/qzonepreview.webp";
 import thryvePreview from "@/assets/images/projects/thryvepreview.webp";
 import xpensyncPreview from "@/assets/images/projects/xpensyncpreview.webp";
+import bakeWithLovePreview from "@/assets/images/projects/bakewithlovepreview.webp";
 
 export const featuredProjects = [
   {
@@ -38,19 +39,27 @@ export const featuredProjects = [
     sourceHref: "https://github.com/iyawnnn/Q-Zone-Professional-Detailers",
   },
   {
+    id: "bake-with-love",
+    projectHref: "/projects/bake-with-love",
+    title: "Bake With Love",
+    description:
+      "Bake With Love is a responsive multi-page bakery website built with HTML, CSS, and JavaScript, featuring product browsing, cart management with localStorage, filtering/search, testimonials, and a contact form powered by EmailJS.",
+    stack: [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+    ],
+    preview: bakeWithLovePreview,
+    demoHref: "https://kianangeles.github.io/Bake-With-Love/",
+    sourceHref: "https://github.com/KianAngeles/Bake-With-Love",
+  },
+  {
     id: "xpensync",
     projectHref: "/projects/xpensync",
     title: "XpenSync",
     description:
       "XpenSync is a multi-page personal finance web app built with PHP and MySQL, featuring user authentication, expense tracking, lending management, and analytics dashboards.",
-    stack: [
-      "PHP",
-      "MySQL",
-      "JavaScript",
-      "HTML",
-      "CSS",
-      "Bootstrap",
-    ],
+    stack: ["PHP", "MySQL", "JavaScript", "HTML", "CSS", "Bootstrap"],
     preview: xpensyncPreview,
     demoHref: "/XpenSync/",
     sourceHref: "https://github.com/KianAngeles/XpenSync-Finals",

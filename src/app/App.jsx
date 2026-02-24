@@ -21,6 +21,9 @@ const ThryveProjectPage = lazy(() =>
 const XpenSyncProjectPage = lazy(() =>
   import("@/pages/Projects/projects/XpenSyncProjectPage"),
 );
+const BakeWithLoveProjectPage = lazy(() =>
+  import("@/pages/Projects/projects/BakeWithLoveProjectPage"),
+);
 const Resume = lazy(() => import("@/pages/Resume/Resume"));
 const Contact = lazy(() => import("@/pages/Contact/Contact"));
 const NotFound = lazy(() => import("@/pages/NotFound/NotFound"));
@@ -53,6 +56,10 @@ export default function App() {
             <Route path="/projects/thryve" element={<ThryveProjectPage />} />
             <Route path="/projects/qzone" element={<QZoneProjectPage />} />
             <Route path="/projects/xpensync" element={<XpenSyncProjectPage />} />
+            <Route
+              path="/projects/bake-with-love"
+              element={<BakeWithLoveProjectPage />}
+            />
             <Route path="/resume" element={<Resume />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />

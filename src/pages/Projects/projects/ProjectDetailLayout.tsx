@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import LightRays from "@/components/LightRays";
 import Footer from "@/components/layout/Footer";
-import Sheen from "@/components/ui/Sheen";
 import SectionRadialGlow from "@/components/ui/SectionRadialGlow";
 import SectionRadialGlowAlt from "@/components/ui/SectionRadialGlowAlt";
 import useFirstVisit from "@/hooks/useFirstVisit";
@@ -87,7 +86,6 @@ export default function ProjectDetailLayout({
     if (typeof document === "undefined") return false;
     return document.body.classList.contains("dark");
   });
-  const [showCtaSheen, setShowCtaSheen] = useState(false);
   const hasMarkedVisitRef = useRef(false);
   const prefersReducedMotion = usePrefersReducedMotion() || isMobile;
   const { isFirstVisit, markVisited } = useFirstVisit(`projectDetailAnimated-${project.id}`);
@@ -129,16 +127,6 @@ export default function ProjectDetailLayout({
     markVisited();
     return undefined;
   }, [isFirstVisit, markVisited]);
-
-  useEffect(() => {
-    if (!shouldAnimateIntro || prefersReducedMotion || !displayDemoHref) return undefined;
-
-    const timerId = window.setTimeout(() => {
-      setShowCtaSheen(true);
-    }, 1500);
-
-    return () => window.clearTimeout(timerId);
-  }, [displayDemoHref, prefersReducedMotion, shouldAnimateIntro]);
 
   return (
     <main className="relative isolate min-h-screen overflow-x-clip bg-gradient-to-b from-slate-50 via-sky-50/70 to-white dark:from-navy dark:to-navy-light">
@@ -263,16 +251,21 @@ export default function ProjectDetailLayout({
                         href={displayDemoHref}
                         target="_blank"
                         rel="noreferrer"
-                        className="btn-primary relative isolate inline-flex items-center overflow-hidden px-4 py-2 text-sm"
+                        className="btn-primary inline-flex h-10 items-center gap-2 px-4 text-sm"
                       >
-                        <span className="relative z-10">Live Demo</span>
-                        <Sheen
-                          active={showCtaSheen}
-                          reducedMotion={prefersReducedMotion}
-                          duration={0.7}
-                          className="-inset-y-1"
-                          onComplete={() => setShowCtaSheen(false)}
-                        />
+                        <svg
+                          viewBox="0 0 24 24"
+                          className="h-4 w-4"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          aria-hidden="true"
+                        >
+                          <path d="M14 4h6v6" />
+                          <path d="M10 14 20 4" />
+                          <path d="M20 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4" />
+                        </svg>
+                        Live Demo
                       </a>
                     ) : null}
 
@@ -281,8 +274,16 @@ export default function ProjectDetailLayout({
                         href={project.sourceHref}
                         target="_blank"
                         rel="noreferrer"
-                        className="btn-primary inline-flex items-center px-4 py-2 text-sm"
+                        className="btn-primary inline-flex h-10 items-center gap-2 px-4 text-sm"
                       >
+                        <svg
+                          viewBox="0 0 24 24"
+                          className="h-4 w-4"
+                          fill="currentColor"
+                          aria-hidden="true"
+                        >
+                          <path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.21.68-.48 0-.24-.01-1.02-.01-1.85-2.78.6-3.37-1.18-3.37-1.18-.46-1.15-1.11-1.46-1.11-1.46-.91-.62.07-.61.07-.61 1 .07 1.53 1.02 1.53 1.02.9 1.52 2.35 1.08 2.92.83.09-.64.35-1.08.63-1.33-2.22-.25-4.56-1.1-4.56-4.9 0-1.08.39-1.96 1.03-2.65-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.01A9.58 9.58 0 0 1 12 6.8c.85 0 1.71.11 2.5.33 1.9-1.28 2.74-1.01 2.74-1.01.55 1.38.2 2.4.1 2.65.64.69 1.03 1.57 1.03 2.65 0 3.81-2.35 4.65-4.58 4.89.36.31.69.92.69 1.86 0 1.34-.01 2.42-.01 2.75 0 .27.18.58.69.48A10 10 0 0 0 12 2Z" />
+                        </svg>
                         Source Code
                       </a>
                     ) : null}

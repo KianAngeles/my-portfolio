@@ -38,6 +38,12 @@ const ROUTE_META = {
       "Q-Zone Professional Detailers is a multi-page business website built with Angular and TypeScript.",
     type: "article",
   },
+  "/projects/bake-with-love": {
+    title: "Bake With Love Case Study | Kian Angeles Portfolio",
+    description:
+      "Bake With Love is a responsive multi-page bakery website built with HTML, CSS, and JavaScript.",
+    type: "article",
+  },
   "/projects/xpensync": {
     title: "XpenSync Case Study | Kian Angeles Portfolio",
     description:
@@ -65,6 +71,7 @@ const CRAWLABLE_ROUTES = [
   { path: "/projects/linqly", label: "Linqly Case Study" },
   { path: "/projects/thryve", label: "Thryve Case Study" },
   { path: "/projects/qzone", label: "Q-Zone Case Study" },
+  { path: "/projects/bake-with-love", label: "Bake With Love Case Study" },
   { path: "/projects/xpensync", label: "XpenSync Case Study" },
   { path: "/resume", label: "Resume" },
   { path: "/contact", label: "Contact" },
