@@ -1,16 +1,51 @@
-# React + Vite
+# Kian Angeles Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Modern personal portfolio built with React and Vite, showcasing project case studies, technical skills, certifications, and contact information.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Project archive with dedicated case study pages
+- Dedicated project detail routes (including Bake With Love)
+- About, Resume, and Contact sections
+- SEO metadata and JSON-LD per route
+- Sitemap and robots generation
+- Static prerendering for key routes
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- Vite
+- TypeScript/JavaScript
+- Tailwind CSS
+- Framer Motion
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+npm run dev
+```
+
+## Build
+
+```bash
+npm run build
+```
+
+Build pipeline includes:
+
+1. SEO file generation (`robots.txt`, `sitemap.xml`)
+2. Production Vite build
+3. Route prerendering
+
+## Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Generate SEO files, build, and prerender routes
+- `npm run preview` - Preview production build locally
+
+## SEO Notes
+
+- Route SEO config: `src/seo/routeSeo.js`
+- Sitemap generator: `scripts/generate-seo-files.mjs`
+- Route prerenderer: `scripts/prerender-routes.mjs`
