@@ -63,7 +63,6 @@ export const resume = {
       "Vue.js",
       "Bootstrap",
       "Angular",
-      "Responsive Web Design",
       "JavaScript",
     ],
     backendDevelopment: ["Node.js", "Express.js", "MongoDB"],
