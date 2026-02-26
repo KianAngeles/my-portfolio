@@ -18,7 +18,7 @@ export const resume = {
     {
       degree: "Bachelor of Science in Information Technology",
       school: "Holy Angel university",
-      yearRange: "2023-2027",
+      yearRange: "2023-Present",
       honors: ["Dean’s Lister", "President’s Lister"],
     },
   ],

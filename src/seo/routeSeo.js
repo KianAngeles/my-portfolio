@@ -149,10 +149,12 @@ export function getSiteSeoConfig(pathname, siteUrl) {
   const title = routeSeo.title || DEFAULT_TITLE;
   const description = routeSeo.description || DEFAULT_DESCRIPTION;
 
+  const canonicalPath = pathname === "/" ? "/" : `${pathname}/`;
+
   return {
     title,
     description,
-    canonicalPath: pathname,
+    canonicalPath,
     image: routeSeo.image || DEFAULT_IMAGE,
     type: routeSeo.type || "website",
     robots: routeSeo.noindex ? "noindex, nofollow" : "index, follow",

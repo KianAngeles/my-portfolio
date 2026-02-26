@@ -8,55 +8,55 @@ const ROUTE_META = {
       "Portfolio of Kian Angeles, a full-stack developer building modern web apps with React, Node.js, and MongoDB.",
     type: "website",
   },
-  "/about": {
+  "/about/": {
     title: "About | Kian Angeles Portfolio",
     description:
       "Learn more about Kian Angeles, his development process, technical expertise, and certifications.",
     type: "profile",
   },
-  "/projects": {
+  "/projects/": {
     title: "Projects | Kian Angeles Portfolio",
     description:
       "Explore selected full-stack and frontend projects by Kian Angeles, including architecture decisions and outcomes.",
     type: "website",
   },
-  "/projects/linqly": {
+  "/projects/linqly/": {
     title: "Linqly Case Study | Kian Angeles Portfolio",
     description:
       "Linqly is a real-time social messaging web app built with React, Node.js, MongoDB, and Socket.IO.",
     type: "article",
   },
-  "/projects/thryve": {
+  "/projects/thryve/": {
     title: "Thryve Case Study | Kian Angeles Portfolio",
     description:
       "Thryve is a full-stack health and fitness app built with Vue, Express, Node.js, and MongoDB.",
     type: "article",
   },
-  "/projects/qzone": {
+  "/projects/qzone/": {
     title: "Q-Zone Case Study | Kian Angeles Portfolio",
     description:
       "Q-Zone Professional Detailers is a multi-page business website built with Angular and TypeScript.",
     type: "article",
   },
-  "/projects/bake-with-love": {
+  "/projects/bake-with-love/": {
     title: "Bake With Love Case Study | Kian Angeles Portfolio",
     description:
       "Bake With Love is a responsive multi-page bakery website built with HTML, CSS, and JavaScript.",
     type: "article",
   },
-  "/projects/xpensync": {
+  "/projects/xpensync/": {
     title: "XpenSync Case Study | Kian Angeles Portfolio",
     description:
       "XpenSync is a personal finance web app built with PHP and MySQL for expense and lending management.",
     type: "article",
   },
-  "/resume": {
+  "/resume/": {
     title: "Resume | Kian Angeles Portfolio",
     description:
       "View the resume of Kian Angeles, including skills, technical stack, and professional experience.",
     type: "profile",
   },
-  "/contact": {
+  "/contact/": {
     title: "Contact | Kian Angeles Portfolio",
     description:
       "Get in touch with Kian Angeles for software development opportunities and collaborations.",
@@ -66,16 +66,22 @@ const ROUTE_META = {
 
 const CRAWLABLE_ROUTES = [
   { path: "/", label: "Home" },
-  { path: "/about", label: "About" },
-  { path: "/projects", label: "Projects" },
-  { path: "/projects/linqly", label: "Linqly Case Study" },
-  { path: "/projects/thryve", label: "Thryve Case Study" },
-  { path: "/projects/qzone", label: "Q-Zone Case Study" },
-  { path: "/projects/bake-with-love", label: "Bake With Love Case Study" },
-  { path: "/projects/xpensync", label: "XpenSync Case Study" },
-  { path: "/resume", label: "Resume" },
-  { path: "/contact", label: "Contact" },
+  { path: "/about/", label: "About" },
+  { path: "/projects/", label: "Projects" },
+  { path: "/projects/linqly/", label: "Linqly Case Study" },
+  { path: "/projects/thryve/", label: "Thryve Case Study" },
+  { path: "/projects/qzone/", label: "Q-Zone Case Study" },
+  { path: "/projects/bake-with-love/", label: "Bake With Love Case Study" },
+  { path: "/projects/xpensync/", label: "XpenSync Case Study" },
+  { path: "/resume/", label: "Resume" },
+  { path: "/contact/", label: "Contact" },
 ];
+
+function normalizeRoutePath(route) {
+  if (!route) return "/";
+  const normalized = route.replace(/\/+$/, "");
+  return normalized || "/";
+}
 
 function parseEnvContent(content) {
   const env = {};
@@ -198,23 +204,25 @@ function setCanonical(html, canonicalUrl) {
 }
 
 function buildRouteSupportText(route) {
-  if (route === "/projects") {
+  const routeBase = normalizeRoutePath(route);
+
+  if (routeBase === "/projects") {
     return "Browse all case studies with architecture choices, stack details, and delivery outcomes.";
   }
 
-  if (route.startsWith("/projects/")) {
+  if (routeBase.startsWith("/projects/")) {
     return "This case study includes project goals, implementation details, and the technical stack used in production.";
   }
 
-  if (route === "/resume") {
+  if (routeBase === "/resume") {
     return "Review technical skills, experience highlights, and the current downloadable resume.";
   }
 
-  if (route === "/contact") {
+  if (routeBase === "/contact") {
     return "Use the contact page for collaboration, freelance work, and software development opportunities.";
   }
 
-  if (route === "/about") {
+  if (routeBase === "/about") {
     return "Learn more about development approach, strengths, and professional background.";
   }
 
