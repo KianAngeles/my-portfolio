@@ -48,39 +48,6 @@ export const resume = {
         "Added analytics dashboards, daily targets, and profile customization.",
       ],
     },
-    {
-      name: "Q-Zone",
-      type: "Angular Multi-Page Business Website",
-      overview:
-        "Created a professional multi-page business website focused on clear service presentation and maintainable route structure.",
-      highlights: [
-        "Developed with Angular and TypeScript.",
-        "Built clean routing for services, company information, and team content.",
-        "Delivered responsive layouts optimized for desktop and mobile.",
-      ],
-    },
-    {
-      name: "Bake With Love",
-      type: "Responsive Bakery Website",
-      overview:
-        "Built a responsive multi-page bakery website designed to showcase products and support online ordering flow.",
-      highlights: [
-        "Developed using HTML, CSS, and JavaScript.",
-        "Implemented product browsing, filtering, and search features.",
-        "Added cart management with localStorage and customer-facing pages.",
-      ],
-    },
-    {
-      name: "XpenSync",
-      type: "Finance Tracker Web Application",
-      overview:
-        "Built a finance tracker focused on reliable CRUD workflows for expenses and lending records.",
-      highlights: [
-        "Developed with PHP and MySQL.",
-        "Implemented authentication, expense tracking, and lending modules.",
-        "Organized data flows to support accurate and consistent record updates.",
-      ],
-    },
   ],
 
   certifications: [
