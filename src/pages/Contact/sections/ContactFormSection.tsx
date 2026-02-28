@@ -191,7 +191,11 @@ export default function ContactFormSection() {
         }),
       });
 
-      const result = (await response.json()) as { success?: boolean; message?: string };
+      const result = (await response.json()) as {
+        success?: boolean;
+        autoReplySent?: boolean;
+        message?: string;
+      };
 
       if (!response.ok || !result.success) {
         throw new Error(result.message || "Unable to send message");
@@ -199,10 +203,14 @@ export default function ContactFormSection() {
 
       form.reset();
       setSubmitState("success");
-      setSubmitMessage("Message sent. I will get back to you soon.");
-    } catch {
+      setSubmitMessage(result.message || "Message sent. I will get back to you soon.");
+    } catch (error) {
       setSubmitState("error");
-      setSubmitMessage("Message failed to send. Please try again or email me directly.");
+      const errorMessage =
+        error instanceof Error && error.message
+          ? error.message
+          : "Message failed to send. Please try again or email me directly.";
+      setSubmitMessage(errorMessage);
       window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
     }
   };

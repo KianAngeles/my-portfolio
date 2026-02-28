@@ -29,8 +29,15 @@ async function sendResendEmail(apiKey, payload) {
   });
 
   if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(errorText || "Resend request failed");
+    let errorMessage = "Resend request failed";
+    try {
+      const data = await response.json();
+      errorMessage = data?.message || data?.error || JSON.stringify(data);
+    } catch {
+      const errorText = await response.text();
+      errorMessage = errorText || errorMessage;
+    }
+    throw new Error(errorMessage);
   }
 }
 
@@ -88,13 +95,24 @@ Angeles Kian Charles`,
   };
 
   try {
-    await Promise.all([
-      sendResendEmail(resendApiKey, ownerEmailPayload),
-      sendResendEmail(resendApiKey, autoReplyPayload),
-    ]);
-    return json({ success: true }, 200);
+    await sendResendEmail(resendApiKey, ownerEmailPayload);
   } catch (error) {
     const messageText = error instanceof Error ? error.message : "Unable to send message";
-    return json({ success: false, message: messageText }, 500);
+    return json({ success: false, message: `Owner email failed: ${messageText}` }, 500);
+  }
+
+  try {
+    await sendResendEmail(resendApiKey, autoReplyPayload);
+    return json({ success: true, message: "Message sent. I will get back to you soon." }, 200);
+  } catch (error) {
+    const messageText = error instanceof Error ? error.message : "Auto-reply failed";
+    return json(
+      {
+        success: true,
+        autoReplySent: false,
+        message: `Message delivered, but auto-reply could not be sent: ${messageText}`,
+      },
+      200
+    );
   }
 }
