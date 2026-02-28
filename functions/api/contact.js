@@ -41,35 +41,53 @@ function buildAutoReplyHtml({ name, preview, toEmail, siteUrl, logoUrl }) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thanks for reaching out</title>
   </head>
-  <body style="margin:0;padding:0;background:#f3f8ff;font-family:Arial,Helvetica,sans-serif;color:#0f172a;">
-    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="padding:28px 14px;">
+  <body style="margin:0;padding:0;background:#f1f5f9;font-family:Arial,Helvetica,sans-serif;color:#0f172a;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="padding:30px 14px;">
       <tr>
         <td align="center">
-          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:620px;background:#ffffff;border-radius:16px;overflow:hidden;border:1px solid #dbeafe;">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #e2e8f0;box-shadow:0 8px 24px rgba(15,23,42,0.08);">
             <tr>
-              <td style="padding:26px 26px 12px 26px;background:linear-gradient(135deg,#eff6ff,#f8fafc);text-align:center;">
-                <img src="${safeLogoUrl}" alt="Kian Angeles Logo" width="68" height="68" style="display:block;margin:0 auto 12px auto;border-radius:10px;" />
-                <h1 style="margin:0;font-size:22px;line-height:1.3;color:#0b1220;">Thanks for reaching out, ${safeName}</h1>
+              <td style="padding:26px 30px 18px 30px;border-bottom:1px solid #e2e8f0;">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td style="width:72px;vertical-align:middle;">
+                      <img src="${safeLogoUrl}" alt="Kian Angeles Logo" width="56" height="56" style="display:block;border-radius:8px;" />
+                    </td>
+                    <td style="vertical-align:middle;">
+                      <p style="margin:0 0 2px 0;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#64748b;">Portfolio Contact</p>
+                      <h1 style="margin:0;font-size:24px;line-height:1.25;color:#0f172a;">Thanks for reaching out, ${safeName}</h1>
+                    </td>
+                  </tr>
+                </table>
               </td>
             </tr>
             <tr>
-              <td style="padding:22px 26px 8px 26px;font-size:15px;line-height:1.7;color:#1e293b;">
-                <p style="margin:0 0 12px 0;">I received your message and I will get back to you as soon as I can, usually within 24-48 hours.</p>
-                <p style="margin:0 0 8px 0;font-weight:700;color:#0f172a;">Your message summary:</p>
-                <div style="margin:0 0 14px 0;padding:12px 14px;border-radius:12px;border:1px solid #dbeafe;background:#f8fbff;color:#334155;">
+              <td style="padding:24px 30px 8px 30px;font-size:15px;line-height:1.7;color:#1e293b;">
+                <p style="margin:0 0 12px 0;">Your message has been received successfully. I will review it and get back to you as soon as possible, typically within 24-48 hours.</p>
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin:16px 0 14px 0;border:1px solid #dbe4ef;border-radius:10px;background:#f8fafc;">
+                  <tr>
+                    <td style="padding:14px 16px 6px 16px;font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#475569;">
+                      Message Summary
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:0 16px 16px 16px;font-size:14px;color:#334155;">
                   ${safePreview}
-                </div>
-                <p style="margin:0 0 14px 0;">If your request is urgent, you can also reach me at <a href="mailto:${safeToEmail}" style="color:#0369a1;text-decoration:none;">${safeToEmail}</a>.</p>
+                    </td>
+                  </tr>
+                </table>
+                <p style="margin:0 0 14px 0;">For urgent concerns, email me directly at <a href="mailto:${safeToEmail}" style="color:#0f172a;text-decoration:none;font-weight:600;">${safeToEmail}</a>.</p>
               </td>
             </tr>
             <tr>
-              <td style="padding:8px 26px 24px 26px;">
-                <a href="${safeSiteUrl}" style="display:inline-block;background:#0f172a;color:#ffffff;text-decoration:none;font-weight:600;padding:10px 14px;border-radius:10px;">Visit My Portfolio</a>
+              <td style="padding:6px 30px 24px 30px;">
+                <a href="${safeSiteUrl}" style="display:inline-block;background:#0f172a;color:#ffffff;text-decoration:none;font-weight:600;padding:11px 16px;border-radius:8px;">Visit My Portfolio</a>
               </td>
             </tr>
             <tr>
-              <td style="padding:14px 26px 20px 26px;border-top:1px solid #e2e8f0;color:#64748b;font-size:12px;line-height:1.6;">
-                Best regards,<br />Angeles Kian Charles
+              <td style="padding:16px 30px 22px 30px;border-top:1px solid #e2e8f0;color:#64748b;font-size:12px;line-height:1.6;">
+                Best regards,<br />
+                <span style="font-weight:600;color:#334155;">Angeles Kian Charles</span>
               </td>
             </tr>
           </table>
@@ -127,7 +145,7 @@ export async function onRequest(context) {
   const email = normalize(body?.email);
   const message = normalize(body?.message);
   const siteUrl = new URL(context.request.url).origin;
-  const logoUrl = `${siteUrl}/favicon-light.png`;
+  const logoUrl = `${siteUrl}/logo.png`;
   const messageSummary = messagePreview(message);
 
   if (!name || !email || !message) {
