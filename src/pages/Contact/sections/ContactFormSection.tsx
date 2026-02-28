@@ -175,6 +175,17 @@ export default function ContactFormSection() {
     const subject = encodeURIComponent(`Portfolio message from ${name || "Visitor"}`);
     const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
     const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as string | undefined;
+    const autoReplyMessage = `Hi ${name || "there"},
+
+Thanks for contacting me through my portfolio. I received your message and I'll get back to you as soon as I can, usually within 24-48 hours.
+
+Your message summary:
+"${message || "No message provided."}"
+
+If your request is urgent, you can also reach me directly at ${profile.email}.
+
+Best regards,
+Angeles Kian Charles`;
 
     if (!accessKey) {
       window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
@@ -199,6 +210,7 @@ export default function ContactFormSection() {
           message,
           replyto: email,
           to_email: profile.email,
+          autoresponse: autoReplyMessage,
         }),
       });
 
