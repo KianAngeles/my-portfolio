@@ -174,43 +174,20 @@ export default function ContactFormSection() {
 
     const subject = encodeURIComponent(`Portfolio message from ${name || "Visitor"}`);
     const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
-    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as string | undefined;
-    const autoReplyMessage = `Hi ${name || "there"},
-
-Thanks for contacting me through my portfolio. I received your message and I'll get back to you as soon as I can, usually within 24-48 hours.
-
-Your message summary:
-"${message || "No message provided."}"
-
-If your request is urgent, you can also reach me directly at ${profile.email}.
-
-Best regards,
-Angeles Kian Charles`;
-
-    if (!accessKey) {
-      window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
-      return;
-    }
 
     setSubmitState("sending");
     setSubmitMessage("");
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Accept: "application/json",
         },
         body: JSON.stringify({
-          access_key: accessKey,
-          subject: `Portfolio message from ${name || "Visitor"}`,
-          from_name: name || "Visitor",
-          from_email: email,
+          name,
+          email,
           message,
-          replyto: email,
-          to_email: profile.email,
-          autoresponse: autoReplyMessage,
         }),
       });
 
@@ -226,6 +203,7 @@ Angeles Kian Charles`;
     } catch {
       setSubmitState("error");
       setSubmitMessage("Message failed to send. Please try again or email me directly.");
+      window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
     }
   };
 

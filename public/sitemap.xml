@@ -1,61 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://kianangeles.dev/</loc>
+    <loc>https://example.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <lastmod>2026-02-28</lastmod>
   </url>
   <url>
-    <loc>https://kianangeles.dev/about/</loc>
+    <loc>https://example.com/about/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <lastmod>2026-02-28</lastmod>
   </url>
   <url>
-    <loc>https://kianangeles.dev/projects/</loc>
+    <loc>https://example.com/projects/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <lastmod>2026-02-28</lastmod>
   </url>
   <url>
-    <loc>https://kianangeles.dev/projects/linqly/</loc>
+    <loc>https://example.com/projects/linqly/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <lastmod>2026-02-28</lastmod>
   </url>
   <url>
-    <loc>https://kianangeles.dev/projects/thryve/</loc>
+    <loc>https://example.com/projects/thryve/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <lastmod>2026-02-28</lastmod>
   </url>
   <url>
-    <loc>https://kianangeles.dev/projects/qzone/</loc>
+    <loc>https://example.com/projects/qzone/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <lastmod>2026-02-28</lastmod>
   </url>
   <url>
-    <loc>https://kianangeles.dev/projects/bake-with-love/</loc>
+    <loc>https://example.com/projects/bake-with-love/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <lastmod>2026-02-28</lastmod>
   </url>
   <url>
-    <loc>https://kianangeles.dev/projects/xpensync/</loc>
+    <loc>https://example.com/projects/xpensync/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <lastmod>2026-02-28</lastmod>
   </url>
   <url>
-    <loc>https://kianangeles.dev/resume/</loc>
+    <loc>https://example.com/resume/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <lastmod>2026-02-28</lastmod>
   </url>
   <url>
-    <loc>https://kianangeles.dev/contact/</loc>
+    <loc>https://example.com/contact/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <lastmod>2026-02-28</lastmod>
