@@ -18,6 +18,68 @@ function messagePreview(text, maxLength = 500) {
   return `${text.slice(0, maxLength)}...`;
 }
 
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function buildAutoReplyHtml({ name, preview, toEmail, siteUrl, logoUrl }) {
+  const safeName = escapeHtml(name);
+  const safePreview = escapeHtml(preview).replaceAll("\n", "<br />");
+  const safeToEmail = escapeHtml(toEmail);
+  const safeSiteUrl = escapeHtml(siteUrl);
+  const safeLogoUrl = escapeHtml(logoUrl);
+
+  return `<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thanks for reaching out</title>
+  </head>
+  <body style="margin:0;padding:0;background:#f3f8ff;font-family:Arial,Helvetica,sans-serif;color:#0f172a;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="padding:28px 14px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:620px;background:#ffffff;border-radius:16px;overflow:hidden;border:1px solid #dbeafe;">
+            <tr>
+              <td style="padding:26px 26px 12px 26px;background:linear-gradient(135deg,#eff6ff,#f8fafc);text-align:center;">
+                <img src="${safeLogoUrl}" alt="Kian Angeles Logo" width="68" height="68" style="display:block;margin:0 auto 12px auto;border-radius:10px;" />
+                <h1 style="margin:0;font-size:22px;line-height:1.3;color:#0b1220;">Thanks for reaching out, ${safeName}</h1>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:22px 26px 8px 26px;font-size:15px;line-height:1.7;color:#1e293b;">
+                <p style="margin:0 0 12px 0;">I received your message and I will get back to you as soon as I can, usually within 24-48 hours.</p>
+                <p style="margin:0 0 8px 0;font-weight:700;color:#0f172a;">Your message summary:</p>
+                <div style="margin:0 0 14px 0;padding:12px 14px;border-radius:12px;border:1px solid #dbeafe;background:#f8fbff;color:#334155;">
+                  ${safePreview}
+                </div>
+                <p style="margin:0 0 14px 0;">If your request is urgent, you can also reach me at <a href="mailto:${safeToEmail}" style="color:#0369a1;text-decoration:none;">${safeToEmail}</a>.</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:8px 26px 24px 26px;">
+                <a href="${safeSiteUrl}" style="display:inline-block;background:#0f172a;color:#ffffff;text-decoration:none;font-weight:600;padding:10px 14px;border-radius:10px;">Visit My Portfolio</a>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:14px 26px 20px 26px;border-top:1px solid #e2e8f0;color:#64748b;font-size:12px;line-height:1.6;">
+                Best regards,<br />Angeles Kian Charles
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
+}
+
 async function sendResendEmail(apiKey, payload) {
   const response = await fetch(RESEND_API_URL, {
     method: "POST",
@@ -64,6 +126,9 @@ export async function onRequest(context) {
   const name = normalize(body?.name);
   const email = normalize(body?.email);
   const message = normalize(body?.message);
+  const siteUrl = new URL(context.request.url).origin;
+  const logoUrl = `${siteUrl}/logo.png`;
+  const messageSummary = messagePreview(message);
 
   if (!name || !email || !message) {
     return json({ success: false, message: "Name, email, and message are required" }, 400);
@@ -81,12 +146,19 @@ export async function onRequest(context) {
     from: fromEmail,
     to: [email],
     subject: `Thanks for reaching out, ${name}`,
+    html: buildAutoReplyHtml({
+      name,
+      preview: messageSummary,
+      toEmail,
+      siteUrl,
+      logoUrl,
+    }),
     text: `Hi ${name},
 
 Thanks for contacting me through my portfolio. I received your message and I'll get back to you as soon as I can, usually within 24-48 hours.
 
 Your message summary:
-"${messagePreview(message)}"
+"${messageSummary}"
 
 If your request is urgent, you can also reach me directly at ${toEmail}.
 
