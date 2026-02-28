@@ -59,9 +59,7 @@ function buildAutoReplyHtml({ name, preview, toEmail, siteUrl, logoUrl }) {
                 <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
                   <tr>
                     <td style="width:72px;vertical-align:middle;">
-                      <div style="display:inline-block;background:#ffffff;border-radius:10px;padding:6px;">
-                        <img src="${safeLogoUrl}" alt="Kian Angeles Logo" width="56" height="56" style="display:block;border-radius:6px;" />
-                      </div>
+                      <img src="${safeLogoUrl}" alt="Kian Angeles Logo" width="56" height="56" style="display:block;" />
                     </td>
                     <td style="vertical-align:middle;">
                       <p style="margin:0 0 2px 0;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#bfdbfe;">Portfolio Contact</p>
@@ -91,18 +89,22 @@ function buildAutoReplyHtml({ name, preview, toEmail, siteUrl, logoUrl }) {
             </tr>
             <tr>
               <td style="padding:6px 30px 24px 30px;">
-                <a href="${safeSiteUrl}" style="display:inline-block;background:#0f172a;color:#ffffff;text-decoration:none;font-weight:600;padding:11px 16px;border-radius:8px;">Visit My Portfolio</a>
+                <a href="${safeSiteUrl}" style="display:inline-block;background:#2563EB;color:#ffffff;text-decoration:none;font-weight:700;padding:11px 16px;border-radius:8px;">Visit My Portfolio</a>
               </td>
             </tr>
             <tr>
               <td style="padding:16px 30px 22px 30px;border-top:1px solid #0f2647;background:#0B1E3A;color:#cbd5e1;font-size:12px;line-height:1.6;">
-                <div style="margin:0 0 10px 0;font-size:12px;color:#bfdbfe;">
+                <div style="margin:0 0 12px 0;font-size:12px;color:#bfdbfe;">
                   Connect with me:
-                  <a href="${safeGithubUrl}" style="color:#ffffff;text-decoration:none;margin-left:8px;">GitHub</a>
-                  <span style="margin:0 6px;color:#7dd3fc;">|</span>
-                  <a href="${safeLinkedinUrl}" style="color:#ffffff;text-decoration:none;">LinkedIn</a>
-                  <span style="margin:0 6px;color:#7dd3fc;">|</span>
-                  <a href="${safeFacebookUrl}" style="color:#ffffff;text-decoration:none;">Facebook</a>
+                  <a href="${safeGithubUrl}" style="display:inline-block;vertical-align:middle;margin-left:10px;text-decoration:none;" aria-label="GitHub">
+                    <img src="https://cdn.simpleicons.org/github/FFFFFF" alt="GitHub" width="16" height="16" style="display:block;" />
+                  </a>
+                  <a href="${safeLinkedinUrl}" style="display:inline-block;vertical-align:middle;margin-left:10px;text-decoration:none;" aria-label="LinkedIn">
+                    <img src="https://cdn.simpleicons.org/linkedin/FFFFFF" alt="LinkedIn" width="16" height="16" style="display:block;" />
+                  </a>
+                  <a href="${safeFacebookUrl}" style="display:inline-block;vertical-align:middle;margin-left:10px;text-decoration:none;" aria-label="Facebook">
+                    <img src="https://cdn.simpleicons.org/facebook/FFFFFF" alt="Facebook" width="16" height="16" style="display:block;" />
+                  </a>
                 </div>
                 Best regards,<br />
                 <span style="font-weight:600;color:#ffffff;">Angeles Kian Charles</span>
