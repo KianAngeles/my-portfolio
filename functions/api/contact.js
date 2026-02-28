@@ -1,4 +1,9 @@
 const RESEND_API_URL = "https://api.resend.com/emails";
+const SOCIAL_LINKS = {
+  github: "https://github.com/KianAngeles",
+  linkedin: "https://www.linkedin.com/in/kian-angeles/",
+  facebook: "https://www.facebook.com/kiancharles.angeles/",
+};
 
 function json(payload, status = 200) {
   return new Response(JSON.stringify(payload), {
@@ -33,6 +38,9 @@ function buildAutoReplyHtml({ name, preview, toEmail, siteUrl, logoUrl }) {
   const safeToEmail = escapeHtml(toEmail);
   const safeSiteUrl = escapeHtml(siteUrl);
   const safeLogoUrl = escapeHtml(logoUrl);
+  const safeGithubUrl = escapeHtml(SOCIAL_LINKS.github);
+  const safeLinkedinUrl = escapeHtml(SOCIAL_LINKS.linkedin);
+  const safeFacebookUrl = escapeHtml(SOCIAL_LINKS.facebook);
 
   return `<!doctype html>
 <html>
@@ -47,15 +55,17 @@ function buildAutoReplyHtml({ name, preview, toEmail, siteUrl, logoUrl }) {
         <td align="center">
           <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #e2e8f0;box-shadow:0 8px 24px rgba(15,23,42,0.08);">
             <tr>
-              <td style="padding:26px 30px 18px 30px;border-bottom:1px solid #e2e8f0;">
+              <td style="padding:26px 30px 18px 30px;border-bottom:1px solid #e2e8f0;background:linear-gradient(135deg,#0B1E3A,#112B52);">
                 <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
                   <tr>
                     <td style="width:72px;vertical-align:middle;">
-                      <img src="${safeLogoUrl}" alt="Kian Angeles Logo" width="56" height="56" style="display:block;border-radius:8px;" />
+                      <div style="display:inline-block;background:#ffffff;border-radius:10px;padding:6px;">
+                        <img src="${safeLogoUrl}" alt="Kian Angeles Logo" width="56" height="56" style="display:block;border-radius:6px;" />
+                      </div>
                     </td>
                     <td style="vertical-align:middle;">
-                      <p style="margin:0 0 2px 0;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#64748b;">Portfolio Contact</p>
-                      <h1 style="margin:0;font-size:24px;line-height:1.25;color:#0f172a;">Thanks for reaching out, ${safeName}</h1>
+                      <p style="margin:0 0 2px 0;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#bfdbfe;">Portfolio Contact</p>
+                      <h1 style="margin:0;font-size:24px;line-height:1.25;color:#ffffff;">Thanks for reaching out, ${safeName}</h1>
                     </td>
                   </tr>
                 </table>
@@ -85,9 +95,17 @@ function buildAutoReplyHtml({ name, preview, toEmail, siteUrl, logoUrl }) {
               </td>
             </tr>
             <tr>
-              <td style="padding:16px 30px 22px 30px;border-top:1px solid #e2e8f0;color:#64748b;font-size:12px;line-height:1.6;">
+              <td style="padding:16px 30px 22px 30px;border-top:1px solid #0f2647;background:#0B1E3A;color:#cbd5e1;font-size:12px;line-height:1.6;">
+                <div style="margin:0 0 10px 0;font-size:12px;color:#bfdbfe;">
+                  Connect with me:
+                  <a href="${safeGithubUrl}" style="color:#ffffff;text-decoration:none;margin-left:8px;">GitHub</a>
+                  <span style="margin:0 6px;color:#7dd3fc;">|</span>
+                  <a href="${safeLinkedinUrl}" style="color:#ffffff;text-decoration:none;">LinkedIn</a>
+                  <span style="margin:0 6px;color:#7dd3fc;">|</span>
+                  <a href="${safeFacebookUrl}" style="color:#ffffff;text-decoration:none;">Facebook</a>
+                </div>
                 Best regards,<br />
-                <span style="font-weight:600;color:#334155;">Angeles Kian Charles</span>
+                <span style="font-weight:600;color:#ffffff;">Angeles Kian Charles</span>
               </td>
             </tr>
           </table>
