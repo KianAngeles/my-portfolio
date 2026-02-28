@@ -127,7 +127,7 @@ export async function onRequest(context) {
   const email = normalize(body?.email);
   const message = normalize(body?.message);
   const siteUrl = new URL(context.request.url).origin;
-  const logoUrl = `${siteUrl}/logo.png`;
+  const logoUrl = `${siteUrl}/favicon-light.png`;
   const messageSummary = messagePreview(message);
 
   if (!name || !email || !message) {
