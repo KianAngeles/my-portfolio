@@ -98,7 +98,11 @@ Angeles Kian Charles`,
     await sendResendEmail(resendApiKey, ownerEmailPayload);
   } catch (error) {
     const messageText = error instanceof Error ? error.message : "Unable to send message";
-    return json({ success: false, message: `Owner email failed: ${messageText}` }, 500);
+    console.error("Contact owner email failed:", messageText);
+    return json(
+      { success: false, message: "Message failed to send. Please try again or email me directly." },
+      500
+    );
   }
 
   try {
@@ -106,11 +110,13 @@ Angeles Kian Charles`,
     return json({ success: true, message: "Message sent. I will get back to you soon." }, 200);
   } catch (error) {
     const messageText = error instanceof Error ? error.message : "Auto-reply failed";
+    console.error("Contact auto-reply failed:", messageText);
     return json(
       {
         success: true,
         autoReplySent: false,
-        message: `Message delivered, but auto-reply could not be sent: ${messageText}`,
+        message:
+          "Message sent. I will get back to you soon. If you do not receive a confirmation email yet, your message was still delivered.",
       },
       200
     );
