@@ -24,15 +24,17 @@ export default function Home() {
 
   return (
     <>
-      <Hero phase={phase} prefersReducedMotion={prefersReducedMotion} />
       <IntroOverlay
         phase={phase}
         onLineComplete={onLineComplete}
         onSkip={skip}
       />
-      <AboutQuick />
-      <FeaturedProjects />
-      <ContactCTA />
+      <main>
+        <Hero phase={phase} prefersReducedMotion={prefersReducedMotion} />
+        <AboutQuick />
+        <FeaturedProjects />
+        <ContactCTA />
+      </main>
       <Footer />
     </>
   );

@@ -18,6 +18,12 @@ export const bakeWithLoveProjectDetails = {
     "Product list UX with category filter, rating filter, price sorting, and search",
     "Contact workflow integration using EmailJS with success/error popup feedback",
   ],
+  contributions: [
+    "Built the multi-page frontend structure and responsive layouts for the bakery’s home, features, products, and contact experiences.",
+    "Implemented cart behavior with localStorage persistence, quantity controls, and live total updates for a smoother shopping flow.",
+    "Developed product browsing interactions including category filters, search, rating filters, and sorting for quicker item discovery.",
+    "Integrated the contact workflow with EmailJS and user feedback states to make inquiries functional without a backend service.",
+  ],
   outcomes: [
     "Delivered a complete static storefront experience with smooth browsing and cart interactions without a backend dependency.",
     "Established a clean, reusable front-end structure that can be extended into a full checkout and order-management system.",

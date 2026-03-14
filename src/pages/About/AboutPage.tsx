@@ -3,6 +3,7 @@ import LightRays from "@/components/LightRays";
 import Footer from "@/components/layout/Footer";
 import AboutHero from "./sections/AboutHero";
 import CertificationsSection from "./sections/CertificationsSection";
+import EducationSection from "./sections/EducationSection";
 import StoryBentoSection from "./sections/StoryBentoSection";
 import SkillsExpertiseSection from "./sections/SkillsExpertiseSection";
 import useIsMobile from "@/hooks/useIsMobile";
@@ -85,6 +86,7 @@ export default function AboutPage() {
         <AboutHero />
         <StoryBentoSection />
         <SkillsExpertiseSection />
+        <EducationSection />
         <CertificationsSection />
         <Footer />
       </div>

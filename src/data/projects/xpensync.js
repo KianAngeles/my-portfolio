@@ -17,6 +17,12 @@ export const xpensyncProjectDetails = {
     "Dashboard analytics with chart-based summaries",
     "Operational reliability across CRUD-heavy user tasks",
   ],
+  contributions: [
+    "Built the PHP and MySQL application structure for handling authenticated personal finance workflows across multiple modules.",
+    "Implemented expense and lending management flows with create, edit, delete, search, and filter behavior for day-to-day record handling.",
+    "Developed dashboard analytics views that summarize financial activity through totals, comparisons, and chart-based reporting.",
+    "Connected the interface, data operations, and session handling to support a practical end-to-end finance tracking experience.",
+  ],
   outcomes: [
     "Delivered a complete finance tracking workflow with structured data visibility through dashboard charts.",
     "Balanced comprehensive feature coverage with straightforward UI behavior while establishing a scalable foundation for future financial modules.",

@@ -31,6 +31,7 @@ type ProjectDetailLayoutProps = {
   videoPoster?: string;
   videoPlaceholderText?: string;
   overview: string[];
+  contributions?: string[];
   focusAreas: string[];
   outcomes: string[];
   keyFeatures?: string[];
@@ -79,6 +80,7 @@ export default function ProjectDetailLayout({
   videoPoster,
   videoPlaceholderText,
   overview,
+  contributions,
   focusAreas,
   outcomes,
   keyFeatures,
@@ -101,6 +103,7 @@ export default function ProjectDetailLayout({
   const displayVideoPlaceholderText =
     videoPlaceholderText ?? "Add a demo video file and set videoHref in this project detail data.";
   const displayKeyFeatures = keyFeatures ?? project.keyFeatures ?? [];
+  const displayContributions = contributions ?? [];
   const shouldAnimateIntro = isFirstVisit && !prefersReducedMotion;
 
   useEffect(() => {
@@ -527,14 +530,16 @@ export default function ProjectDetailLayout({
                   </motion.section>
                 ) : null}
 
-                <motion.section variants={boxRevealVariants(prefersReducedMotion)} className="border-t border-slate-200/70 pt-6 dark:border-white/10">
-                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Focus Areas</h3>
-                  <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-700 marker:text-slate-400 dark:text-white/75 dark:marker:text-white/40">
-                    {focusAreas.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </motion.section>
+                {displayContributions.length ? (
+                  <motion.section variants={boxRevealVariants(prefersReducedMotion)} className="border-t border-slate-200/70 pt-6 dark:border-white/10">
+                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white">My Contributions</h3>
+                    <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-700 marker:text-slate-400 dark:text-white/75 dark:marker:text-white/40">
+                      {displayContributions.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </motion.section>
+                ) : null}
 
                 <motion.section variants={boxRevealVariants(prefersReducedMotion)} className="border-t border-slate-200/70 pt-6 dark:border-white/10">
                   <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Outcome</h3>

@@ -27,6 +27,12 @@ export const thryveProjectDetails = {
     "Authentication and session flow using JWT, route protection, and Axios request/response interceptors",
     "Daily and weekly data aggregation for calories, protein, workout minutes, hydration, and sleep duration",
   ],
+  contributions: [
+    "Built the frontend pages for workouts, meals, hydration, sleep, dashboard, and profile features.",
+    "Implemented login, registration, and protected account flows for users.",
+    "Developed dashboard and tracking logic for aggregating daily and weekly wellness metrics into usable progress insights.",
+    "Structured the Express and MongoDB backend with modular routes, controllers, and models to keep the app maintainable as features expand.",
+  ],
   outcomes: [
     "Built an integrated wellness platform to track nutrition, exercise, hydration, and sleep while implementing complete account workflows from registration to password reset.",
     "Delivered actionable progress insights through dashboard endpoints and goal metrics, and established a scalable MEVN architecture with clear separation of concerns for future expansion.",

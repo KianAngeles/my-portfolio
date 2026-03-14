@@ -18,6 +18,12 @@ export const qzoneProjectDetails = {
     "Type-safe interfaces for predictable rendering",
     "Responsive layouts for desktop and mobile visitors",
   ],
+  contributions: [
+    "Developed the Angular page structure and routing flow for the Home, About, Services, and Employee sections.",
+    "Built reusable UI sections for service presentation, team profiles, testimonials, FAQs, and other business content blocks.",
+    "Applied responsive layouts and component organization so the site remains readable and usable across desktop and mobile screens.",
+    "Used TypeScript-based interfaces and Angular patterns to keep page data predictable and future content updates easier to manage.",
+  ],
   outcomes: [
     "Delivered a responsive multi-page website for Q-Zone Professional Detailers that presents the brand story, services, pricing, portfolio, and FAQs in one clear customer journey.",
     "Established a maintainable Angular structure with routed pages for home, about, services, and employee directory, making future content updates and feature expansion straightforward.",

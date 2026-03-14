@@ -29,6 +29,12 @@ export const linqlyProjectDetails = {
     "Friend graph features including add/manage friends and online presence visibility",
     "Responsive React UI architecture across chat, profile, notifications, and hangout screens",
   ],
+  contributions: [
+    "Built the real-time messaging flow for direct and group conversations, including conversation updates and read-state behavior.",
+    "Implemented the hangout discovery experience with map-based interactions for creating, browsing, and joining meetup spots.",
+    "Developed social features around friend management, online presence, and movement between friends, chat, and hangout views.",
+    "Structured the full-stack architecture across the React frontend and Node/Express backend to support scalable social features.",
+  ],
   outcomes:[
     "Delivered a stable real-time messaging experience across active sessions while reducing interaction friction through instant UI updates. ",
     "Established a reusable backend pattern for future chat features and created a maintainable full-stack foundation for expanding social capabilities."

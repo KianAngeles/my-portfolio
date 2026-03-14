@@ -280,7 +280,7 @@ export default function AboutQuick() {
                 <div className="flex items-center gap-3">
                   <MailIcon className="h-5 w-5 shrink-0 text-black dark:text-white" aria-hidden />
                   <a
-                    href="mailto:you@example.com"
+                    href="mailto:angeleskiancharles@gmail.com"
                     className="underline-offset-4 hover:underline"
                   >
                     angeleskiancharles@gmail.com
@@ -329,4 +329,3 @@ export default function AboutQuick() {
     </div>
   );
 }
-

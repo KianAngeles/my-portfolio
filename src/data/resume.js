@@ -17,7 +17,7 @@ export const resume = {
   education: [
     {
       degree: "Bachelor of Science in Information Technology",
-      school: "Holy Angel university",
+      school: "Holy Angel University",
       yearRange: "2023-Present",
       honors: ["Dean’s Lister", "President’s Lister"],
     },
@@ -88,5 +88,5 @@ export const resume = {
   ],
 
   references: "Available upon request",
-  resumeUrl: "https://drive.google.com/file/d/14dm2JAGCfwBiTrztYUo1-zaqrc6-DVTk/view?usp=sharing",
+  resumeUrl: "/resume/Professional%20CV%20Resume.pdf",
 };
