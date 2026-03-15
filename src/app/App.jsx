@@ -18,11 +18,11 @@ const QZoneProjectPage = lazy(() =>
 const ThryveProjectPage = lazy(() =>
   import("@/pages/Projects/projects/ThryveProjectPage"),
 );
-const XpenSyncProjectPage = lazy(() =>
-  import("@/pages/Projects/projects/XpenSyncProjectPage"),
-);
 const BakeWithLoveProjectPage = lazy(() =>
   import("@/pages/Projects/projects/BakeWithLoveProjectPage"),
+);
+const AccoreProjectPage = lazy(() =>
+  import("@/pages/Projects/projects/AccoreProjectPage"),
 );
 const Resume = lazy(() => import("@/pages/Resume/Resume"));
 const Contact = lazy(() => import("@/pages/Contact/Contact"));
@@ -55,7 +55,7 @@ export default function App() {
             <Route path="/projects/linqly" element={<LinqlyProjectPage />} />
             <Route path="/projects/thryve" element={<ThryveProjectPage />} />
             <Route path="/projects/qzone" element={<QZoneProjectPage />} />
-            <Route path="/projects/xpensync" element={<XpenSyncProjectPage />} />
+            <Route path="/projects/accore" element={<AccoreProjectPage />} />
             <Route
               path="/projects/bake-with-love"
               element={<BakeWithLoveProjectPage />}

@@ -1,8 +1,8 @@
 import linqlyPreview from "@/assets/images/projects/linqlypreview.webp";
 import qzonePreview from "@/assets/images/projects/qzonepreview.webp";
 import thryvePreview from "@/assets/images/projects/thryvepreview.webp";
-import xpensyncPreview from "@/assets/images/projects/xpensyncpreview.webp";
 import bakeWithLovePreview from "@/assets/images/projects/bakewithlovepreview.webp";
+import accorePreview from "@/assets/images/projects/accorepreview.webp";
 
 export const featuredProjects = [
   {
@@ -39,6 +39,24 @@ export const featuredProjects = [
     sourceHref: "https://github.com/iyawnnn/Q-Zone-Professional-Detailers",
   },
   {
+    id: "accore",
+    projectHref: "/projects/accore",
+    title: "AC-CORE",
+    description:
+      "AC-CORE is a full-stack civic hazard reporting platform for Angeles City, featuring citizen-side reporting and tracking, plus an admin command center with maps, analytics, and report management.",
+    stack: [
+      "Angular",
+      "TypeScript",
+      "Express",
+      "MongoDB",
+      "Leaflet",
+      "JWT auth",
+    ],
+    preview: accorePreview,
+    demoHref: "https://ac-coreph.netlify.app/",
+    sourceHref: "https://github.com/MMPA-Works/AC-CORE/tree/main",
+  },
+  {
     id: "bake-with-love",
     projectHref: "/projects/bake-with-love",
     title: "Bake With Love",
@@ -52,17 +70,6 @@ export const featuredProjects = [
     preview: bakeWithLovePreview,
     demoHref: "https://kianangeles.github.io/Bake-With-Love/",
     sourceHref: "https://github.com/KianAngeles/Bake-With-Love",
-  },
-  {
-    id: "xpensync",
-    projectHref: "/projects/xpensync",
-    title: "XpenSync",
-    description:
-      "XpenSync is a multi-page personal finance web app built with PHP and MySQL, featuring user authentication, expense tracking, lending management, and analytics dashboards.",
-    stack: ["PHP", "MySQL", "JavaScript", "HTML", "CSS", "Bootstrap"],
-    preview: xpensyncPreview,
-    demoHref: "/XpenSync/",
-    sourceHref: "https://github.com/KianAngeles/XpenSync-Finals",
   },
 ];
 

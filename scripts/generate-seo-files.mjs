@@ -8,8 +8,8 @@ const routes = [
   "/projects/linqly/",
   "/projects/thryve/",
   "/projects/qzone/",
+  "/projects/accore/",
   "/projects/bake-with-love/",
-  "/projects/xpensync/",
   "/resume/",
   "/contact/",
 ];

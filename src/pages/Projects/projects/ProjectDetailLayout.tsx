@@ -188,9 +188,22 @@ export default function ProjectDetailLayout({
               <motion.div variants={itemFadeUp(prefersReducedMotion, { distance: 8, duration: 0.28 })}>
                 <Link
                   to="/projects"
-                  className="inline-flex items-center text-sm font-semibold text-slate-700 transition-colors hover:text-accent dark:text-white/85 dark:hover:text-accent"
+                  className="group relative inline-flex items-center gap-2 pb-1 text-sm font-semibold text-slate-700 transition-all duration-200 hover:-translate-x-0.5 hover:text-slate-900 after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 after:content-[''] hover:after:scale-x-100 dark:text-white/85 dark:hover:text-white"
                 >
-                  &lt; Back to Projects
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-4 w-4 transition-transform duration-200 group-hover:-translate-x-0.5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M19 12H5" />
+                    <path d="m12 19-7-7 7-7" />
+                  </svg>
+                  <span>Back to Projects</span>
                 </Link>
               </motion.div>
 
