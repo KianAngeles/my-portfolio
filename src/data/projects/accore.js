@@ -16,7 +16,7 @@ export const acCoreProjectDetails = {
     "JWT",
     "Google OAuth",
   ],
-  demoHref: "https://ac-coreph.netlify.app/",
+  demoHref: "https://ac-core.vercel.app/",
   videoHref: "/videos/projects/accore/demo.mp4",
   videoEmbedHref: "https://player.vimeo.com/video/1173789619?h=85f7e5a7fc",
   videoEmbedTitle: "AC-CORE Demo",

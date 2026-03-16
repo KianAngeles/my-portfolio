@@ -53,7 +53,7 @@ export const featuredProjects = [
       "JWT auth",
     ],
     preview: accorePreview,
-    demoHref: "https://ac-coreph.netlify.app/",
+    demoHref: "https://ac-core.vercel.app/",
     sourceHref: "https://github.com/MMPA-Works/AC-CORE/tree/main",
   },
   {
