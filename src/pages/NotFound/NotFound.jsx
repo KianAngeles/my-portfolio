@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import LightRays from "@/components/LightRays";
+import { ROUTES } from "@/lib/routes";
 
 export default function NotFound() {
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -96,13 +97,13 @@ export default function NotFound() {
 
           <div className="mt-10 flex flex-wrap gap-4">
             <Link
-              to="/"
+              to={ROUTES.home}
               className="btn-primary inline-flex items-center px-8 py-4 text-base sm:text-lg"
             >
               Back Home
             </Link>
             <Link
-              to="/projects"
+              to={ROUTES.projects}
               className={`inline-flex items-center rounded-2xl border px-8 py-4 text-base font-semibold transition-colors duration-200 sm:text-lg ${
                 isDarkMode
                   ? "border-white/35 text-white hover:bg-white hover:text-navy"

@@ -19,6 +19,7 @@ import SectionRadialGlow from "@/components/ui/SectionRadialGlow";
 import usePrefersReducedMotion from "@/hooks/usePrefersReducedMotion";
 import useFirstVisit from "@/hooks/useFirstVisit";
 import useIsMobile from "@/hooks/useIsMobile";
+import { ROUTES } from "@/lib/routes";
 import "./AboutHero.css";
 
 const GREETING_PREFIX = "Hello, I'm ";
@@ -342,7 +343,7 @@ export default function AboutHero() {
                 Download Resume
               </a>
               <a
-                href="/contact"
+                href={ROUTES.contact}
                 aria-label="Contact Me"
                 className="btn-primary inline-flex min-w-[320px] w-full items-center justify-center px-8 py-4 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 sm:w-auto"
               >

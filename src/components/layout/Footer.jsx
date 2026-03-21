@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import githubIcon from "@/assets/icons/socials/github.png";
 import linkedinIcon from "@/assets/icons/socials/linkedin.png";
 import facebookIcon from "@/assets/icons/socials/facebook.png";
+import { ROUTES } from "@/lib/routes";
 
 const NAV_LINKS = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Projects", href: "/projects" },
-  { label: "Resume", href: "/resume" },
-  { label: "Contact", href: "/contact" },
+  { label: "Home", href: ROUTES.home },
+  { label: "About", href: ROUTES.about },
+  { label: "Projects", href: ROUTES.projects },
+  { label: "Resume", href: ROUTES.resume },
+  { label: "Contact", href: ROUTES.contact },
 ];
 
 const navLinkClass =
@@ -44,7 +45,7 @@ export default function Footer() {
         <div className="flex flex-col gap-7">
           <div className="flex items-center justify-between gap-5 md:grid md:grid-cols-[1fr_auto_1fr] md:gap-6">
             <Link
-              to="/"
+              to={ROUTES.home}
               className="inline-flex items-center transition-opacity duration-200 hover:opacity-90"
               aria-label="Back to top"
             >

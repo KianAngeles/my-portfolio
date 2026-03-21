@@ -1,12 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
 import { getSiteSeoConfig } from "./routeSeo";
-
-function normalizePathname(pathname) {
-  if (!pathname) return "/";
-  const normalized = pathname.replace(/\/+$/, "");
-  return normalized || "/";
-}
+import { normalizeTrailingSlashPath } from "@/lib/routes";
 
 function getSiteUrl() {
   const configuredSiteUrl = import.meta.env.VITE_SITE_URL?.trim();
@@ -25,7 +20,7 @@ function getSiteUrl() {
 export default function SeoManager() {
   const location = useLocation();
   const siteUrl = getSiteUrl();
-  const pathname = normalizePathname(location.pathname);
+  const pathname = normalizeTrailingSlashPath(location.pathname);
   const seo = getSiteSeoConfig(pathname, siteUrl);
   const canonicalUrl = `${siteUrl}${seo.canonicalPath}`;
   const imageUrl = seo.image.startsWith("http")

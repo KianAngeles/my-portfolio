@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
 import { AnimatedThemeToggler } from "../ui/animated-theme-toggler";
+import { ROUTES } from "@/lib/routes";
 
 const links = [
-  { label: "Home", to: "/" },
-  { label: "About", to: "/about" },
-  { label: "Projects", to: "/projects" },
-  { label: "Resume", to: "/resume" },
-  { label: "Contact", to: "/contact" },
+  { label: "Home", to: ROUTES.home },
+  { label: "About", to: ROUTES.about },
+  { label: "Projects", to: ROUTES.projects },
+  { label: "Resume", to: ROUTES.resume },
+  { label: "Contact", to: ROUTES.contact },
 ];
 
 export default function HeaderBar() {
@@ -55,7 +56,7 @@ export default function HeaderBar() {
           <div className="flex w-full items-center justify-between gap-4">
             <div className="flex flex-1 items-center">
               <NavLink
-                to="/"
+                to={ROUTES.home}
                 aria-label="Go to Home"
                 className="group inline-flex items-center rounded-full p-1 transition-transform duration-200 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/80"
               >

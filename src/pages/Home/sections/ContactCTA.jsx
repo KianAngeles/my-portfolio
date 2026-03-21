@@ -9,6 +9,7 @@ import { Clock } from "@/components/animate-ui/icons/clock";
 import SectionRadialGlow from "@/components/ui/SectionRadialGlow";
 import useIsMobile from "@/hooks/useIsMobile";
 import { getMotionProps } from "@/utils/motion";
+import { ROUTES } from "@/lib/routes";
 
 const CONTACT_CTA_SEEN_KEY = "homeContactCTASeen";
 
@@ -198,14 +199,14 @@ export default function ContactCTA() {
 
               <div className="mt-8 flex flex-wrap gap-4">
                 <a
-                  href="/contact"
+                  href={ROUTES.contact}
                   aria-label="Go to contact page"
                   className="btn-primary inline-flex items-center justify-center text-sm"
                 >
                   Get In Touch
                 </a>
                 <a
-                  href="/projects"
+                  href={ROUTES.projects}
                   className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/90 px-6 py-3 text-sm font-semibold text-navy transition hover:border-white/40 hover:bg-white hover:text-navy/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
                 >
                   View Projects

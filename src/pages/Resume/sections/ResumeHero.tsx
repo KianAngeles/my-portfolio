@@ -12,6 +12,7 @@ import { resume } from "@/data/resume";
 import { containerStagger, EASE_OUT, fadeUp, wipeReveal } from "../motionVariants";
 import useIsMobile from "@/hooks/useIsMobile";
 import { getMotionProps } from "@/utils/motion";
+import { ROUTES } from "@/lib/routes";
 
 type ResumeHeroProps = {
   shouldAnimate?: boolean;
@@ -170,7 +171,7 @@ export default function ResumeHero({ shouldAnimate = true }: ResumeHeroProps) {
             </motion.a>
 
             <Link
-              to="/projects"
+              to={ROUTES.projects}
               className="btn-primary inline-flex h-14 min-w-[195px] items-center justify-center gap-2.5 px-7 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500/70"
             >
               <ExternalLink className="h-5 w-5" aria-hidden="true" />

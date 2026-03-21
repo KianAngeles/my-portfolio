@@ -1,12 +1,13 @@
 import { NavLink } from "react-router-dom";
 import { House, UserRound, FolderOpen, FileText, Mail } from "lucide-react";
+import { ROUTES } from "@/lib/routes";
 
 const NAV_ITEMS = [
-  { label: "Home", to: "/", Icon: House, end: true },
-  { label: "About", to: "/about", Icon: UserRound },
-  { label: "Projects", to: "/projects", Icon: FolderOpen },
-  { label: "Resume", to: "/resume", Icon: FileText },
-  { label: "Contact", to: "/contact", Icon: Mail },
+  { label: "Home", to: ROUTES.home, Icon: House, end: true },
+  { label: "About", to: ROUTES.about, Icon: UserRound },
+  { label: "Projects", to: ROUTES.projects, Icon: FolderOpen },
+  { label: "Resume", to: ROUTES.resume, Icon: FileText },
+  { label: "Contact", to: ROUTES.contact, Icon: Mail },
 ];
 
 export default function BottomNavbar() {

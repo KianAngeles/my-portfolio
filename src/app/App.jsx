@@ -6,6 +6,7 @@ import ScrollToTop from "@/components/layout/ScrollToTop";
 import Home from "@/pages/Home/Home";
 import GlobalClickSpark from "@/components/effects/GlobalClickSpark";
 import SeoManager from "@/seo/SeoManager";
+import { PROJECT_ROUTES, ROUTES } from "@/lib/routes";
 
 const About = lazy(() => import("@/pages/About/About"));
 const Projects = lazy(() => import("@/pages/Projects/Projects"));
@@ -49,19 +50,16 @@ export default function App() {
         <HeaderBar />
         <Suspense fallback={<RouteLoadingFallback />}>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/projects/linqly" element={<LinqlyProjectPage />} />
-            <Route path="/projects/thryve" element={<ThryveProjectPage />} />
-            <Route path="/projects/qzone" element={<QZoneProjectPage />} />
-            <Route path="/projects/accore" element={<AccoreProjectPage />} />
-            <Route
-              path="/projects/bake-with-love"
-              element={<BakeWithLoveProjectPage />}
-            />
-            <Route path="/resume" element={<Resume />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path={ROUTES.home} element={<Home />} />
+            <Route path={ROUTES.about} element={<About />} />
+            <Route path={ROUTES.projects} element={<Projects />} />
+            <Route path={PROJECT_ROUTES.linqly} element={<LinqlyProjectPage />} />
+            <Route path={PROJECT_ROUTES.thryve} element={<ThryveProjectPage />} />
+            <Route path={PROJECT_ROUTES.qzone} element={<QZoneProjectPage />} />
+            <Route path={PROJECT_ROUTES.accore} element={<AccoreProjectPage />} />
+            <Route path={PROJECT_ROUTES.bakeWithLove} element={<BakeWithLoveProjectPage />} />
+            <Route path={ROUTES.resume} element={<Resume />} />
+            <Route path={ROUTES.contact} element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

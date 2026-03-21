@@ -1,5 +1,6 @@
 import { featuredProjects } from "@/data/projects";
 import { profile, socialusernames } from "@/data/profile";
+import { ROUTES } from "@/lib/routes";
 
 const SITE_NAME = "Kian Angeles Portfolio";
 const DEFAULT_TITLE = "Kian Angeles | Full-Stack Developer";
@@ -9,30 +10,30 @@ const DEFAULT_IMAGE = "/og-image-v2.webp";
 const AUTHOR_NAME = "Kian Angeles";
 
 const STATIC_ROUTE_SEO = {
-  "/": {
+  [ROUTES.home]: {
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
     type: "website",
   },
-  "/about": {
+  [ROUTES.about]: {
     title: `About | ${SITE_NAME}`,
     description:
       "Learn more about Kian Angeles, his development process, technical expertise, and certifications.",
     type: "profile",
   },
-  "/projects": {
+  [ROUTES.projects]: {
     title: `Projects | ${SITE_NAME}`,
     description:
       "Explore selected full-stack and frontend projects by Kian Angeles, including architecture decisions and outcomes.",
     type: "website",
   },
-  "/resume": {
+  [ROUTES.resume]: {
     title: `Resume | ${SITE_NAME}`,
     description:
       "View the resume of Kian Angeles, including skills, technical stack, and professional experience.",
     type: "profile",
   },
-  "/contact": {
+  [ROUTES.contact]: {
     title: `Contact | ${SITE_NAME}`,
     description:
       "Get in touch with Kian Angeles for software development opportunities and collaborations.",
@@ -120,11 +121,11 @@ function buildProjectJsonLd(siteUrl, routePath, project) {
 }
 
 function buildJsonLd(siteUrl, routePath, routeSeo) {
-  if (routePath === "/") {
+  if (routePath === ROUTES.home) {
     return [buildPersonJsonLd(siteUrl), buildWebSiteJsonLd(siteUrl)];
   }
 
-  if (routePath === "/projects") {
+  if (routePath === ROUTES.projects) {
     return [buildCollectionJsonLd(siteUrl, routePath)];
   }
 
@@ -149,12 +150,10 @@ export function getSiteSeoConfig(pathname, siteUrl) {
   const title = routeSeo.title || DEFAULT_TITLE;
   const description = routeSeo.description || DEFAULT_DESCRIPTION;
 
-  const canonicalPath = pathname === "/" ? "/" : `${pathname}/`;
-
   return {
     title,
     description,
-    canonicalPath,
+    canonicalPath: pathname,
     image: routeSeo.image || DEFAULT_IMAGE,
     type: routeSeo.type || "website",
     robots: routeSeo.noindex ? "noindex, nofollow" : "index, follow",

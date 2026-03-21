@@ -9,6 +9,7 @@ import useFirstVisit from "@/hooks/useFirstVisit";
 import useIsMobile from "@/hooks/useIsMobile";
 import usePrefersReducedMotion from "@/hooks/usePrefersReducedMotion";
 import { getMotionProps } from "@/utils/motion";
+import { ROUTES } from "@/lib/routes";
 import {
   chipStagger,
   containerStagger,
@@ -187,7 +188,7 @@ export default function ProjectDetailLayout({
             >
               <motion.div variants={itemFadeUp(prefersReducedMotion, { distance: 8, duration: 0.28 })}>
                 <Link
-                  to="/projects"
+                  to={ROUTES.projects}
                   className="group relative inline-flex items-center gap-2 pb-1 text-sm font-semibold text-slate-700 transition-all duration-200 hover:-translate-x-0.5 hover:text-slate-900 after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 after:content-[''] hover:after:scale-x-100 dark:text-white/85 dark:hover:text-white"
                 >
                   <svg

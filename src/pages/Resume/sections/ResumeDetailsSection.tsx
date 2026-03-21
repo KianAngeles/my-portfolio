@@ -4,6 +4,7 @@ import SectionHeader from "../components/SectionHeader";
 import { containerStagger, EASE_OUT, fadeUp } from "../motionVariants";
 import useIsMobile from "@/hooks/useIsMobile";
 import { getMotionProps } from "@/utils/motion";
+import { ROUTES } from "@/lib/routes";
 
 const SECTION_VIEWPORT = { once: true, amount: 0.25 };
 
@@ -255,7 +256,7 @@ export default function ResumeDetailsSection({ shouldAnimate = true }: ResumeDet
                         <div className="flex flex-wrap items-start justify-between gap-2">
                           <h3 className="text-[30px] font-semibold leading-none text-slate-900 dark:text-white/75">{project.name}</h3>
                           <motion.a
-                            href="/projects"
+                            href={ROUTES.projects}
                             {...getMotionProps(isMobile, {
                               initial: "rest",
                               animate: "rest",

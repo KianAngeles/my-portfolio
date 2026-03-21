@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import avatarImage from "@/assets/images/pic.webp";
 import useIsMobile from "@/hooks/useIsMobile";
+import { ROUTES } from "@/lib/routes";
 
 const EtherealHeroBackground = lazy(() => import("../hero/EtherealHeroBackground"));
 const HERO_AVATAR_OBJECT_POSITION = "45% 20%";
@@ -228,11 +229,11 @@ export default function Hero({
             )}`}
             style={getExitAlignedDelay(prefersReducedMotion, phase, heroStartDelay + 400)}
           >
-            <Link to="/about" aria-label="Learn more about me" className="btn-primary">
+            <Link to={ROUTES.about} aria-label="Learn more about me" className="btn-primary">
               About Me
             </Link>
             <Link
-              to="/contact"
+              to={ROUTES.contact}
               aria-label="Go to contact page"
               className="btn-primary"
             >
